@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('model_data', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->foreignId('user_id');
             $table->json('data');
             $table->integer('tokens');
             $table->boolean('validering');
             $table->boolean('traning');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

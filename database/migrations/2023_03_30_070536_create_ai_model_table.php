@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('ai_modeles', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('model_data_id');
+            $table->foreignId('user_id');
+            $table->foreignId('model_data_id');
             $table->string('openai_id')->uniqid();
             $table->string('type');
             $table->integer('epochs');
@@ -22,6 +22,9 @@ return new class extends Migration
             $table->integer('temparture');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('model_data_id')->references('id')->on('model_data');
         });
     }
 

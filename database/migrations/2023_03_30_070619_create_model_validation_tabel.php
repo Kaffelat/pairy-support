@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('model_validations', function (Blueprint $table) {
             $table->id();
-            $table->integer('ai_model_id');
-            $table->integer('model_data_id');
+            $table->foreignId('ai_model_id');
+            $table->foreignId('model_data_id');
             $table->integer('traning_loss');
             $table->integer('traning_sequence_accuracy');
             $table->integer('traning_token_accuracy');
@@ -22,6 +22,9 @@ return new class extends Migration
             $table->integer('elapsed_examples');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+
+            $table->foreign('ai_model_id')->references('id')->on('ai_modeles');
+            $table->foreign('model_data_id')->references('id')->on('model_data');
         });
     }
 
