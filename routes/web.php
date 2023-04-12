@@ -26,6 +26,19 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/models/', [OpenAIController::class, 'index'])->name('models.index');
+
+Route::get('/models/seeModels', [OpenAIController::class, 'seeModels'])->name('models.seeModels');
+
+Route::get('/models/makeModels', [OpenAIController::class, 'makeModels'])->name('models.makeModels');
+
+Route::get('/models/seeTraningData', [OpenAIController::class, 'seeTraningData'])->name('models.seeTraningData');
+
+Route::get('/models/trainModels', [OpenAIController::class, 'trainModels'])->name('models.trainModels');
+
+Route::get('/models/uploadTraningData', [OpenAIController::class, 'uploadTraningData'])->name('models.uploadTraningData');
+
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
