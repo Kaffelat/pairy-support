@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('model_data', function (Blueprint $table) {
+        Schema::create('ai_model_data', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->json('data');

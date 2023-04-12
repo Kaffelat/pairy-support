@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('model_validations', function (Blueprint $table) {
+        Schema::create('ai_model_validations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ai_model_id');
             $table->foreignId('model_data_id');
@@ -23,8 +23,8 @@ return new class extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
-            $table->foreign('ai_model_id')->references('id')->on('ai_modeles');
-            $table->foreign('model_data_id')->references('id')->on('model_data');
+            $table->foreign('ai_model_id')->references('id')->on('ai_models');
+            $table->foreign('ai_model_data_id')->references('id')->on('model_data');
         });
     }
 
