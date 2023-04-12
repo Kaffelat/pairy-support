@@ -32,6 +32,26 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
+
+                                <NavLink :href="route('models.index')" :active="route().current('models.index')">
+                                    See models
+                                </NavLink>
+
+                                 <NavLink :href="route('models.makeModels')" :active="route().current('models.makeModels')">
+                                    Make models
+                                </NavLink>
+
+                                <NavLink :href="route('models.seeTraningData')" :active="route().current('models.seeTraningData')">
+                                    See traningdata
+                                </NavLink>
+
+                                <NavLink :href="route('models.uploadTraningData')" :active="route().current('models.uploadTraningData')">
+                                    Upload traningdata
+                                </NavLink>
+                            
+                                <NavLink :href="route('models.trainModels')" :active="route().current('models.trainModels')">
+                                    Train Models
+                                </NavLink> 
                             </div>
                         </div>
 
