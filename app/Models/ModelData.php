@@ -12,6 +12,11 @@ class ModelData extends Model
 {
     use HasFactory;
 
+    protected $table = 'model_data';
+
+    /**
+    * The attributes that are mass assignable.
+    */
     protected $fillable = [
         'data',
         'tokens',
@@ -19,13 +24,19 @@ class ModelData extends Model
         'traning'
     ];
 
+    /**
+    * Relation to AI Model
+    */
     public function aiModel(): BelongsToMany
     {
         return $this->belongsToMany(AIModel::class, 'ai_model_id');
     }
 
-    public function modelTraningHistory(): BelongsTo
+    /**
+    * Relation to Model Validation
+    */
+    public function modelValidation(): BelongsToMany
     {
-        return $this->belongsTo(ModelTraningHistory::class);
+        return $this->belongsToMany(ModelValidation::class);
     }
 }
