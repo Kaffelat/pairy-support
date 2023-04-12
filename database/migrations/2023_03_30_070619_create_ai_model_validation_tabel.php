@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ai_model_validations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ai_model_id');
-            $table->foreignId('model_data_id');
+            $table->foreignId('ai_model_data_id');
             $table->integer('traning_loss');
             $table->integer('traning_sequence_accuracy');
             $table->integer('traning_token_accuracy');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('ai_model_id')->references('id')->on('ai_models');
-            $table->foreign('ai_model_data_id')->references('id')->on('model_data');
+            $table->foreign('ai_model_data_id')->references('id')->on('ai_model_data');
         });
     }
 

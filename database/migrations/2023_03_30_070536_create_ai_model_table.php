@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ai_models', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('model_data_id');
+            $table->foreignId('ai_model_data_id');
             $table->string('openai_id')->unique();
             $table->string('type');
             $table->integer('epochs');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('ai_model_data_id')->references('id')->on('model_data');
+            $table->foreign('ai_model_data_id')->references('id')->on('ai_model_data');
         });
     }
 
