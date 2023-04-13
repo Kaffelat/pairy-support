@@ -33,7 +33,7 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('models.index')" :active="route().current('models.index')">
+                                <NavLink :href="route('models.seeModels')" :active="route().current('models.seeModels')">
                                     See models
                                 </NavLink>
 
