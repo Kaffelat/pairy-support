@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="make_models" />
+    <Head title="Make Models" />
 
     <AuthenticatedLayout>
         <template #header>

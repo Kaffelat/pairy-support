@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="upload_traning_data" />
+    <Head title="Upload Traning Data" />
 
     <AuthenticatedLayout>
         <template #header>

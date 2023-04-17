@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="see_models" />
+    <Head title="See Models" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -12,7 +12,8 @@ import { Head } from '@inertiajs/vue3';
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 dark:text-gray-200">
+  
             </div>
         </div>
     </AuthenticatedLayout>

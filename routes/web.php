@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\OpenAIController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -26,7 +27,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/models/', [OpenAIController::class, 'index'])->name('models.index');
+Route::get('/test', [Controller::class, 'test']);
 
 Route::get('/models/seeModels', [OpenAIController::class, 'seeModels'])->name('models.seeModels');
 
