@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('ai_model_data', function (Blueprint $table) {
             $table->id();
+            $table->string('openai_id');
             $table->foreignId('user_id');
             $table->json('data');
             $table->integer('tokens');
