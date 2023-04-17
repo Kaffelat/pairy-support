@@ -13,8 +13,30 @@ import { Head } from '@inertiajs/vue3';
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 dark:text-gray-200">
-  
+                <table id="firstTable">
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>User who uploaded</th>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Created at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="row in rows">
+                        <td>{{row.id}}</td>
+                        <td>{{row.userWhoUploaded}}</td>
+                        <td>{{row.type}}</td>
+                        <td>{{row.name}}</td>
+                        <td>{{row.status}}</td>
+                        <td>{{row.createdAt}}</td>
+                        </tr>
+                    </tbody>
+                    </table>
             </div>
         </div>
     </AuthenticatedLayout>
 </template>
+
