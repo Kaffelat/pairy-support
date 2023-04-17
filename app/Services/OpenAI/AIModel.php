@@ -2,13 +2,14 @@
 namespace App\Services\OpenAI;
 
 use OpenAI;
+use OpenAI\Client;
 
 class AIModel 
 {
     /**
     * Makes a new Model in OpenAI
     */
-    public function makeNewModel($client ,$traningFileId, $validationFileId, $modelType): array
+    public function makeNewModel(Client $client, String $traningFileId, String $validationFileId, String $modelType): array
     {
         $myAPIKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($myAPIKey);
@@ -21,7 +22,6 @@ class AIModel
                 'n_epochs' => 4,
                 'learning_rate_multiplier' => 0.2,
                 'prompt_loss_weight' => 0.01,
-                
             ]);
         }
 
@@ -42,7 +42,7 @@ class AIModel
     /**
     * Deletes a model 
     */
-    public function deleteModel($client, $modelId): array
+    public function deleteModel(Client $client, String $modelId): array
     {
         $myAPIKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($myAPIKey);
@@ -59,7 +59,7 @@ class AIModel
     /**
     * Lists all models on OpenAI
     */
-    public function listModels($client): array
+    public function listModels(Client $client): array
     {
         $response = $client->models()->list();
 
@@ -70,16 +70,15 @@ class AIModel
             $result->object; 
             
         }
-
         return $response->toArray(); 
     }
 
     /**
     * Gets a specific model
     */
-    public function getASpecificModel($client): array
+    public function getASpecificModel(Client $client, String $modelId): array
     {
-        $response = $client->models()->retrieve('text-davinci-003');
+        $response = $client->models()->retrieve($modelId);
 
         $response->id; // 'text-davinci-003'
         $response->object; // 'model'
@@ -102,7 +101,6 @@ class AIModel
             $result->group; // null 
             $result->isBlocking; // false 
         }
-
         return $response->toArray(); 
     }
 }

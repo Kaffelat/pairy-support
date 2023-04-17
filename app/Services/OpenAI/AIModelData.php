@@ -1,12 +1,14 @@
 <?php
 namespace App\Services\OpenAI;
 
+use OpenAI\Client;
+
 class AIModelData
 {
     /**
     * Makes a new Model in OpenAI
     */
-    public function uploadAFile($client, $filePath): array
+    public function uploadAFile(Client $client, String $filePath): array
     {
         $response = $client->files()->upload([
             'purpose' => 'fine-tune',
@@ -20,7 +22,6 @@ class AIModelData
         $response->filename; // 'mydata.jsonl'
         $response->purpose; // 'fine-tune'
         $response->status; // 'succeeded'
-        $response->status_details; // null
 
         fclose($response);
 
@@ -30,7 +31,7 @@ class AIModelData
     /**
     * Makes a new Model in OpenAI
     */
-    public function deleteAFile($client, $fileId): array
+    public function deleteAFile(Client $client, String $fileId): array
     {
         $response = $client->files()->delete($fileId);
 
@@ -44,7 +45,7 @@ class AIModelData
     /**
     * Makes a new Model in OpenAI
     */
-    public function listAllFiles($client): array
+    public function listAllFiles(Client $client): array
     {
         $response = $client->files()->list();
 
@@ -59,7 +60,7 @@ class AIModelData
         return $response->toArray(); 
     }
 
-    public function getAFile($client, $fileId): array
+    public function getAFile(Client $client, String $fileId): array
     {
         $response = $client->files()->retrieve('file-eFIFEp23oMQuDJ3d6kR58J9i');
 
@@ -70,7 +71,6 @@ class AIModelData
         $response->filename; // 'mydata.jsonl'
         $response->purpose; // 'fine-tune'
         $response->status; // 'succeeded'
-        $response->status_details; // null
 
         return $response->toArray(); // ['id' => 'file-eFIFEp23oMQuDJ3d6kR58J9i', ...]
     }
