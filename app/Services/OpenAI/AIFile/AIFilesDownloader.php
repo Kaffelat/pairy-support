@@ -5,43 +5,37 @@ use App\Models\AIFile;
 use OpenAI;
 
 class AIFilesDownloader
-{
-    public function getAllFiles(AIFileService $aIFileService)
+{   
+    protected $aiFileService;
+
+    public function __construct(AIFileService $aiFileService)
+    {
+        $this->aiFileService = $aiFileService;
+    }
+    
+    public function getAllFiles()
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
-        $newAIFile = new AIFile();
+        
+        $AIFile = new AIFile;
+        $downloadAIFile = new DownloadAIFiles;
 
-        $openAIFiles = $aIFileService->listAllFiles($client);
+        $openAIFiles = $this->aiFileService->listAllFiles($client);
     
             foreach ($openAIFiles->data as $file) {
-                if ($newAIFile::where('openai_id',$file->id)->count() > 0) {
+                if ($AIFile::where('openai_id',$file->id)->count() > 0) {
                     
-                    $newAIFile::where('openai_id',$file->id)->update([ 
-                        'openai_id' => $file->id,
-                        'user_id'   => 1,
-                        'data'      => json_encode(['test for nu2']),
-                        'tokens'    => 0,
-                        'validering' => 0,
-                        'traning'   => 1
-                        ]);
+                    $downloadAIFile->updateAFileInDB($file, $AIFile);
+                    
                 }
                 else {
                     
-                    #TODO sæt en klasse på som gør det her
-                    $newAIFile->fill([ 
-                    'openai_id' => $file->id,
-                    'user_id'   => 1,
-                    'data'      => json_encode(['test for nu']),
-                    'tokens'    => 0,
-                    'validering' => 0,
-                    'traning'   => 1
-                    ]);
-
-                    $newAIFile->save();
+                    $AIFile = new AIFile;
+                    $AIFile->fill($downloadAIFile->getFileAttributes($file));
+                    $AIFile->save();
                 }
             }
-                
                 return $openAIFiles;
-            }
+        }
     }
