@@ -51,7 +51,7 @@ class User extends Authenticatable
     */
     public function modelData(): HasMany
     {
-        return $this->hasMany(ModelData::class, 'model_data_id');
+        return $this->hasMany(AIFile::class, 'user_id');
     }
 
     /**
@@ -59,6 +59,6 @@ class User extends Authenticatable
     */
     public function aiModel(): HasMany
     {
-        return $this->hasMany(AIModel::class, 'ai_model_id');
+        return $this->hasMany(AIModel::class, 'user_id');
     }
 }

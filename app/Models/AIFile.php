@@ -18,10 +18,17 @@ class AIFile extends Model
     * The attributes that are mass assignable.
     */
     protected $fillable = [
+        'openai_id',
+        'user_id',
         'data',
         'tokens',
         'validering',
         'traning'
+    ];
+
+    protected $casts = [
+        'traning' => 'bool',
+        'validering' => 'bool',
     ];
 
     /**

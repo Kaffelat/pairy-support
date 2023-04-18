@@ -30,6 +30,7 @@ class AIModel extends Model
         'currie'
     ];
 
+
     /**
     * Relation to Model Data
     */

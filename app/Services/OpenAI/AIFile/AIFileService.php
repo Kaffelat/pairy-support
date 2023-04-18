@@ -9,10 +9,10 @@ class AIFileService
     /**
     * Makes a new Model in OpenAI
     */
-    public function uploadAFile(Client $client, String $filePath): stdClass
+    public function uploadAFile(Client $client, String $filePath, String $purpose): stdClass
     {
         $response = $client->files()->upload([
-            'purpose' => 'fine-tune',
+            'purpose' => $purpose,
             'file' => fopen($filePath, 'r'),
         ]);
         
