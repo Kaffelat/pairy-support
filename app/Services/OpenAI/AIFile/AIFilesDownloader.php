@@ -30,12 +30,12 @@ class AIFilesDownloader
                     
                 }
                 else {
-                    
+
                     $AIFile = new AIFile;
                     $AIFile->fill($downloadAIFile->getFileAttributes($file));
                     $AIFile->save();
                 }
             }
-                return $openAIFiles;
+            return $openAIFiles;
         }
     }
