@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\OpenAI;
+namespace App\Services\OpenAI\AIModel;
 
 use OpenAI;
 use OpenAI\Client;

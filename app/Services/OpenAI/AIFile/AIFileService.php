@@ -1,10 +1,10 @@
 <?php
-namespace App\Services\OpenAI;
+namespace App\Services\OpenAI\AIFile;
 
 use OpenAI\Client;
 use stdClass;
 
-class AIModelData
+class AIFileService
 {
     /**
     * Makes a new Model in OpenAI

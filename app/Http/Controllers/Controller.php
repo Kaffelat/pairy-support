@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AIModel;
-use App\Models\AIModelData as AIData;
-use App\Services\OpenAI\AIModelData;
+use App\Models\AIFile;
+use App\Services\OpenAI\AIFile\AIFileService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -15,25 +14,24 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function testGetAllFiles(AIModelData $aiData)
+    public function testGetAllFiles(AIFileService $aiFile)
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
 
-        $dbData = AIData::All();
+        $dbFile = AIFile::All();
+ 
+        $openAIData = $aiFile->listAllFiles($client);
 
-        $openAIData = $aiData->listAllFiles($client);
-
-        foreach ($dbData as $dbItem) {
+        foreach ($dbFile as $dbFile) {
             foreach ($openAIData->data as $file) {
-                if ($dbItem->id != $file->id) {
-                    $file = new AIData($file);
+                if ($dbFile->id != $file->id) {
+                    $file = new AIFile($file);
                     $file->save();
                 }
             }
         }
-
-        dd($dbData[0]->id);
+        dd($openAIData);
 
         return $openAIData;
     }

@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class AIModelData extends Model
+class AIFile extends Model
 {
     use HasFactory;
 
-    protected $table = 'ai_model_data';
+    protected $table = 'ai_file';
 
     /**
     * The attributes that are mass assignable.
