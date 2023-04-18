@@ -27,7 +27,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/test', [Controller::class, 'testGetAllFiles']);
+Route::get('/test/download', [Controller::class, 'testGetAllFiles']);
+
+Route::get('/test/upload', [Controller::class, 'testUploadAFile']);
+
+Route::get('/test/delete', [Controller::class, 'testDeleteAFile']);
 
 Route::get('/models/seeModels', [OpenAIController::class, 'seeModels'])->name('models.seeModels');
 
