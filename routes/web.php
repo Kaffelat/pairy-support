@@ -27,11 +27,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/test/download', [Controller::class, 'testGetAllFiles']);
+Route::get('/test/download', [AIFileController::class, 'testGetAllFiles']);
 
-Route::get('/test/upload', [Controller::class, 'testUploadAFile']);
+Route::get('/test/upload', [AIFileController::class, 'testUploadAFile']);
 
-Route::get('/test/delete', [Controller::class, 'testDeleteAFile']);
+Route::get('/test/delete', [AIFileController::class, 'testDeleteAFile']);
 
 Route::get('/models/seeModels', [OpenAIController::class, 'seeModels'])->name('models.seeModels');
 
