@@ -12,7 +12,7 @@ class AIModelData extends Model
 {
     use HasFactory;
 
-    protected $table = 'model_data';
+    protected $table = 'ai_model_data';
 
     /**
     * The attributes that are mass assignable.

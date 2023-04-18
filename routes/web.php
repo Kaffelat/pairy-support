@@ -27,7 +27,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/test', [Controller::class, 'test']);
+Route::get('/test', [Controller::class, 'testGetAllFiles']);
 
 Route::get('/models/seeModels', [OpenAIController::class, 'seeModels'])->name('models.seeModels');
 

@@ -2,13 +2,14 @@
 namespace App\Services\OpenAI;
 
 use OpenAI\Client;
+use stdClass;
 
 class AIModelData
 {
     /**
     * Makes a new Model in OpenAI
     */
-    public function uploadAFile(Client $client, String $filePath): array
+    public function uploadAFile(Client $client, String $filePath): stdClass
     {
         $response = $client->files()->upload([
             'purpose' => 'fine-tune',
@@ -25,13 +26,13 @@ class AIModelData
 
         fclose($response);
 
-        return $response->toArray(); 
+        return (object)(array)$response; 
     }
 
     /**
     * Makes a new Model in OpenAI
     */
-    public function deleteAFile(Client $client, String $fileId): array
+    public function deleteAFile(Client $client, String $fileId): stdClass
     {
         $response = $client->files()->delete($fileId);
 
@@ -39,13 +40,13 @@ class AIModelData
         $response->object; // 'file'
         $response->deleted; // true
 
-        return $response->toArray(); 
+        return (object)(array)$response; 
     }
 
     /**
     * Makes a new Model in OpenAI
     */
-    public function listAllFiles(Client $client): array
+    public function listAllFiles(Client $client): stdClass
     {
         $response = $client->files()->list();
 
@@ -57,21 +58,20 @@ class AIModelData
             // ...
         }
 
-        return $response->toArray(); 
+        return (object)(array)$response; 
     }
 
-    public function getAFile(Client $client, String $fileId): array
+    public function getAFile(Client $client, String $fileId): stdClass
     {
-        $response = $client->files()->retrieve('file-eFIFEp23oMQuDJ3d6kR58J9i');
+        $response = $client->files()->retrieve($fileId);
 
         $response->id; // 'file-eFIFEp23oMQuDJ3d6kR58J9i'
-        $response->object; // 'file'
         $response->bytes; // 140
         $response->createdAt; // 1613779657
         $response->filename; // 'mydata.jsonl'
         $response->purpose; // 'fine-tune'
         $response->status; // 'succeeded'
 
-        return $response->toArray(); // ['id' => 'file-eFIFEp23oMQuDJ3d6kR58J9i', ...]
+        return (object)(array)$response;  // ['id' => 'file-eFIFEp23oMQuDJ3d6kR58J9i', ...]
     }
 }

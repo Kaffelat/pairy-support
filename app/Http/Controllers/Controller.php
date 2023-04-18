@@ -2,31 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\OpenAI\AIModel;
+use App\Models\AIModel;
+use App\Models\AIModelData as AIData;
+use App\Services\OpenAI\AIModelData;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Inertia\Inertia;
 use OpenAI;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function test()
+    public function testGetAllFiles(AIModelData $aiData)
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
 
-        $response = $client->files()->retrieve('file-eFIFEp23oMQuDJ3d6kR58J9i');
-        
-        $response->id; // 'file-XjGxS3KTG0uNmNOK362iJua3'
-        $response->object; // 'file'
-        $response->bytes; // 140
-        $response->createdAt; // 1613779657
-        $response->filename; // 'mydata.jsonl'
-        $response->purpose; // 'fine-tune'
-        $response->status; // 'succeeded'
+        $dbData = AIData::All();
 
-        return $response->toArray(); // ['id' => 'file-XjGxS3KTG0uNmNOK362iJua3', ...]
+        $openAIData = $aiData->listAllFiles($client);
+
+        foreach ($dbData as $dbItem) {
+            foreach ($openAIData->data as $file) {
+                if ($dbItem->id != $file->id) {
+                    $file = new AIData($file);
+                    $file->save();
+                }
+            }
+        }
+
+        dd($dbData[0]->id);
+
+        return $openAIData;
     }
+
 }

@@ -3,13 +3,14 @@ namespace App\Services\OpenAI;
 
 use OpenAI;
 use OpenAI\Client;
+use stdClass;
 
 class AIModel 
 {
     /**
     * Makes a new Model in OpenAI
     */
-    public function makeNewModel(Client $client, String $traningFileId, String $validationFileId, String $modelType): array
+    public function makeNewModel(Client $client, String $traningFileId, String $validationFileId, String $modelType): stdClass
     {
         $myAPIKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($myAPIKey);
@@ -36,13 +37,13 @@ class AIModel
         $response->id;
         $response->object; 
 
-        return $response->toArray();
+        return (object)(array)$response; 
     }
 
     /**
     * Deletes a model 
     */
-    public function deleteModel(Client $client, String $modelId): array
+    public function deleteModel(Client $client, String $modelId): stdClass
     {
         $myAPIKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($myAPIKey);
@@ -53,13 +54,13 @@ class AIModel
         $response->object; 
         $response->deleted; 
 
-        return $response->toArray();
+        return (object)(array)$response; 
     }
 
     /**
     * Lists all models on OpenAI
     */
-    public function listModels(Client $client): array
+    public function listModels(Client $client): stdClass
     {
         $response = $client->models()->list();
 
@@ -70,13 +71,13 @@ class AIModel
             $result->object; 
             
         }
-        return $response->toArray(); 
+        return (object)(array)$response;  
     }
 
     /**
     * Gets a specific model
     */
-    public function getASpecificModel(Client $client, String $modelId): array
+    public function getASpecificModel(Client $client, String $modelId): stdClass
     {
         $response = $client->models()->retrieve($modelId);
 
@@ -101,6 +102,6 @@ class AIModel
             $result->group; // null 
             $result->isBlocking; // false 
         }
-        return $response->toArray(); 
+        return (object)(array)$response; 
     }
 }
