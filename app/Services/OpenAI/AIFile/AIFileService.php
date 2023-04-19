@@ -15,14 +15,6 @@ class AIFileService
             'purpose' => 'fine-tune',
             'file' => fopen($filePath, 'r'),
         ]);
-        
-        $response->id; // 'file-XjGxS3KTG0uNmNOK362iJua3'
-        $response->object; // 'file'
-        $response->bytes; // 140
-        $response->createdAt; // 1613779657
-        $response->filename; // 'mydata.jsonl'
-        $response->purpose; // 'fine-tune'
-        $response->status; // 'succeeded'
 
         return (object)(array)$response; 
     }
@@ -34,10 +26,6 @@ class AIFileService
     {
         $response = $client->files()->delete($fileId);
 
-        $response->id; // 'file-XjGxS3KTG0uNmNOK362iJua3'
-        $response->object; // 'file'
-        $response->deleted; // true
-
         return (object)(array)$response; 
     }
 
@@ -48,14 +36,6 @@ class AIFileService
     {
         $response = $client->files()->list();
 
-        $response->object; // 'list'
-
-        foreach ($response->data as $result) {
-            $result->id; // 'file-XjGxS3KTG0uNmNOK362iJua3'
-            $result->object; // 'file'
-            // ...
-        }
-
         return (object)(array)$response; 
     }
 
@@ -63,13 +43,11 @@ class AIFileService
     {
         $response = $client->files()->retrieve($fileId);
 
-        $response->id; // 'file-eFIFEp23oMQuDJ3d6kR58J9i'
-        $response->bytes; // 140
-        $response->createdAt; // 1613779657
-        $response->filename; // 'mydata.jsonl'
-        $response->purpose; // 'fine-tune'
-        $response->status; // 'succeeded'
-
         return (object)(array)$response;  // ['id' => 'file-eFIFEp23oMQuDJ3d6kR58J9i', ...]
+    }
+
+    public function getInfoAboutAFile(Client $client, String $fileId): stdClass
+    {
+        return (object)(array)$client->files()->download($fileId);
     }
 }

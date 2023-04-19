@@ -31,11 +31,28 @@ class AIFilesDownloader
                 }
                 else {
 
-                    $AIFile = new AIFile;
-                    $AIFile->fill($downloadAIFile->getFileAttributes($file));
-                    $AIFile->save();
+                    $aiFile = new AIFile;
+                    $aiFile->fill($downloadAIFile->getFileAttributes($file));
+                    $aiFile->save();
                 }
             }
+            dd($openAIFiles);
             return $openAIFiles;
         }
+
+    public function getAFile()
+    {
+        $yourApiKey = getenv('OPENAI_API_KEY');
+        $client = OpenAI::client($yourApiKey);
+
+        return $this->aiFileService->getAFile($client, 'file-RfkFMyYoI0kcTcSynRFAfbmM');
+    }
+
+    public function getInfoAboutAFile()
+    {
+        $yourApiKey = getenv('OPENAI_API_KEY');
+        $client = OpenAI::client($yourApiKey);
+
+        return $this->aiFileService->getInfoAboutAFile($client, 'file-RfkFMyYoI0kcTcSynRFAfbmM');
+    }
     }

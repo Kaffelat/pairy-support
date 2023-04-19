@@ -11,11 +11,12 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use OpenAI;
 
-class Controller extends BaseController
+#Dette er bare til test af kode. skal ikke bruges i virkeligheden
+class AIFileController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    #Dette er bare til test af kode. skal ikke bruges i virkeligheden
+    #Henter alle filer på OpenAI
     public function testGetAllFiles(AIFileService $aiFileService)
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
@@ -23,6 +24,21 @@ class Controller extends BaseController
         return $aiFileDownloader->getAllFiles();
     }
 
+    #Henter en specifik fil
+    public function testGetAFile(AIFileService $aiFileService)
+    {
+        $aiFileDownloader = new AIFilesDownloader($aiFileService);
+        return $aiFileDownloader->getAFile();
+    }
+
+    #Viser indeholdet i en bestemt fil
+    public function testGetInfoAboutAFile(AIFileService $aiFileService)
+    {
+        $aiFileDownloader = new AIFilesDownloader($aiFileService);
+        dd($aiFileDownloader->getInfoAboutAFile());
+    }
+
+    #uploader en ny fil
     public function testUploadAFile(AIFileService $aiFileService)
     {
        $uploadAIFiles = new UploadAIFiles($aiFileService);
@@ -30,6 +46,7 @@ class Controller extends BaseController
        return $uploadAIFiles->uploadAFile();
     }
 
+    #sletter en fil
     public function testDeleteAFile(AIFileService $aiFileService)
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
