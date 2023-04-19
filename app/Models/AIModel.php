@@ -18,6 +18,8 @@ class AIModel extends Model
     * The attributes that are mass assignable.
     */
     protected $fillable = [
+        'user_id',
+        'ai_file_id',
         'openai_id',
         'type',
         'epochs',
