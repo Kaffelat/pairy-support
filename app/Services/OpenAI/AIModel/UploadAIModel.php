@@ -13,7 +13,7 @@ class UploadAIModel
         $this->aiModelService = $aiModelService;
     }
 
-    public function makeNewAIModel()
+    public function makeAIModel()
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);

@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('ai_models', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('ai_file_id');
             $table->string('openai_id')->unique();
-            $table->string('type');
-            $table->integer('epochs');
-            $table->integer('max_tokens');
-            $table->integer('temparture');
+            $table->string('type')->nullable();
+            $table->foreignId('ai_file_id')->nullable();
+            $table->integer('epochs')->nullable();
+            $table->integer('max_tokens')->nullable();
+            $table->integer('temparture')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

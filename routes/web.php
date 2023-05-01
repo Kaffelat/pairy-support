@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AIFileController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\OpenAIController;
 use App\Http\Controllers\ProfileController;
@@ -26,12 +27,34 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
+#<------This is test routes------->
+#Shows all files on OpenAI
 Route::get('/test/download', [AIFileController::class, 'testGetAllFiles']);
 
+#Gets one file from OpenAI
+Route::get('/test/get', [AIFileController::class, 'testGetAFile']);
+
+#Uploads a file to OpenAI
 Route::get('/test/upload', [AIFileController::class, 'testUploadAFile']);
 
+#Deletes a file from OpenAI
 Route::get('/test/delete', [AIFileController::class, 'testDeleteAFile']);
+
+#Gets the information about a file from OpenAI
+Route::get('/test/getone', [AIFileController::class, 'testGetInfoAboutAFile']);
+
+#Gets all models a user has made at OpenAI
+Route::get('/test/model/download', [Controller::class, 'getAllModels']);
+
+Route::get('/test/model/get', [Controller::class, 'getInfoAboutModel']);
+
+#Makes a new finetune model at OpenAI
+Route::get('/test/model/upload', [Controller::class, 'makeModel']);
+
+Route::get('/test/model/delete', [Controller::class, 'deleteModel']);
+
+
+#<-------Test routes stops here-------->
 
 Route::get('/models/seeModels', [OpenAIController::class, 'seeModels'])->name('models.seeModels');
 

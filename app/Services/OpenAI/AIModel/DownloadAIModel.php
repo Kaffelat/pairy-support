@@ -1,34 +1,37 @@
 <?php
 namespace App\Services\OpenAI\AIModel;
 
+use App\Models\AIFile;
 use App\Models\AIModel;
 
 class DownloadAIModel
 {
-    public function getAIModelAttributes(object $newVersionAIModel): array
+    public function getAIModelAttributes(object $openAIModel): array
     {
+
         return [
-            'user_id'   => 1,
-            'ai_file_id' => 1,
-            'openai_id' => $newVersionAIModel->id,
-            'type'      => ('currie'),
-            'epochs'    => 0,
-            'max_tokens' => 0,
-            'temparture'   => 1
+            'ai_file_id' => $this->getFileId($openAIModel),
+            'type'      => $openAIModel->model,
+            'epochs'    => $openAIModel->hyperparams->nEpochs,
+            // 'batchSize'=> $openAIModel->hyperparams->batchSize,
+            // 'learningRateMultiplier'=> $openAIModel->hyperparams->learningRateMultiplier,
+            // 'promptLossWeight' => $openAIModel->hyperparams->promptLossWeight,
         ];
     }
-
-    public function updateAIModelInDB(object $newVersionAIModel, AIModel $aiModel): void
+    
+    public function getFileId(object $openAIModel)
     {
-        $aiModel::where('openai_id',$newVersionAIModel->id)->update([
-            'user_id'   => 1,
-            'ai_file_id' => 1,
-            'openai_id' => $newVersionAIModel->id,
-            'type'      => ('currie'),
-            'epochs'    => 0,
-            'max_tokens' => 100,
-            'temparture'   => 1
-        ]);
+        foreach ($openAIModel->trainingFiles as $traningFile) {
+            if ($file = AIFile::where('openai_id', $traningFile->id)->first()) {
+ 
+                return json_decode($file->id);
+            }
+        }
+    }
+    
+    public function customHandler(object $openAIModel) 
+    { 
         
     }
+
 }

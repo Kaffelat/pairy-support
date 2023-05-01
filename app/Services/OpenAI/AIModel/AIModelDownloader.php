@@ -15,38 +15,52 @@ class AIModelDownloader
         $this->aiModelService = $aiFileService;
     }
 
-    public function getAllAIModels()
+    public function getAIModels()
     {
 
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
         
-        $aiModel = new AIModel();
+        $aiModel = new AIModel;
         $downloadAIModel = new DownloadAIModel;
-
+        
         $openAIModels = $this->aiModelService->listAllModels($client);
-    
-        foreach ($openAIModels as $newVersionAIModel) {
-                if ($aiModel::where('openai_id',$newVersionAIModel->id)->count() > 0) {
+        $openAIModelsInfo = $this->aiModelService->listAllModelsWithInfo($client);
+
+        foreach ($openAIModels as $openAIModel) {
+
+            $aiModel = AIModel::firstOrCreate([
+                'openai_id' => $openAIModel->id,
+                'user_id' => 1
+            ]);
+
+            foreach ($openAIModelsInfo->data as $modelInfo) {
+
+                if ($modelInfo->fineTunedModel == $openAIModel->id) {
+                
+                    $aiModel->fill($downloadAIModel->getAIModelAttributes($modelInfo));
                     
-                    $downloadAIModel->updateAIModelInDB($newVersionAIModel, $aiModel);
-                }
-                else {
-                    $aiFile = new AIModel();
-                    $aiFile->fill($downloadAIModel->getAIModelAttributes($newVersionAIModel));
-                    $aiFile->save();
+                    $aiModel->save();
                 }
             }
-            return $openAIModels;
         }
 
-    public function makeNewAIModel()
+        return dd($openAIModelsInfo);
+    }    
+
+    public function getModelById()
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
 
-        $openAIModels = $this->aiModelService->createNewModel($client,'file-eFIFEp23oMQuDJ3d6kR58J9i', '', 'currie');
+        return $this->aiModelService->getAModel($client, 'curie:ft-personal-2023-04-19-10-55-48');
+    }
 
-        return $openAIModels;
+    public function getInfoAboutModel()
+    {
+        $yourApiKey = getenv('OPENAI_API_KEY');
+        $client = OpenAI::client($yourApiKey);
+
+        return $this->aiModelService->getInfoAboutModel($client,'ft-Yu6XSuF2sGhE851v9VEDLpsM');
     }
 }
