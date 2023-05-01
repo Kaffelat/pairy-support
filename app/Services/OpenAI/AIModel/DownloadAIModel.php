@@ -23,8 +23,7 @@ class DownloadAIModel
     {
         foreach ($openAIModel->trainingFiles as $traningFile) {
             if ($file = AIFile::where('openai_id', $traningFile->id)->first()) {
- 
-                return json_decode($file->id);
+                return $file->id;
             }
         }
     }
