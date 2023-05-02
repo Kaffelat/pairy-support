@@ -20,9 +20,9 @@ import axios from 'axios';
                         <th>Id</th>
                         <th>OpenAI ID</th>
                         <th>Owner ID</th>
+                        <th>AIFile ID</th>
                         <th>Type</th>
-                        <th>Created at</th>
-                        <th>Updated at</th>
+                        <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody v-if="this.aiModels.length > 0">
@@ -30,9 +30,8 @@ import axios from 'axios';
                             <td>{{aiModels.id}}</td>
                             <td>{{aiModels.openai_id}}</td>
                             <td>{{aiModels.user_id}}</td>
+                            <td>{{aiModels.ai_file_id ? aiModels.ai_file_id : 'Kunne ikke finde filen i databasen'}}</td>
                             <td>{{aiModels.type}}</td>
-                            <td>{{aiModels.created_at}}</td>
-                            <td>{{aiModels.updated_at}}</td>
                             <td>
                                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">
                                     Delete
