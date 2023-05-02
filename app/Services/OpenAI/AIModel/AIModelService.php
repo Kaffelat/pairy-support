@@ -12,7 +12,7 @@ class AIModelService
     */
     public function createNewModel(Client $client, String $traningFileId, String $validationFileId, String $modelType): stdClass
     {
-        if ($validationFileId === true) { 
+        if ($validationFileId == true) { 
             $response = $client->fineTunes()->create([
                 'training_file' => $traningFileId,
                 'model' => $modelType,
