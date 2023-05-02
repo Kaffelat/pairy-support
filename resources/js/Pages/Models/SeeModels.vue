@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import axios from 'axios';
 </script>
 
 <template>
@@ -17,28 +18,59 @@ import { Head } from '@inertiajs/vue3';
                     <thead>
                         <tr>
                         <th>Id</th>
-                        <th>OpenAI id</th>
-                        <th>Creater</th>
+                        <th>OpenAI ID</th>
+                        <th>Owner ID</th>
                         <th>Type</th>
-                        <th>Name</th>
                         <th>Created at</th>
                         <th>Updated at</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr v-for="row in rows">
-                        <td>{{row.id}}</td>
-                        <td>{{row.openAIId}}</td>
-                        <td>{{row.userWhoUploaded}}</td>
-                        <td>{{row.type}}</td>
-                        <td>{{row.name}}</td>
-                        <td>{{row.createdAt}}</td>
-                        <td>{{row.updatedAt}}</td>
+                    <tbody v-if="this.aiModels.length > 0">
+                        <tr v-for="(aiModels) in this.aiModels">
+                            <td>{{aiModels.id}}</td>
+                            <td>{{aiModels.openai_id}}</td>
+                            <td>{{aiModels.user_id}}</td>
+                            <td>{{aiModels.type}}</td>
+                            <td>{{aiModels.created_at}}</td>
+                            <td>{{aiModels.updated_at}}</td>
+                            <td>
+                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
-                    </table>
+                    <tbody v-else>
+                        <tr>
+                            <td colspan="6">
+                                Loading...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </AuthenticatedLayout>
 </template>
 
+<script>
+
+export default {
+    name:'aiModels',
+    data(){
+        return {
+            aiModels: []
+        }
+    },
+    mounted() {
+        this.getAIModels();
+    },
+    methods: {
+        getAIModels() {
+            axios.get('/test/model/download').then(res =>{
+                this.aiModels = res.data
+            });
+        }
+    }
+}
+</script>

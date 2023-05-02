@@ -44,7 +44,7 @@ class AIModelDownloader
                 }
             }
         }
-        return dd($openAIModelsInfo);
+        return AIModel::all();
     }    
 
     public function getModelById()
