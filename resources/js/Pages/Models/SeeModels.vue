@@ -26,7 +26,7 @@ import axios from 'axios';
                         </tr>
                     </thead>
                     <tbody v-if="this.aiModels.length > 0">
-                        <tr v-for="(aiModels) in this.aiModels">
+                        <tr v-for="(aiModels) in this.aiModels" :key="id">
                             <td>{{aiModels.id}}</td>
                             <td>{{aiModels.openai_id}}</td>
                             <td>{{aiModels.user_id}}</td>
