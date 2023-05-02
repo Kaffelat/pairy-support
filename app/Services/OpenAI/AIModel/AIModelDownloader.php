@@ -44,7 +44,6 @@ class AIModelDownloader
                 }
             }
         }
-
         return dd($openAIModelsInfo);
     }    
 
