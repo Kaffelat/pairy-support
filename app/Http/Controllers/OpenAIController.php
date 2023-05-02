@@ -27,9 +27,9 @@ class OpenAIController extends Controller
     return Inertia::render('Models/MakeModels');
   }
    
-  public function seeTraningData()
+  public function seeTraningFiles()
   {
-    return Inertia::render('Models/SeeTraningData');
+    return Inertia::render('Models/SeeTraningFiles');
   }
 
   public function trainModels()

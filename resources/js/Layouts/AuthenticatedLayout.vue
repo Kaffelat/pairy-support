@@ -41,8 +41,8 @@ const showingNavigationDropdown = ref(false);
                                     Make models
                                 </NavLink>
 
-                                <NavLink :href="route('models.seeTraningData')" :active="route().current('models.seeTraningData')">
-                                    See traningdata
+                                <NavLink :href="route('models.seeTraningFiles')" :active="route().current('models.seeTraningFiles')">
+                                    See traningfiles
                                 </NavLink>
 
                                 <NavLink :href="route('models.uploadTraningData')" :active="route().current('models.uploadTraningData')">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AIFileController;
+use App\Http\Controllers\AIModelController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\OpenAIController;
 use App\Http\Controllers\ProfileController;
@@ -44,14 +45,15 @@ Route::get('/test/delete', [AIFileController::class, 'testDeleteAFile']);
 Route::get('/test/getone', [AIFileController::class, 'testGetInfoAboutAFile']);
 
 #Gets all models a user has made at OpenAI
-Route::get('/test/model/download', [Controller::class, 'getAllModels']);
+Route::get('/test/model/download', [AIModelController::class, 'getAllModels']);
 
-Route::get('/test/model/get', [Controller::class, 'getInfoAboutModel']);
+#Gets a single ai model
+Route::get('/test/model/get', [AIModelController::class, 'getInfoAboutModel']);
 
 #Makes a new finetune model at OpenAI
-Route::get('/test/model/upload', [Controller::class, 'makeModel']);
+Route::get('/test/model/upload', [AIModelController::class, 'makeModel']);
 
-Route::get('/test/model/delete', [Controller::class, 'deleteModel']);
+Route::get('/test/model/delete', [AIModelController::class, 'deleteModel']);
 
 
 #<-------Test routes stops here-------->
@@ -60,7 +62,7 @@ Route::get('/models/seeModels', [OpenAIController::class, 'seeModels'])->name('m
 
 Route::get('/models/makeModels', [OpenAIController::class, 'makeModels'])->name('models.makeModels');
 
-Route::get('/models/seeTraningData', [OpenAIController::class, 'seeTraningData'])->name('models.seeTraningData');
+Route::get('/models/seeTraningFiles', [OpenAIController::class, 'seeTraningFiles'])->name('models.seeTraningFiles');
 
 Route::get('/models/trainModels', [OpenAIController::class, 'trainModels'])->name('models.trainModels');
 

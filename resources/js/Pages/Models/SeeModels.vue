@@ -16,22 +16,24 @@ import { Head } from '@inertiajs/vue3';
                 <table id="firstTable">
                     <thead>
                         <tr>
-                        <th>ID</th>
-                        <th>User who uploaded</th>
+                        <th>Id</th>
+                        <th>OpenAI id</th>
+                        <th>Creater</th>
                         <th>Type</th>
                         <th>Name</th>
-                        <th>Status</th>
                         <th>Created at</th>
+                        <th>Updated at</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="row in rows">
                         <td>{{row.id}}</td>
+                        <td>{{row.openAIId}}</td>
                         <td>{{row.userWhoUploaded}}</td>
                         <td>{{row.type}}</td>
                         <td>{{row.name}}</td>
-                        <td>{{row.status}}</td>
                         <td>{{row.createdAt}}</td>
+                        <td>{{row.updatedAt}}</td>
                         </tr>
                     </tbody>
                     </table>
