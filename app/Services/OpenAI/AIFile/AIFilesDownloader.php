@@ -2,6 +2,7 @@
 namespace App\Services\OpenAI\AIFile;
 
 use App\Models\AIFile;
+use Illuminate\Database\Eloquent\Collection;
 use OpenAI;
 
 class AIFilesDownloader
@@ -13,7 +14,7 @@ class AIFilesDownloader
         $this->aiFileService = $aiFileService;
     }
     
-    public function getAllFiles()
+    public function getAllFiles(): Collection
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
@@ -36,11 +37,10 @@ class AIFilesDownloader
                     $aiFile->save();
                 }
             }
-            dd($openAIFiles);
-            return $openAIFiles;
+            return AIFile::all();
         }
 
-    public function getAFile()
+    public function getAFile(): object
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
@@ -48,7 +48,7 @@ class AIFilesDownloader
         return $this->aiFileService->getAFile($client, 'file-RfkFMyYoI0kcTcSynRFAfbmM');
     }
 
-    public function getInfoAboutAFile()
+    public function getInfoAboutAFile(): object
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);

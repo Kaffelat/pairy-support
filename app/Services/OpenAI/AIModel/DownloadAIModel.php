@@ -2,7 +2,7 @@
 namespace App\Services\OpenAI\AIModel;
 
 use App\Models\AIFile;
-use App\Models\AIModel;
+use Exception;
 
 class DownloadAIModel
 {
@@ -19,12 +19,13 @@ class DownloadAIModel
         ];
     }
     
-    public function getFileId(object $openAIModel)
+    public function getFileId(object $openAIModel): ?int
     {
         foreach ($openAIModel->trainingFiles as $traningFile) {
-            if ($file = AIFile::where('openai_id', $traningFile->id)->first()) {
-                return $file->id;
-            }
+                if ($file = AIFile::where('openai_id', $traningFile->id)->first()) {
+                    return $file->id;
+                }
+                return null;
         }
     }
     

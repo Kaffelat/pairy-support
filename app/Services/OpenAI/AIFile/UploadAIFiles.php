@@ -12,7 +12,7 @@ class UploadAIFiles
         $this->aiFileService = $aiFileService;
     }
 
-    public function uploadAFile()
+    public function uploadAFile(): object
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);

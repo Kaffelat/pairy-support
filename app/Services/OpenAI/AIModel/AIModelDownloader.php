@@ -4,6 +4,7 @@ namespace App\Services\OpenAI\AIModel;
 use App\Models\AIModel;
 use App\Services\OpenAI\AIModel\AIModelService;
 use App\Services\OpenAI\AIModel\DownloadAIModel;
+use Illuminate\Database\Eloquent\Collection;
 use OpenAI;
 
 class AIModelDownloader
@@ -15,7 +16,7 @@ class AIModelDownloader
         $this->aiModelService = $aiFileService;
     }
 
-    public function getAIModels()
+    public function getAIModels(): Collection
     {
 
         $yourApiKey = getenv('OPENAI_API_KEY');
@@ -47,7 +48,7 @@ class AIModelDownloader
         return AIModel::all();
     }    
 
-    public function getModelById()
+    public function getModelById(): object
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
@@ -55,7 +56,7 @@ class AIModelDownloader
         return $this->aiModelService->getAModel($client, 'curie:ft-personal-2023-04-19-10-55-48');
     }
 
-    public function getInfoAboutModel()
+    public function getInfoAboutModel(): object
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
