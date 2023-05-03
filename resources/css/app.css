@@ -4,12 +4,12 @@
 
 #logo
 {
-margin-top:20px;
+  margin-top:20px;
 }
 
 #headline
 {
-    text-align: center;
+  text-align: center;
 }
 
 table {
@@ -21,17 +21,55 @@ table {
     margin-right: auto;
   }
   
-  table th {
+table th {
+  text-align: center;
+  background: #44475C;
+  color: #FFF;
+  padding: 8px;
+  min-width: 30px;
+}
+
+table td {
+  text-align: center;
+  padding: 8px;
+  border-left: 2px solid #7D82A8;
+  border-top: 2px solid #7D82A8;
+}
+
+form {
+  max-width: 420px;
+  margin: auto;
+  background: grey;
+  text-align: left;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+label {
+    color: black;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 1.0em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+input {
+    display: block;
+    padding: 10px 6px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+}
+
+.submit {
     text-align: center;
-    background: #44475C;
-    color: #FFF;
-    padding: 8px;
-    min-width: 30px;
-  }
-  
-  table td {
-    text-align: center;
-    padding: 8px;
-    border-left: 2px solid #7D82A8;
-    border-top: 2px solid #7D82A8;
-  }
+}
+.submit :hover {
+    background-color: lightgrey;
+    transition: 0.7s;
+}
