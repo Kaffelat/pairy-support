@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('openai_api_key');
+            $table->dropColumn('openai_api_key');
             
         });
     }
