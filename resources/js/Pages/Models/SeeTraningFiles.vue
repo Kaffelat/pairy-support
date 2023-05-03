@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import axios from 'axios';
 </script>
 
 <template>
@@ -22,11 +23,11 @@ import { Head } from '@inertiajs/vue3';
                         <th>Name</th>
                         <th>Bytes in File</th>
                         <th>File Purpose</th>
-                        <th>Actions</th>
+                        <th></th>
                         </tr>
                     </thead>
                     <tbody v-if="this.aiFiles.length > 0">
-                        <tr v-for="(aiFiles) in this.aiFiles" :key="id">
+                        <tr v-for="(aiFiles) in this.aiFiles">
                             <td>{{aiFiles.id}}</td>
                             <td>{{aiFiles.openai_id}}</td>
                             <td>{{aiFiles.user_id}}</td>
@@ -34,7 +35,7 @@ import { Head } from '@inertiajs/vue3';
                             <td>{{aiFiles.byte_size}}</td>
                             <td>{{aiFiles.file_purpose}}</td>
                             <td>
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">
+                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded" @click="deleteFile(aiFiles.openai_id)">
                                     Delete
                                 </button>
                             </td>
@@ -42,7 +43,7 @@ import { Head } from '@inertiajs/vue3';
                     </tbody>
                     <tbody v-else>
                         <tr>
-                            <td colspan="6">
+                            <td colspan="7">
                                 Loading...
                             </td>
                         </tr>
@@ -70,6 +71,12 @@ export default {
             axios.get('/test/download').then(res =>{
                 this.aiFiles = res.data
             });
+        },
+        deleteFile(openai_id) {
+            console.log(openai_id)
+            axios.delete('/test/delete/'+ openai_id).then(res => {
+            console.log(res)
+            })
         }
     }
 }

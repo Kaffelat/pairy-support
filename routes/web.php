@@ -29,20 +29,25 @@ Route::get('/', function () {
     ]);
 });
 #<------This is test routes------->
+
+#<------This is file test routes------->
+
 #Shows all files on OpenAI
 Route::get('/test/download', [AIFileController::class, 'testGetAllFiles']);
 
 #Gets one file from OpenAI
 Route::get('/test/get', [AIFileController::class, 'testGetAFile']);
 
-#Uploads a file to OpenAI
-Route::get('/test/upload', [AIFileController::class, 'testUploadAFile']);
-
-#Deletes a file from OpenAI
-Route::get('/test/delete', [AIFileController::class, 'testDeleteAFile']);
-
 #Gets the information about a file from OpenAI
 Route::get('/test/getone', [AIFileController::class, 'testGetInfoAboutAFile']);
+
+#Uploads a file to OpenAI
+Route::post('/test/upload', [AIFileController::class, 'testUploadAFile']);
+
+#Deletes a file from OpenAI
+Route::delete('/test/delete/{id}', [AIFileController::class, 'testDeleteAFile']);
+
+#<-----This is finetune models test routes------->
 
 #Gets all models a user has made at OpenAI
 Route::get('/test/model/download', [AIModelController::class, 'getAllModels']);
@@ -51,9 +56,10 @@ Route::get('/test/model/download', [AIModelController::class, 'getAllModels']);
 Route::get('/test/model/get', [AIModelController::class, 'getInfoAboutModel']);
 
 #Makes a new finetune model at OpenAI
-Route::get('/test/model/upload', [AIModelController::class, 'makeModel']);
+Route::post('/test/model/upload', [AIModelController::class, 'makeModel']);
 
-Route::get('/test/model/delete', [AIModelController::class, 'deleteModel']);
+#deletes a finetune model
+Route::delete('/test/model/delete/{id}', [AIModelController::class, 'deleteModel']);
 
 
 #<-------Test routes stops here-------->

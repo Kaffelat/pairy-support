@@ -22,7 +22,7 @@ import axios from 'axios';
                         <th>Owner ID</th>
                         <th>AIFile ID</th>
                         <th>Type</th>
-                        <th>Actions</th>
+                        <th></th>
                         </tr>
                     </thead>
                     <tbody v-if="this.aiModels.length > 0">
@@ -33,7 +33,7 @@ import axios from 'axios';
                             <td>{{aiModels.ai_file_id ? aiModels.ai_file_id : 'Kunne ikke finde filen i databasen'}}</td>
                             <td>{{aiModels.type}}</td>
                             <td>
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">
+                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded" @click="deleteModels(aiModels.openai_id)">
                                     Delete
                                 </button>
                             </td>
@@ -41,7 +41,7 @@ import axios from 'axios';
                     </tbody>
                     <tbody v-else>
                         <tr>
-                            <td colspan="6">
+                            <td colspan="5">
                                 Loading...
                             </td>
                         </tr>
@@ -62,13 +62,20 @@ export default {
         }
     },
     mounted() {
-        this.getAIModels();
+        this.getModels();
     },
     methods: {
-        getAIModels() {
+        getModels() {
             axios.get('/test/model/download').then(res =>{
                 this.aiModels = res.data
             });
+        },
+
+        deleteModels(openai_id) {
+            console.log(openai_id)
+            axios.delete('/test/model/delete/' + openai_id).then(res => {
+            console.log(res)
+            })
         }
     }
 }

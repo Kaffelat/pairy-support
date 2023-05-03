@@ -8,6 +8,7 @@ use App\Services\OpenAI\AIFile\AIFileService;
 use App\Services\OpenAI\AIFile\UploadAIFiles;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use OpenAI;
 
@@ -17,7 +18,7 @@ class AIFileController extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     #Henter alle filer på OpenAI
-    public function testGetAllFiles(AIFileService $aiFileService)
+    public function testGetAllFiles(AIFileService $aiFileService): object
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
 
@@ -25,21 +26,21 @@ class AIFileController extends BaseController
     }
 
     #Henter en specifik fil
-    public function testGetAFile(AIFileService $aiFileService)
+    public function testGetAFile(AIFileService $aiFileService): object
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
         return $aiFileDownloader->getAFile();
     }
 
     #Viser indeholdet i en bestemt fil
-    public function testGetInfoAboutAFile(AIFileService $aiFileService)
+    public function testGetInfoAboutAFile(AIFileService $aiFileService): object
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
-        dd($aiFileDownloader->getInfoAboutAFile());
+        return $aiFileDownloader->getInfoAboutAFile();
     }
 
     #uploader en ny fil
-    public function testUploadAFile(AIFileService $aiFileService)
+    public function testUploadAFile(AIFileService $aiFileService): object
     {
        $uploadAIFiles = new UploadAIFiles($aiFileService);
 
@@ -47,15 +48,13 @@ class AIFileController extends BaseController
     }
 
     #sletter en fil
-    public function testDeleteAFile(AIFileService $aiFileService)
+    public function testDeleteAFile($openaiFileId, AIFileService $aiFileService): object
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
 
-        $fileId = 'file-eBlYwUzXvF5dypkQk6FXmCRa';
+        AIFile::where('openai_id', $openaiFileId)->delete();
 
-        AIFile::where('openai_id', $fileId)->delete();
-
-        return $aiFileService->deleteAFile($client, $fileId);
+        return $aiFileService->deleteAFile($client, $openaiFileId);
     }
 }
