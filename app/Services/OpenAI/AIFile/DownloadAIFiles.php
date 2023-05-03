@@ -12,10 +12,13 @@ class DownloadAIFiles
         return [
             'openai_id' => $file->id,
             'user_id'   => 1,
+            'name'      => $file->filename,
+            'byte_size' => $file->bytes,
             'data'      => json_encode(['test for nu']),
             'tokens'    => 0,
             'validering' => 0,
-            'traning'   => 1
+            'traning'   => 1,
+            'file_purpose' => $file->purpose
         ];
     }
 
@@ -24,11 +27,14 @@ class DownloadAIFiles
         $aiFile::where('openai_id',$file->id)->update([ 
             'openai_id' => $file->id,
             'user_id'   => 1,
-            'data'      => json_encode(['test for nu22']),
+            'name'      => $file->filename,
+            'byte_size' => $file->bytes,
+            'data'      => json_encode(['test for nu']),
             'tokens'    => 0,
             'validering' => 0,
-            'traning'   => 1
-            ]);
+            'traning'   => 1,
+            'file_purpose' => $file->purpose
+        ]);
         
     }
 
