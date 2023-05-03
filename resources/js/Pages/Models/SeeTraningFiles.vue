@@ -74,8 +74,9 @@ export default {
         },
         deleteFile(openai_id) {
             console.log(openai_id)
-            axios.delete('/test/delete/'+ openai_id).then(res => {
-            console.log(res)
+            
+            axios.delete('/test/delete/' + openai_id).then(res => {
+                this.getAIFilesaiFiles();
             })
         }
     }

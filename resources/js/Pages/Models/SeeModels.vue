@@ -73,8 +73,9 @@ export default {
 
         deleteModels(openai_id) {
             console.log(openai_id)
+            
             axios.delete('/test/model/delete/' + openai_id).then(res => {
-            console.log(res)
+                this.getModels();
             })
         }
     }
