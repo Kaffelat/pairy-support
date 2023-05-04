@@ -20,10 +20,14 @@ class AIFile extends Model
     protected $fillable = [
         'openai_id',
         'user_id',
+        'name',
         'data',
+        'byte_size',
+
         'tokens',
         'validering',
-        'traning'
+        'traning',
+        'file_purpose'
     ];
 
     protected $casts = [

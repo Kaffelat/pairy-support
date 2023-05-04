@@ -11,7 +11,7 @@ import { Head } from '@inertiajs/vue3';
             <h2 id="headline" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Make models</h2>
         </template>
 
-        <form>
+        <form @submit.prevent="createModel">
             <label>Training file</label>
             <input type="text" required v-model = "traningFile">
 
@@ -20,8 +20,8 @@ import { Head } from '@inertiajs/vue3';
 
             <label>Type</label>
             <select v-model="type">
+                <option value="curie">Curie</option> 
                 <option value="davinci">Davinci</option>     
-                <option value="curie">Curie</option>   
                 <option value="babbage">Babbage</option>     
                 <option value="ada">Ada</option>     
             </select>
@@ -29,10 +29,10 @@ import { Head } from '@inertiajs/vue3';
             <label>Hvor mange gange skal modellen trænes?</label>
             <input type="text" v-model ='epochs' >
 
-            <label>Hvad skal dens learningrate være?</label>
+            <label>Hvad skal dens learning rate multiplier være?</label>
             <input type="text" v-model ='learningRate' >
 
-            <label>Hvad skal den prompt loss være?</label>
+            <label>Hvad skal dens prompt loss vægt være?</label>
             <input type="text" v-model ='promtLoss' >
 
             <div class="submit">
@@ -49,11 +49,27 @@ export default {
             traningFile: '',
             validationFile:'',
             type:'curie',
-            epochs:'',
-            learningRate:'',
-            promtLoss:''
+            epochs:'4',
+            learningRate:'0.1',
+            promtLoss:'0.01'
+        }
+    },
+    methods: {
+        createModel() {
+            const data = {
+                traningFile: this.traningFile,
+                validationFile: this.validationFile,
+                type: this.type,
+                epochs: this.epochs,
+                learningRate: this.learningRate,
+                promtLoss: this.promtLoss
+            };
+            axios.post('/test/model/upload', data).then(res => {
+                console.log(res.data)
+            });
         }
     }
+
 }
 
 </script>

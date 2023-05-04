@@ -9,6 +9,7 @@ use App\Services\OpenAI\AIModel\UploadAIModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use OpenAI;
 
@@ -23,11 +24,11 @@ class AIModelController extends BaseController
         return $aiModelDownloader->getAIModels();
     }
 
-    public function makeModel(AIModelService $aiModelService): object
+    public function makeAIModel(Request $request ,AIModelService $aiModelService): object
     {
         $aiModelUploader = new UploadAIModel($aiModelService);
 
-        return $aiModelUploader->makeAIModel();
+        return $aiModelUploader->makeAIModel($request);
     }
 
     public function getModel(AIModelService $aiModelService): object

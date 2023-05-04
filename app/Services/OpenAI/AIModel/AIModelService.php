@@ -10,21 +10,21 @@ class AIModelService
     /**
     * Makes a new Model in OpenAI
     */
-    public function createNewModel(Client $client, String $traningFileId, String $validationFileId, String $modelType): stdClass
+    public function createNewModel(Client $client, $request): stdClass
     {
-        if ($validationFileId == true) { 
-            $response = $client->fineTunes()->create([
-                'training_file' => $traningFileId,
-                'model' => $modelType,
-                'n_epochs' => 4,
-                'learning_rate_multiplier' => 0.2,
-                'prompt_loss_weight' => 0.01,
-            ]);
-        }
+        // if ($request->validationFile == true) { 
+        //     $response = $client->fineTunes()->create([
+        //         'training_file' => $request->traningFile,
+        //         'model' => $request->type,
+        //         'n_epochs' => 4,
+        //         'learning_rate_multiplier' => 0.2,
+        //         'prompt_loss_weight' => 0.01,
+        //     ]);
+        // }
         
         $response = $client->fineTunes()->create([
-            'training_file' => $traningFileId,
-            'model' => 'curie',
+            'training_file' => $request->traningFile,
+            'model' => $request->type,
             'n_epochs' => 4,
             'learning_rate_multiplier' => 0.2,
             'prompt_loss_weight' => 0.01,

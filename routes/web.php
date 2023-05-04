@@ -56,7 +56,7 @@ Route::get('/test/model/download', [AIModelController::class, 'getAllModels']);
 Route::get('/test/model/get', [AIModelController::class, 'getInfoAboutModel']);
 
 #Makes a new finetune model at OpenAI
-Route::post('/test/model/upload', [AIModelController::class, 'makeModel']);
+Route::post('/test/model/upload', [AIModelController::class, 'makeAIModel']);
 
 #deletes a finetune model
 Route::delete('/test/model/delete/{id}', [AIModelController::class, 'deleteModel']);
