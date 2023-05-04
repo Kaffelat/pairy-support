@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\OpenAI\AIFile;
 
+use Illuminate\Http\Request;
 use OpenAI;
 
 class UploadAIFiles
@@ -12,7 +13,7 @@ class UploadAIFiles
         $this->aiFileService = $aiFileService;
     }
 
-    public function uploadAFile(): object
+    public function uploadAFile(Request $request): object
     {
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
