@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
+use stdClass;
 
 class AIFilesDownloader
 {   
@@ -25,13 +26,14 @@ class AIFilesDownloader
         
         foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
             try {
+
                 if ($AIFile::where('openai_id',$file->id)->count() > 0) {
                     
                     $downloadAIFile->updateAFileInDB($file, $AIFile);
                     
                 }
                 else {
-                    
+
                     $AIFile->fill($downloadAIFile->getFileAttributes($file));
 
                     $AIFile->save();
@@ -46,14 +48,14 @@ class AIFilesDownloader
 
     }
 
-    public function getAFile(): object
+    public function getAFile(): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
         return $this->aiFileService->getAFile($client, 'file-RfkFMyYoI0kcTcSynRFAfbmM');
     }
 
-    public function getInfoAboutAFile(): object
+    public function getInfoAboutAFile(): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 

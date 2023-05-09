@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\OpenAI\AIFile;
 
+use Exception;
 use Illuminate\Http\Request;
 use OpenAI\Client;
 use stdClass;
@@ -13,25 +14,31 @@ class AIFileService
     public function uploadAFile(Client $client, Request $request): mixed
     {
         $file = $request->file('file');
-        $handle = fopen($file->getPathname(), 'r');
 
-        #Checks if the file can be read 
-        if (fread($handle, 1) === false) {
+        try {
+            $handle = fopen($file->getPathname(), 'r');
 
-            fclose($handle);
-            
-            return null;
-        }
-        #Rewinds the file pointer so we doesn't skip the first letter 
-        rewind($handle);
+            #Checks if the file can be read 
+            if (fread($handle, 1) === false) {
 
-        # Upload the file to the API using openai-php/client upload function
-        $response = $client->files()->upload([
-            'purpose' => 'fine-tune',
-            'file' => $handle,
-        ]);
+                fclose($handle);
+                
+                return null;
+            }
+            #Rewinds the file pointer so we doesn't skip the first letter 
+            rewind($handle);
+
+            # Upload the file to the API using openai-php/client upload function
+            $response = $client->files()->upload([
+                'purpose' => 'fine-tune',
+                'file' => $handle,
+            ]);
     
-        return (object)(array)$response; 
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
+        return (object)(array)$response;
     }
 
     /**

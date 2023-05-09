@@ -44,8 +44,8 @@ class AIModelDownloader
                         $aiModel->fill($downloadAIModel->getAIModelAttributes($modelInfo));
                         
                         $aiModel->save();
-                        }
                     }
+                }
                 catch (Exception $e) {
                     throw $e;
                 }
