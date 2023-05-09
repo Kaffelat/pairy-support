@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 use OpenAI;
 
 #Dette er bare til test af kode. skal ikke bruges i virkeligheden
@@ -50,8 +51,7 @@ class AIFileController extends BaseController
     #sletter en fil
     public function testDeleteAFile($openaiFileId, AIFileService $aiFileService): object
     {
-        $yourApiKey = getenv('OPENAI_API_KEY');
-        $client = OpenAI::client($yourApiKey);
+        $client = OpenAI::client(Auth::user()->openai_api_key);
 
         AIFile::where('openai_id', $openaiFileId)->delete();
 

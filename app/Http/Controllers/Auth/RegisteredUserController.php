@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'openai_api_key' => $request->openai_api_key,
             'password' => Hash::make($request->password),
             'admin' => 1
         ]);

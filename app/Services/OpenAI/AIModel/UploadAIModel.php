@@ -3,6 +3,7 @@ namespace App\Services\OpenAI\AIModel;
 
 use App\Services\OpenAI\AIModel\AIModelService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use OpenAI;
 
 class UploadAIModel
@@ -16,8 +17,7 @@ class UploadAIModel
 
     public function makeAIModel(Request $request): object
     {
-        $yourApiKey = getenv('OPENAI_API_KEY');
-        $client = OpenAI::client($yourApiKey);
+        $client = OpenAI::client(Auth::user()->openai_api_key);
         
         $openAIModels = $this->aiModelService->createNewModel($client, $request);
 

@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 use OpenAI;
 
 class AIModelController extends BaseController
@@ -47,8 +48,7 @@ class AIModelController extends BaseController
 
     public function deleteModel($openaiModelId, AIModelService $aiModelService): object
     {
-        $yourApiKey = getenv('OPENAI_API_KEY');
-        $client = OpenAI::client($yourApiKey);
+        $client = OpenAI::client(Auth::user()->openai_api_key);
 
         AIModel::where('openai_id', $openaiModelId)->delete();
 

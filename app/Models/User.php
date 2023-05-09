@@ -23,6 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'openai_api_key',
         'password',
         'admin'
     ];

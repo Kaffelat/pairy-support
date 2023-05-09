@@ -9,6 +9,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 const form = useForm({
     name: '',
     email: '',
+    openai_api_key: '',
     password: '',
     password_confirmation: '',
     terms: false,
@@ -55,6 +56,20 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="openai_api_key" value="OpenAI API Key" />
+
+                <TextInput
+                    id="openai_api_key"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.openai_api_key"
+                    required
+                />
+
+                <InputError class="mt-2" :message="form.errors.openai_api_key" />
             </div>
 
             <div class="mt-4">

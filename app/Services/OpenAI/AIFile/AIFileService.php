@@ -2,7 +2,6 @@
 namespace App\Services\OpenAI\AIFile;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use OpenAI\Client;
 use stdClass;
 
@@ -14,7 +13,6 @@ class AIFileService
     public function uploadAFile(Client $client, Request $request): mixed
     {
         $file = $request->file('file');
-    
         $handle = fopen($file->getPathname(), 'r');
 
         if (fread($handle, 1) === false) {
@@ -22,12 +20,13 @@ class AIFileService
             fclose($handle);
             return null;
 
-        } 
+        }
+         
         else {
             rewind($handle);
         }
     
-        // Upload the file to the API using the file handle
+        // Upload the file to the API using openai-php/client upload function
         $response = $client->files()->upload([
             'purpose' => 'fine-tune',
             'file' => $handle,
