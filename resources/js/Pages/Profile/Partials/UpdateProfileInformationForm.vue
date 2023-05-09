@@ -19,6 +19,7 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    openai_api_key: user.openai_api_key,
 });
 </script>
 
@@ -62,6 +63,20 @@ const form = useForm({
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+            <div>
+                <InputLabel for="openai_api_key" value="OpenAI API Key" />
+
+                <TextInput
+                    id="openai_api_key"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.openai_api_key"
+                    required
+                />
+
+                <InputError class="mt-2" :message="form.errors.openai_api_key" />
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
