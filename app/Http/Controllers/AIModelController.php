@@ -47,7 +47,7 @@ class AIModelController extends BaseController
         return $aiModelDownloader->getInfoAboutModel();
     }
 
-    public function deleteModel($openaiModelId, AIModelService $aiModelService): stdClass
+    public function deleteModel(String $openaiModelId, AIModelService $aiModelService): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
