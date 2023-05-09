@@ -21,20 +21,18 @@ class AIFilesDownloader
         
         $AIFile = new AIFile;
         $downloadAIFile = new DownloadAIFiles;
-
-        $openAIFiles = $this->aiFileService->listAllFiles($client);
     
-            foreach ($openAIFiles->data as $file) {
+            foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
                 if ($AIFile::where('openai_id',$file->id)->count() > 0) {
                     
                     $downloadAIFile->updateAFileInDB($file, $AIFile);
                     
                 }
                 else {
+                    
+                    $AIFile->fill($downloadAIFile->getFileAttributes($file));
 
-                    $aiFile = new AIFile;
-                    $aiFile->fill($downloadAIFile->getFileAttributes($file));
-                    $aiFile->save();
+                    $AIFile->save();
                 }
             }
             return AIFile::all();
