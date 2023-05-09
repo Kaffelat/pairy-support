@@ -15,26 +15,24 @@ class AIFileService
         $file = $request->file('file');
         $handle = fopen($file->getPathname(), 'r');
 
+        #Checks if the file can be read 
         if (fread($handle, 1) === false) {
 
             fclose($handle);
+            
             return null;
+        }
+        #Rewinds the file pointer so we doesn't skip the first letter 
+        rewind($handle);
 
-        }
-         
-        else {
-            rewind($handle);
-        }
-    
-        // Upload the file to the API using openai-php/client upload function
+        # Upload the file to the API using openai-php/client upload function
         $response = $client->files()->upload([
             'purpose' => 'fine-tune',
             'file' => $handle,
         ]);
     
         return (object)(array)$response; 
-            
-        }
+    }
 
     /**
     * Makes a new Model in OpenAI
@@ -60,7 +58,7 @@ class AIFileService
     {
         $response = $client->files()->retrieve($fileId);
 
-        return (object)(array)$response;  // ['id' => 'file-eFIFEp23oMQuDJ3d6kR58J9i', ...]
+        return (object)(array)$response;
     }
 
     public function getInfoAboutAFile(Client $client, String $fileId): stdClass

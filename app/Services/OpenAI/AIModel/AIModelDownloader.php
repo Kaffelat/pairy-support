@@ -19,23 +19,19 @@ class AIModelDownloader
 
     public function getAIModels(): Collection
     {
-
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
         $aiModel = new AIModel;
         $downloadAIModel = new DownloadAIModel;
-        
-        $openAIModels = $this->aiModelService->listAllModels($client);
-        $openAIModelsInfo = $this->aiModelService->listAllModelsWithInfo($client);
 
-        foreach ($openAIModels as $openAIModel) {
+        foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
 
             $aiModel = AIModel::firstOrCreate([
                 'openai_id' => $openAIModel->id,
                 'user_id' => 1
             ]);
 
-            foreach ($openAIModelsInfo->data as $modelInfo) {
+            foreach ($this->aiModelService->listAllModelsWithInfo($client)->data as $modelInfo) {
 
                 if ($modelInfo->fineTunedModel == $openAIModel->id) {
                 
