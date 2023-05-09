@@ -42,9 +42,9 @@ class AIFileController extends BaseController
     #uploader en ny fil
     public function testUploadAFile(Request $request ,AIFileService $aiFileService): object
     {
-       $uploadAIFiles = new UploadAIFiles($aiFileService);
+        $uploadAIFiles = new UploadAIFiles($aiFileService);
 
-       return $uploadAIFiles->uploadAFile($request);
+        return $uploadAIFiles->uploadAFile($request);
     }
 
     #sletter en fil

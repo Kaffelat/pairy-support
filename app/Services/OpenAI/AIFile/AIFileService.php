@@ -1,23 +1,41 @@
 <?php
 namespace App\Services\OpenAI\AIFile;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use OpenAI\Client;
 use stdClass;
 
 class AIFileService
 {
     /**
-    * Makes a new Model in OpenAI
+    * Uploads a file to OpenAI
     */
-    public function uploadAFile(Client $client, String $filePath): stdClass
+    public function uploadAFile(Client $client, Request $request): mixed
     {
+        $file = $request->file('file');
+    
+        $handle = fopen($file->getPathname(), 'r');
+
+        if (fread($handle, 1) === false) {
+
+            fclose($handle);
+            return null;
+
+        } 
+        else {
+            rewind($handle);
+        }
+    
+        // Upload the file to the API using the file handle
         $response = $client->files()->upload([
             'purpose' => 'fine-tune',
-            'file' => fopen($filePath, 'r'),
+            'file' => $handle,
         ]);
-
+    
         return (object)(array)$response; 
-    }
+            
+        }
 
     /**
     * Makes a new Model in OpenAI

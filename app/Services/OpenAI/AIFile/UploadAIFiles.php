@@ -18,7 +18,7 @@ class UploadAIFiles
         $yourApiKey = getenv('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
 
-        return $this->aiFileService->uploadAFile($client,'/Users/ghf/pairy-support/app/Http/Controllers/test.jsonl');
+        return $this->aiFileService->uploadAFile($client,$request);
     }
 
 }
