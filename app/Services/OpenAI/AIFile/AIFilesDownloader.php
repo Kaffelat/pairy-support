@@ -2,6 +2,7 @@
 namespace App\Services\OpenAI\AIFile;
 
 use App\Models\AIFile;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
@@ -21,8 +22,9 @@ class AIFilesDownloader
         
         $AIFile = new AIFile;
         $downloadAIFile = new DownloadAIFiles;
-    
-            foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
+        
+        foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
+            try {
                 if ($AIFile::where('openai_id',$file->id)->count() > 0) {
                     
                     $downloadAIFile->updateAFileInDB($file, $AIFile);
@@ -35,8 +37,14 @@ class AIFilesDownloader
                     $AIFile->save();
                 }
             }
-            return AIFile::all();
+            catch (Exception $e) {
+                throw $e;
+            }
         }
+
+        return AIFile::all();
+
+    }
 
     public function getAFile(): object
     {

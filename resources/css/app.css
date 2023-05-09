@@ -41,35 +41,35 @@ form {
   margin: auto;
   background: grey;
   text-align: left;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 5px;
+  border-radius: 15px;
 }
 
 label {
-    color: black;
-    display: inline-block;
-    margin-bottom: 10px;
-    font-size: 1.0em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: bold;
+  color: black;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 1.0em;
+  letter-spacing: 1px;
+  font-weight: bold;
 }
 
 input {
-    display: block;
-    padding: 10px 6px;
-    margin-bottom: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    color: #555;
+  display: block;
+  padding: 10px 6px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  color: #555;
 }
 
 .submit {
-    text-align: center;
+  text-align: center;
+  padding-top: 15px;
 }
 .submit :hover {
-    background-color: lightgrey;
-    transition: 0.7s;
+  background-color: lightgrey;
+  transition: 0.7s;
 }

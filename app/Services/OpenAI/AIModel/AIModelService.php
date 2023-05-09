@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\OpenAI\AIModel;
 
+use Exception;
 use OpenAI;
 use OpenAI\Client;
 use stdClass;
@@ -63,16 +64,19 @@ class AIModelService
     public function listAllModels(Client $client): stdClass
     {
         $response = $client->models()->list();
-        
         $modelsByOwner = [];
 
-        foreach ($response->data as $result) {
-
-            if ($result->ownedBy == 'user-4s6uhvtyshm5qqxfhoa0xrtj') {
-                array_push($modelsByOwner, $result);
+        try {
+            foreach ($response->data as $result) {
+                if ($result->ownedBy != 'openai' && $result->ownedBy != 'openai-dev' && $result->ownedBy != 'openai-internal' && $result->ownedBy != 'system') {
+                    array_push($modelsByOwner, $result);
+                }
             }
+            return (object)(array)$modelsByOwner;
         }
-        return (object)(array)$modelsByOwner;
+        catch (Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -80,15 +84,25 @@ class AIModelService
     */
     public function getAModel(Client $client, String $modelId): stdClass
     {
-        $response = $client->models()->retrieve($modelId);
+        try {
+            $response = $client->models()->retrieve($modelId);
 
-        return (object)(array)$response; 
+            return (object)(array)$response;
+        } 
+        catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function getInfoAboutModel(Client $client, String $modelId): stdClass
     {
-        $response = $client->fineTunes()->retrieve($modelId);
+        try {
+            $response = $client->fineTunes()->retrieve($modelId);
 
-       return (object)(array)$response; 
+            return (object)(array)$response;
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
     }
 }

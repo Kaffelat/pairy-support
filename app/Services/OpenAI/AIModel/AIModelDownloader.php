@@ -4,8 +4,10 @@ namespace App\Services\OpenAI\AIModel;
 use App\Models\AIModel;
 use App\Services\OpenAI\AIModel\AIModelService;
 use App\Services\OpenAI\AIModel\DownloadAIModel;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use OpenAI;
 
 class AIModelDownloader
@@ -25,23 +27,31 @@ class AIModelDownloader
         $downloadAIModel = new DownloadAIModel;
 
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
-
-            $aiModel = AIModel::firstOrCreate([
-                'openai_id' => $openAIModel->id,
-                'user_id' => 1
-            ]);
+            try {
+                $aiModel = AIModel::firstOrCreate([
+                    'openai_id' => $openAIModel->id,
+                    'user_id' => 1
+                ]);
+            }
+            catch (Exception $e) {
+                throw $e;
+            }
 
             foreach ($this->aiModelService->listAllModelsWithInfo($client)->data as $modelInfo) {
-
-                if ($modelInfo->fineTunedModel == $openAIModel->id) {
-                
-                    $aiModel->fill($downloadAIModel->getAIModelAttributes($modelInfo));
+                try {
+                    if ($modelInfo->fineTunedModel == $openAIModel->id) {
                     
-                    $aiModel->save();
+                        $aiModel->fill($downloadAIModel->getAIModelAttributes($modelInfo));
+                        
+                        $aiModel->save();
+                        }
+                    }
+                catch (Exception $e) {
+                    throw $e;
                 }
             }
+            return AIModel::all();
         }
-        return AIModel::all();
     }    
 
     public function getModelById(): object
