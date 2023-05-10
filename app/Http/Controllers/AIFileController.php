@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Auth;
 use OpenAI;
 use stdClass;
 
-#Dette er bare til test af kode. skal ikke bruges i virkeligheden
 class AIFileController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    #Henter alle filer på OpenAI
+    /**
+    * Gets all files
+    */
     public function GetAllFiles(AIFileService $aiFileService): Collection
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
@@ -28,21 +29,27 @@ class AIFileController extends BaseController
         return $aiFileDownloader->getAllFiles();
     }
 
-    #Henter en specifik fil
+    /**
+    * Gets a single file
+    */
     public function GetAFile(AIFileService $aiFileService): stdClass
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
         return $aiFileDownloader->getAFile();
     }
 
-    #Viser indeholdet i en bestemt fil
+    /**
+    * Gets information about a file
+    */
     public function GetInfoAboutAFile(AIFileService $aiFileService): stdClass
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
         return $aiFileDownloader->getInfoAboutAFile();
     }
 
-    #uploader en ny fil
+    /**
+    * Uploads a new file to OpenAI
+    */
     public function UploadAFile(Request $request ,AIFileService $aiFileService): stdClass
     {
         $uploadAIFiles = new UploadAIFiles($aiFileService);
@@ -50,7 +57,9 @@ class AIFileController extends BaseController
         return $uploadAIFiles->uploadAFile($request);
     }
 
-    #sletter en fil
+    /**
+    * Deletes a file 
+    */
     public function DeleteAFile(String $openaiFileId, AIFileService $aiFileService): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);

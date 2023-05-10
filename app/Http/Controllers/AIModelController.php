@@ -19,6 +19,9 @@ class AIModelController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    /**
+    * Downloads all models that the user has made on OpenAI
+    */
     public function getAllModels(AIModelService $aiModelService): Collection
     {
         $aiModelDownloader = new AIModelDownloader($aiModelService);
@@ -26,13 +29,19 @@ class AIModelController extends BaseController
         return $aiModelDownloader->getAIModels();
     }
 
+    /**
+    * Makes a new Model
+    */
     public function makeAIModel(Request $request ,AIModelService $aiModelService): stdClass
     {
         $aiModelUploader = new UploadAIModel($aiModelService);
-
+        
         return $aiModelUploader->makeAIModel($request);
     }
 
+    /**
+    * Gets a single model 
+    */
     public function getModel(AIModelService $aiModelService): stdClass
     {
         $aiModelDownloader = new AIModelDownloader($aiModelService);
@@ -40,6 +49,9 @@ class AIModelController extends BaseController
         return $aiModelDownloader->getModelById();
     }
 
+    /**
+    * Gets info about a single model
+    */
     public function getInfoAboutModel(AIModelService $aiModelService): stdClass
     {
         $aiModelDownloader = new AIModelDownloader($aiModelService);
@@ -47,6 +59,9 @@ class AIModelController extends BaseController
         return $aiModelDownloader->getInfoAboutModel();
     }
 
+    /**
+    * Deletes a model 
+    */
     public function deleteModel(String $openaiModelId, AIModelService $aiModelService): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);

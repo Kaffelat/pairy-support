@@ -17,6 +17,9 @@ class AIFilesDownloader
         $this->aiFileService = $aiFileService;
     }
     
+    /**
+    * Gets all files on OpenAI's api 
+    */
     public function getAllFiles(): Collection
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
@@ -24,6 +27,8 @@ class AIFilesDownloader
         $AIFile = new AIFile;
         $downloadAIFile = new DownloadAIFiles;
         
+        #For every file that's on the users account look if it's already inside the database
+        #If it is update it else make a new AIFile in the database
         foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
             try {
 
@@ -48,6 +53,7 @@ class AIFilesDownloader
 
     }
 
+    #Gets a single file by using it's OpenAI id
     public function getAFile(): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
@@ -55,6 +61,7 @@ class AIFilesDownloader
         return $this->aiFileService->getAFile($client, 'file-RfkFMyYoI0kcTcSynRFAfbmM');
     }
 
+    #Gets information about a file by using it's OpenAI id
     public function getInfoAboutAFile(): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);

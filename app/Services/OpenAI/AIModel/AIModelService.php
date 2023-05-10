@@ -44,6 +44,9 @@ class AIModelService
         return (object)(array)$response; 
     }
 
+    /**
+    * Cancels the creation of a model
+    */
     public function cancelJob(Client $client, String $jobId): stdClass
     {
         $response = $client->fineTunes()->cancel($jobId);
@@ -61,6 +64,9 @@ class AIModelService
         return (object)(array)$response;
     }
 
+    /**
+    * Lists all models that you have made on OpenAI
+    */
     public function listAllModels(Client $client): stdClass
     {
         $response = $client->models()->list();
@@ -94,6 +100,9 @@ class AIModelService
         return (object)(array)$response;
     }
 
+    /**
+    * Deletes a model 
+    */
     public function getInfoAboutModel(Client $client, String $modelId): stdClass
     {
         try {

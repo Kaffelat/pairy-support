@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use OpenAI;
 
+/**
+* Renders the views
+*/
 class OpenAIController extends Controller
 {   
   public function index()
