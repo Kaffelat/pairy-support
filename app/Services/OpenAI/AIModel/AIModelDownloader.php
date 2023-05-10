@@ -23,35 +23,27 @@ class AIModelDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
-        $aiModel = new AIModel;
         $downloadAIModel = new DownloadAIModel;
-
+        
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
-            try {
-                $aiModel = AIModel::firstOrCreate([
-                    'openai_id' => $openAIModel->id,
-                    'user_id' => 1
-                ]);
-            }
-            catch (Exception $e) {
-                throw $e;
-            }
-
+            $aiModel = new AIModel;
+            
+            $aiModel = AIModel::firstOrCreate([
+                'openai_id' => $openAIModel->id,
+                'user_id' =>  Auth::user()->id
+            ]);
+      
             foreach ($this->aiModelService->listAllModelsWithInfo($client)->data as $modelInfo) {
-                try {
-                    if ($modelInfo->fineTunedModel == $openAIModel->id) {
+                if ($modelInfo->fineTunedModel == $aiModel->openai_id) {
+
+                    $aiModel->fill($downloadAIModel->getAIModelAttributes($modelInfo));
                     
-                        $aiModel->fill($downloadAIModel->getAIModelAttributes($modelInfo));
-                        
-                        $aiModel->save();
-                    }
-                }
-                catch (Exception $e) {
-                    throw $e;
+                    $aiModel->save();
                 }
             }
-            return AIModel::all();
+               
         }
+        return AIModel::all();
     }    
 
     public function getModelById(): object

@@ -29,15 +29,16 @@ class AIFilesDownloader
         
         #For every file that's on the users account look if it's already inside the database
         #If it is update it else make a new AIFile in the database
+
         foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
             try {
                 if ($AIFile::where('openai_id',$file->id)->count() > 0) {
                     
                     $downloadAIFile->updateAFileInDB($file, $AIFile);
-                    
                 }
                 else {
-
+                    $AIFile = new AIFile;
+                    
                     $AIFile->fill($downloadAIFile->getFileAttributes($file));
 
                     $AIFile->save();
