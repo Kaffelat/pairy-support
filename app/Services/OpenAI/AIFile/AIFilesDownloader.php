@@ -24,8 +24,8 @@ class AIFilesDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
-        $AIFile = new AIFile;
         $downloadAIFile = new DownloadAIFiles;
+        $AIFile = new AIFile;
         
         #For every file that's on the users account look if it's already inside the database
         #If it is update it else make a new AIFile in the database

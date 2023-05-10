@@ -24,9 +24,8 @@ class AIModelDownloader
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
         $downloadAIModel = new DownloadAIModel;
-        
+
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
-            $aiModel = new AIModel;
             
             $aiModel = AIModel::firstOrCreate([
                 'openai_id' => $openAIModel->id,

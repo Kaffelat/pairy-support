@@ -8,7 +8,6 @@ class DownloadAIModel
 {
     public function getAIModelAttributes(object $openAIModel): array
     {
-
         return [
             'ai_file_id' => $this->getFileId($openAIModel),
             'type'      => $openAIModel->model,
