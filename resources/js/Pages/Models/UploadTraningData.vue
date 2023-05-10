@@ -12,7 +12,7 @@ import { Head } from '@inertiajs/vue3';
         </template>
         
         <div>
-            <form @submit.prevent="submitForm">
+            <form id="formID" @submit.prevent="submitForm">
                 <div v-if="showAlert" class="alert" :class="alertClass">
                     {{ alertMessage }}
                 </div>
