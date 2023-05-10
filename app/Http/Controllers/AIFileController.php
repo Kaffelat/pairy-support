@@ -21,7 +21,7 @@ class AIFileController extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     #Henter alle filer på OpenAI
-    public function testGetAllFiles(AIFileService $aiFileService): Collection
+    public function GetAllFiles(AIFileService $aiFileService): Collection
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
 
@@ -29,21 +29,21 @@ class AIFileController extends BaseController
     }
 
     #Henter en specifik fil
-    public function testGetAFile(AIFileService $aiFileService): stdClass
+    public function GetAFile(AIFileService $aiFileService): stdClass
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
         return $aiFileDownloader->getAFile();
     }
 
     #Viser indeholdet i en bestemt fil
-    public function testGetInfoAboutAFile(AIFileService $aiFileService): stdClass
+    public function GetInfoAboutAFile(AIFileService $aiFileService): stdClass
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
         return $aiFileDownloader->getInfoAboutAFile();
     }
 
     #uploader en ny fil
-    public function testUploadAFile(Request $request ,AIFileService $aiFileService): stdClass
+    public function UploadAFile(Request $request ,AIFileService $aiFileService): stdClass
     {
         $uploadAIFiles = new UploadAIFiles($aiFileService);
 
@@ -51,7 +51,7 @@ class AIFileController extends BaseController
     }
 
     #sletter en fil
-    public function testDeleteAFile(String $openaiFileId, AIFileService $aiFileService): stdClass
+    public function DeleteAFile(String $openaiFileId, AIFileService $aiFileService): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
