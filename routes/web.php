@@ -19,6 +19,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/test', [Controller::class,'test']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -35,9 +36,6 @@ Route::get('/file/download', [AIFileController::class, 'GetAllFiles']);
 
 #Gets one file from OpenAI
 Route::get('/file/get', [AIFileController::class, 'GetAFile']);
-
-#Gets the information about a file from OpenAI
-Route::get('/file/getone', [AIFileController::class, 'GetInfoAboutAFile']);
 
 #Uploads a file to OpenAI
 Route::post('/file/upload', [AIFileController::class, 'UploadAFile']);

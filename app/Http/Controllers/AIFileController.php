@@ -38,14 +38,6 @@ class AIFileController extends BaseController
         return $aiFileDownloader->getAFile();
     }
 
-    /**
-    * Gets information about a file
-    */
-    public function GetInfoAboutAFile(AIFileService $aiFileService): stdClass
-    {
-        $aiFileDownloader = new AIFilesDownloader($aiFileService);
-        return $aiFileDownloader->getInfoAboutAFile();
-    }
 
     /**
     * Uploads a new file to OpenAI

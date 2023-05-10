@@ -42,7 +42,7 @@ class AIFileService
     }
 
     /**
-    * Makes a new Model in OpenAI
+    * Deletes a file on your openai account
     */
     public function deleteAFile(Client $client, String $fileId): stdClass
     {
@@ -52,7 +52,7 @@ class AIFileService
     }
 
     /**
-    * Makes a new Model in OpenAI
+    * Lists all the files that's on your OpenAI account
     */
     public function listAllFiles(Client $client): stdClass
     {
@@ -61,6 +61,9 @@ class AIFileService
         return (object)(array)$response; 
     }
 
+    /**
+    * Gets a single file from your OpenAI account
+    */
     public function getAFile(Client $client, String $fileId): stdClass
     {
         $response = $client->files()->retrieve($fileId);
@@ -68,8 +71,4 @@ class AIFileService
         return (object)(array)$response;
     }
 
-    public function getInfoAboutAFile(Client $client, String $fileId): stdClass
-    {
-        return (object)(array)$client->files()->download($fileId);
-    }
 }

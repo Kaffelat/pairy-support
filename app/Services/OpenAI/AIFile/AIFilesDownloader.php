@@ -31,7 +31,6 @@ class AIFilesDownloader
         #If it is update it else make a new AIFile in the database
         foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
             try {
-
                 if ($AIFile::where('openai_id',$file->id)->count() > 0) {
                     
                     $downloadAIFile->updateAFileInDB($file, $AIFile);
@@ -58,14 +57,6 @@ class AIFilesDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return $this->aiFileService->getAFile($client, 'file-RfkFMyYoI0kcTcSynRFAfbmM');
+        return $this->aiFileService->getAFile($client, 'file-gITJFXdlbvu2yruRPf8I6aNd');
     }
-
-    #Gets information about a file by using it's OpenAI id
-    public function getInfoAboutAFile(): stdClass
-    {
-        $client = OpenAI::client(Auth::user()->openai_api_key);
-
-        return $this->aiFileService->getInfoAboutAFile($client, 'file-RfkFMyYoI0kcTcSynRFAfbmM');
-    }
-    }
+}
