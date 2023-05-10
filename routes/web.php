@@ -28,41 +28,38 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-#<------This is test routes------->
-
-#<------This is file test routes------->
+#<------This is file routes------->
 
 #Shows all files on OpenAI
-Route::get('/test/download', [AIFileController::class, 'testGetAllFiles']);
+Route::get('/file/download', [AIFileController::class, 'GetAllFiles']);
 
 #Gets one file from OpenAI
-Route::get('/test/get', [AIFileController::class, 'testGetAFile']);
+Route::get('/file/get', [AIFileController::class, 'GetAFile']);
 
 #Gets the information about a file from OpenAI
-Route::get('/test/getone', [AIFileController::class, 'testGetInfoAboutAFile']);
+Route::get('/file/getone', [AIFileController::class, 'GetInfoAboutAFile']);
 
 #Uploads a file to OpenAI
-Route::post('/test/upload', [AIFileController::class, 'testUploadAFile']);
+Route::post('/file/upload', [AIFileController::class, 'UploadAFile']);
 
 #Deletes a file from OpenAI
-Route::delete('/test/delete/{id}', [AIFileController::class, 'testDeleteAFile']);
+Route::delete('/file/delete/{id}', [AIFileController::class, 'DeleteAFile']);
 
-#<-----This is finetune models test routes------->
+#<-----This is finetune models routes------->
 
 #Gets all models a user has made at OpenAI
-Route::get('/test/model/download', [AIModelController::class, 'getAllModels']);
+Route::get('/model/download', [AIModelController::class, 'getAllModels']);
 
 #Gets a single ai model
-Route::get('/test/model/get', [AIModelController::class, 'getInfoAboutModel']);
+Route::get('/model/get', [AIModelController::class, 'getInfoAboutModel']);
 
 #Makes a new finetune model at OpenAI
-Route::post('/test/model/upload', [AIModelController::class, 'makeAIModel']);
+Route::post('/model/upload', [AIModelController::class, 'makeAIModel']);
 
 #deletes a finetune model
-Route::delete('/test/model/delete/{id}', [AIModelController::class, 'deleteModel']);
+Route::delete('/model/delete/{id}', [AIModelController::class, 'deleteModel']);
 
-
-#<-------Test routes stops here-------->
+#<------- This is the view routes ------->
 
 Route::get('/models/seeModels', [OpenAIController::class, 'seeModels'])->name('models.seeModels');
 

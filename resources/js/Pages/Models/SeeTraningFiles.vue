@@ -68,14 +68,14 @@ export default {
     },
     methods: {
         getAIFilesaiFiles() {
-            axios.get('/test/download').then(res =>{
+            axios.get('/file/download').then(res =>{
                 this.aiFiles = res.data
             });
         },
         deleteFile(openai_id) {
             console.log(openai_id)
             
-            axios.delete('/test/delete/' + openai_id).then(res => {
+            axios.delete('/file/delete/' + openai_id).then(res => {
                 this.getAIFilesaiFiles();
             })
         }

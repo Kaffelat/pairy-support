@@ -55,7 +55,7 @@ export default {
 
       formData.append('file', this.selectedFile);
 
-      axios.post('/test/upload', formData)
+      axios.post('/file/upload', formData)
         .then(res => {
             this.$refs.fileInput.value = '';
 

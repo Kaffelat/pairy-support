@@ -64,7 +64,7 @@ export default {
                 learningRate: this.learningRate,
                 promtLoss: this.promtLoss
             };
-            axios.post('/test/model/upload', data).then(res => {
+            axios.post('/model/upload', data).then(res => {
                 console.log(res.data)
             });
         }

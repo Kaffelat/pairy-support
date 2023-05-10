@@ -66,14 +66,14 @@ export default {
     },
     methods: {
         getModels() {
-            axios.get('/test/model/download').then(res =>{
+            axios.get('/model/download').then(res =>{
                 this.aiModels = res.data
             });
         },
         deleteModels(openai_id) {
             console.log(openai_id)
             
-            axios.delete('/test/model/delete/' + openai_id).then(res => {
+            axios.delete('/model/delete/' + openai_id).then(res => {
                 this.getModels();
             })
         }
