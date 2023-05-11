@@ -32,7 +32,7 @@ class AIModelController extends BaseController
     /**
     * Makes a new Model
     */
-    public function makeAIModel(Request $request ,AIModelService $aiModelService): stdClass
+    public function makeAIModel(Request $request, AIModelService $aiModelService): stdClass
     {
         $aiModelUploader = new UploadAIModel($aiModelService);
         
