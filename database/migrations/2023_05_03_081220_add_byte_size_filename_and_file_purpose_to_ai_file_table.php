@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('ai_file', function (Blueprint $table) {
             $table->string('name')->after('user_id');
-            $table->string('file_purpose')->after('traning');
-            $table->integer('byte_size')->after('data');
+            $table->string('file_purpose')->after('name');
+            $table->integer('byte_size')->after('name');
         });
     }
 
