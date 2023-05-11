@@ -1,14 +1,13 @@
 <?php
 namespace App\Services\OpenAI;
 
-use App\Models\AIFile;
-use App\Models\AIModelValidation;
+use App\Models\AIValidationFile;
 use Illuminate\Support\Facades\Auth;
 
-class DownloadAIModelValidation
+class DownloadAIValidationFile
 {
 
-    public function getAIModelValidationFileAttributes(object $file): array
+    public function getAIValidationFileAttributes(object $file): array
     {
         return [
             'openai_id' => $file->id,
@@ -19,7 +18,7 @@ class DownloadAIModelValidation
         ];
     }
 
-    public function updateAValidationFileInDB(object $file, AIModelValidation $aiFile): void
+    public function updateAValidationFileInDB(object $file, AIValidationFile $aiFile): void
     {
         $aiFile::where('openai_id',$file->id)->update([ 
             'openai_id' => $file->id,

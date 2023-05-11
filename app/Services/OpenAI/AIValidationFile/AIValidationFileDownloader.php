@@ -2,13 +2,14 @@
 namespace App\Services\OpenAI;
 
 use App\Models\AIModelValidation;
+use App\Models\AIValidationFile;
 use App\Services\OpenAI\AIFile\AIFileService;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
 
-class AIModelValidationDownloader 
+class AIValidationFileDownloader 
 {
     protected $aiFileService;
 
@@ -21,24 +22,24 @@ class AIModelValidationDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
-        $downloadAIModelValidation= new DownloadAIModelValidation;
-        $aiModelValidation = new AIModelValidation;
+        $downloadAIValidationFile = new DownloadAIValidationFile;
+        $aiValidationFile = new AIValidationFile;
         
         #For every file that's on the users account, look if it's already inside the database
-        #If it is, update it else make a new$aiModelValidation in the database
+        #If it is, update it else make a new$aiValidationFile in the database
         foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
             try {
                 if ($file->purpose == "fine-tune-results") { 
-                    if ($aiModelValidation::where('openai_id',$file->id)->count() > 0) {
+                    if ($aiValidationFile::where('openai_id',$file->id)->count() > 0) {
                         
-                        $downloadAIModelValidation->updateAValidationFileInDB($file, $aiModelValidation);
+                        $downloadAIValidationFile->updateAValidationFileInDB($file, $aiValidationFile);
                     }
                     else {
-                        $aiModelValidation = new AIModelValidation;
+                        $aiValidationFile = new AIValidationFile;
                         
-                        $aiModelValidation->fill($downloadAIModelValidation->getAIModelValidationFileAttributes($file));
+                        $aiValidationFile->fill($downloadAIValidationFile->getAIValidationFileAttributes($file));
                         
-                        $aiModelValidation->save();
+                        $aiValidationFile->save();
                     }
                 }
             }
@@ -46,6 +47,6 @@ class AIModelValidationDownloader
                 throw $e;
             }
         }
-        return$aiModelValidation::all();
+        return AIValidationFile::all();
     }
 }
