@@ -18,11 +18,9 @@ class AIModelValidation extends Model
     * The attributes that are mass assignable.
     */
     protected $fillable = [
-        'traning_loss',
-        'traning_sequence_accuracy',
-        'traning_token_accuracy',
-        'elapsed_tokens',
-        'elapsed_examples'
+        'ai_model_id',
+        'ai_file_id',
+        'openai_id'
     ];
 
     /**
