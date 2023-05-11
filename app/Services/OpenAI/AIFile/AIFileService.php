@@ -71,4 +71,11 @@ class AIFileService
         return (object)(array)$response;
     }
 
+    public function getOneAFile(Client $client, String $fileId): stdClass
+    {
+        $response = $client->files()->download($fileId);
+
+        return (object)(array)$response;
+    }
+
 }
