@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->foreignId('ai_file_id')->nullable();
             $table->integer('epochs')->nullable();
-            $table->integer('max_tokens')->nullable();
-            $table->integer('temparture')->nullable();
+            $table->integer('batch_size')->nullable();
+            $table->float('learning_rate_multiplier')->nullable();
+            $table->float('prompt_loss_weight')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

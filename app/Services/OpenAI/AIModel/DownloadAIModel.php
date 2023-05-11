@@ -12,9 +12,9 @@ class DownloadAIModel
             'ai_file_id' => $this->getFileId($openAIModel),
             'type'      => $openAIModel->model,
             'epochs'    => $openAIModel->hyperparams->nEpochs,
-            // 'batchSize'=> $openAIModel->hyperparams->batchSize,
-            // 'learningRateMultiplier'=> $openAIModel->hyperparams->learningRateMultiplier,
-            // 'promptLossWeight' => $openAIModel->hyperparams->promptLossWeight,
+            'batch_size'=> $openAIModel->hyperparams->batchSize,
+            'learning_rate_multiplier'=> $openAIModel->hyperparams->learningRateMultiplier,
+            'prompt_loss_weight' => $openAIModel->hyperparams->promptLossWeight,
         ];
     }
     

@@ -23,8 +23,9 @@ class AIModel extends Model
         'openai_id',
         'type',
         'epochs',
-        'max_tokens',
-        'temparture',
+        'batch_size',
+        'learning_rate_multiplier',
+        'prompt_loss_weight'
     ];
 
     protected $typeList = [
