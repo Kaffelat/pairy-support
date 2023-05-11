@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ai_model_validations', function (Blueprint $table) {
+        Schema::create('ai_validation_files', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ai_model_id');
             $table->foreignId('ai_file_id');
             $table->string('openai_id');
+            $table->integer('byte_size');
+            $table->string('file_purpose');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

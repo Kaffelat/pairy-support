@@ -32,25 +32,26 @@ class AIFilesDownloader
 
         foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
             try {
-                if ($AIFile::where('openai_id',$file->id)->count() > 0) {
-                    
-                    $downloadAIFile->updateAFileInDB($file, $AIFile);
-                }
-                else {
-                    $AIFile = new AIFile;
-                    
-                    $AIFile->fill($downloadAIFile->getFileAttributes($file));
+                if ($file->purpose != "fine-tune-results") { 
 
-                    $AIFile->save();
+                    if ($AIFile::where('openai_id',$file->id)->count() > 0) {
+                        
+                        $downloadAIFile->updateAFileInDB($file, $AIFile);
+                    }
+                    else {
+                        $AIFile = new AIFile;
+                        
+                        $AIFile->fill($downloadAIFile->getFileAttributes($file));
+                        
+                        $AIFile->save();
+                    }
                 }
             }
             catch (Exception $e) {
                 throw $e;
             }
         }
-
         return AIFile::all();
-
     }
 
     #Gets a single file by using it's OpenAI id
@@ -58,6 +59,13 @@ class AIFilesDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return $this->aiFileService->getAFile($client, 'file-gITJFXdlbvu2yruRPf8I6aNd');
+        return $this->aiFileService->getAFile($client, 'file-c3noJiDFH6ZjIHsSfsO0EiKm');
+    }
+    
+    public function test(): stdClass
+    {
+        $client = OpenAI::client(Auth::user()->openai_api_key);
+
+        return $this->aiFileService->getOneAFile($client, 'file-c3noJiDFH6ZjIHsSfsO0EiKm');
     }
 }

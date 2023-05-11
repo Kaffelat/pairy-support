@@ -20,7 +20,9 @@ class AIModelValidation extends Model
     protected $fillable = [
         'ai_model_id',
         'ai_file_id',
-        'openai_id'
+        'openai_id',
+        'byte_size',
+        'file_purpose'
     ];
 
     /**

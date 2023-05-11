@@ -27,7 +27,7 @@ class AIModelDownloader
 
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
             
-            $aiModel = AIModel::firstOrCreate([
+            $aiModel = AIModel::firstOrCreate ([
                 'openai_id' => $openAIModel->id,
                 'user_id' =>  Auth::user()->id
             ]);
@@ -49,13 +49,13 @@ class AIModelDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return $this->aiModelService->getAModel($client, 'curie:ft-personal-2023-04-19-10-55-48');
+        return $this->aiModelService->getAModel($client, 'curie:ft-personal-2023-05-10-13-38-59');
     }
 
     public function getInfoAboutModel(): object
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return $this->aiModelService->getInfoAboutModel($client,'ft-Yu6XSuF2sGhE851v9VEDLpsM');
+        return $this->aiModelService->getInfoAboutModel($client,'ft-oBC2C1HzgsewD8GAhRUPVct4');
     }
 }
