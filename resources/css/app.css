@@ -11,6 +11,18 @@
 {
   text-align: center;
 }
+#formID {
+  max-width: 420px;
+  margin: auto;
+  background: grey;
+  text-align: left;
+  padding: 5px;
+  border-radius: 15px;
+}
+
+#td {
+  min-width: 300px;
+}
 
 table {
     font-family: 'Open Sans', sans-serif;
@@ -32,18 +44,11 @@ table th {
 table td {
   text-align: center;
   padding: 8px;
-  border-left: 2px solid #7D82A8;
-  border-top: 2px solid #7D82A8;
+  border-left: 3px solid #7D82A8;
+  border-right: 3px solid #7D82A8;
+  border-top: 3px solid #7D82A8;
 }
 
-#formID {
-  max-width: 420px;
-  margin: auto;
-  background: grey;
-  text-align: left;
-  padding: 5px;
-  border-radius: 15px;
-}
 
 label {
   color: black;

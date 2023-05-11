@@ -29,7 +29,7 @@ import axios from 'axios';
                     <tbody v-if="this.aiFiles.length > 0">
                         <tr v-for="(aiFiles) in this.aiFiles">
                             <td>{{aiFiles.id}}</td>
-                            <td>{{aiFiles.openai_id}}</td>
+                            <td id="td">{{aiFiles.openai_id}}</td>
                             <td>{{aiFiles.user_id}}</td>
                             <td>{{aiFiles.name}}</td>
                             <td>{{aiFiles.byte_size}}</td>
