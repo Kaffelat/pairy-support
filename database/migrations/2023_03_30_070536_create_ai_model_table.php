@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('openai_id')->unique();
-            $table->string('type')->nullable();
             $table->foreignId('ai_file_id')->nullable();
+            $table->string('type')->nullable();
             $table->integer('epochs')->nullable();
             $table->integer('batch_size')->nullable();
             $table->float('learning_rate_multiplier')->nullable();
