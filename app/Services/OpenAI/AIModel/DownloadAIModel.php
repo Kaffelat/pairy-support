@@ -21,10 +21,10 @@ class DownloadAIModel
     public function getFileId(object $openAIModel): ?int
     {
         foreach ($openAIModel->trainingFiles as $traningFile) {
-                if ($file = AIFile::where('openai_id', $traningFile->id)->first()) {
-                    return $file->id;
-                }
-                return null;
+            if ($file = AIFile::where('openai_id', $traningFile->id)->first()) {
+                return $file->id;
+            }
+            return null;
         }
     }
     
