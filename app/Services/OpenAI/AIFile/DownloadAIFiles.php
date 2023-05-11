@@ -15,10 +15,6 @@ class DownloadAIFiles
             'user_id'   => Auth::user()->id,
             'name'      => $file->filename,
             'byte_size' => $file->bytes,
-            'data'      => json_encode(['test for nu']),
-            'tokens'    => 0,
-            'validering' => 0,
-            'traning'   => 1,
             'file_purpose' => $file->purpose
         ];
     }

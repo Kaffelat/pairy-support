@@ -21,18 +21,8 @@ class AIFile extends Model
         'openai_id',
         'user_id',
         'name',
-        'data',
         'byte_size',
-
-        'tokens',
-        'validering',
-        'traning',
         'file_purpose'
-    ];
-
-    protected $casts = [
-        'traning' => 'bool',
-        'validering' => 'bool',
     ];
 
     /**

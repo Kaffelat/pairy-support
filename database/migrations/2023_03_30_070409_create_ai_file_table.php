@@ -15,10 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('openai_id');
             $table->foreignId('user_id');
-            $table->json('data');
-            $table->integer('tokens');
-            $table->boolean('validering');
-            $table->boolean('traning');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
