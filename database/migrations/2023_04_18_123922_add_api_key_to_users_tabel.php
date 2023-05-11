@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string(column:'openai_api_key')->nullable()->after('id');
+            $table->string('openai_api_key')->nullable()->after('id');
         });
     }
 

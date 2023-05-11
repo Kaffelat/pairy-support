@@ -15,11 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ai_model_id');
             $table->foreignId('ai_file_id');
-            $table->integer('traning_loss');
-            $table->integer('traning_sequence_accuracy');
-            $table->integer('traning_token_accuracy');
-            $table->integer('elapsed_tokens');
-            $table->integer('elapsed_examples');
+            $table->string('openai_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
