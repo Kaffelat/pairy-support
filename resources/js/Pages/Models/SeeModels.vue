@@ -20,11 +20,7 @@ import axios from 'axios';
                         <th>Id</th>
                         <th>OpenAI ID</th>
                         <th>Owner ID</th>
-                        <th>AIFile ID</th>
                         <th>Type</th>
-                        <th>Batch Size</th>
-                        <th>Learning Rate Multiplier</th>
-                        <th>Promt Loss Weight</th>
                         <th></th>
                         </tr>
                     </thead>
@@ -33,11 +29,7 @@ import axios from 'axios';
                             <td>{{aiModels.id}}</td>
                             <td id="td">{{aiModels.openai_id}}</td>
                             <td>{{aiModels.user_id}}</td>
-                            <td>{{aiModels.ai_file_id ? aiModels.ai_file_id : 'Kunne ikke finde filen i databasen'}}</td>
                             <td>{{aiModels.type}}</td>
-                            <td>{{aiModels.batch_size}}</td>
-                            <td>{{aiModels.learning_rate_multiplier}}</td>
-                            <td>{{aiModels.prompt_loss_weight}}</td>
                             <td>
                                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded" @click="deleteModels(aiModels.openai_id)">
                                     Delete
@@ -47,7 +39,7 @@ import axios from 'axios';
                     </tbody>
                     <tbody v-else>
                         <tr>
-                            <td colspan="9">
+                            <td colspan="5">
                                 Loading...
                             </td>
                         </tr>
@@ -68,12 +60,18 @@ export default {
         }
     },
     mounted() {
+        this.getFiles();
         this.getModels();
     },
     methods: {
         getModels() {
             axios.get('/model/download').then(res =>{
                 this.aiModels = res.data
+            });
+        },
+        getFiles() {
+            axios.get('/file/download').then(res =>{
+                this.aiFiles = res.data
             });
         },
         deleteModels(openai_id) {
