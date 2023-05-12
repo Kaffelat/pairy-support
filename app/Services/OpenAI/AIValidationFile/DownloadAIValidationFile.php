@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\OpenAI;
+namespace App\Services\OpenAI\AIValidationFile;
 
 use App\Models\AIValidationFile;
 use Illuminate\Support\Facades\Auth;
@@ -11,18 +11,20 @@ class DownloadAIValidationFile
     {
         return [
             'openai_id' => $file->id,
-            'user_id'   => Auth::user()->id,
+            'ai_model_id' => $this->getAIModelID($file),
+            'ai_file_id' => $this->getAIFileID($file),
             'name'      => $file->filename,
             'byte_size' => $file->bytes,
             'file_purpose' => $file->purpose
         ];
     }
 
-    public function updateAValidationFileInDB(object $file, AIValidationFile $aiFile): void
+    public function updateAValidationFileInDB(object $file): void
     {
-        $aiFile::where('openai_id',$file->id)->update([ 
+        AIValidationFile::where('openai_id',$file->id)->update([ 
             'openai_id' => $file->id,
-            'user_id'   => Auth::user()->id,
+            'ai_model_id' => $this->getAIModelID($file),
+            'ai_file_id' => $this->getAIFileID($file),
             'name'      => $file->filename,
             'byte_size' => $file->bytes,
             'file_purpose' => $file->purpose
@@ -30,4 +32,16 @@ class DownloadAIValidationFile
         
     }
 
+    public function getAIModelID(object $file): string
+    {
+        $aiValidationFileService = new AIValidationFileService;
+
+        
+        return '';
+    }
+
+    public function getAIFileID(object $file): string
+    {
+        return '';
+    }
 }

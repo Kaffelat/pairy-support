@@ -20,6 +20,7 @@ use Inertia\Inertia;
 |
 */
 Route::get('/test', [Controller::class,'test']);
+Route::get('/test/validation', [Controller::class,'testGetAIValidationFiles']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

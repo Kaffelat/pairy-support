@@ -1,9 +1,7 @@
 <?php
-namespace App\Services\OpenAI;
+namespace App\Services\OpenAI\AIValidationFile;
 
-use App\Models\AIModelValidation;
 use App\Models\AIValidationFile;
-use App\Services\OpenAI\AIFile\AIFileService;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -11,11 +9,11 @@ use OpenAI;
 
 class AIValidationFileDownloader 
 {
-    protected $aiFileService;
+    protected $aiValidationFileService;
 
-    public function __construct(AIFileService $aiFileService)
+    public function __construct(AIValidationFileService $aiValidationFileService)
     {
-        $this->aiFileService = $aiFileService;
+        $this->aiValidationFileService = $aiValidationFileService;
     }
 
     public function getAllValidationFiles(): Collection
@@ -27,7 +25,7 @@ class AIValidationFileDownloader
         
         #For every file that's on the users account, look if it's already inside the database
         #If it is, update it else make a new$aiValidationFile in the database
-        foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
+        foreach ($this->aiValidationFileService->listAllFiles($client)->data as $file) {
             try {
                 if ($file->purpose == "fine-tune-results") { 
                     if ($aiValidationFile::where('openai_id',$file->id)->count() > 0) {

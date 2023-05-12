@@ -19,9 +19,9 @@ class DownloadAIFiles
         ];
     }
 
-    public function updateAFileInDB(object $file, AIFile $aiFile): void
+    public function updateAFileInDB(object $file): void
     {
-        $aiFile::where('openai_id',$file->id)->update([ 
+        AIFile::where('openai_id',$file->id)->update([ 
             'openai_id' => $file->id,
             'user_id'   => Auth::user()->id,
             'name'      => $file->filename,

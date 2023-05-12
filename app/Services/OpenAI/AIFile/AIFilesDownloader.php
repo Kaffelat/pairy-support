@@ -25,7 +25,6 @@ class AIFilesDownloader
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
         $downloadAIFile = new DownloadAIFiles;
-        $AIFile = new AIFile;
         
         #For every file that's on the users account look if it's already inside the database
         #If it is update it else make a new AIFile in the database
@@ -34,9 +33,9 @@ class AIFilesDownloader
             try {
                 if ($file->purpose != "fine-tune-results") { 
 
-                    if ($AIFile::where('openai_id',$file->id)->count() > 0) {
+                    if (AIFile::where('openai_id',$file->id)->count() > 0) {
                         
-                        $downloadAIFile->updateAFileInDB($file, $AIFile);
+                        $downloadAIFile->updateAFileInDB($file);
                     }
                     else {
                         $AIFile = new AIFile;

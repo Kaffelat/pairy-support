@@ -12,7 +12,7 @@ class AIValidationFile extends Model
 {
     use HasFactory;
 
-    protected $table = 'ai_model_validation';
+    protected $table = 'ai_validation_files';
 
     /**
     * The attributes that are mass assignable.
