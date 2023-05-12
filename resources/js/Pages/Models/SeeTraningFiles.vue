@@ -64,10 +64,10 @@ export default {
         }
     },
     mounted() {
-        this.getAIFilesaiFiles();
+        this.getFiles();
     },
     methods: {
-        getAIFilesaiFiles() {
+        getFiles() {
             axios.get('/file/download').then(res =>{
                 this.aiFiles = res.data
             });
