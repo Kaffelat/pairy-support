@@ -14,7 +14,7 @@ class AIFileService
     public function uploadAFile(Client $client, Request $request): mixed
     {
         $file = $request->file('file');
-
+        
         try {
             $handle = fopen($file->getPathname(), 'r');
 

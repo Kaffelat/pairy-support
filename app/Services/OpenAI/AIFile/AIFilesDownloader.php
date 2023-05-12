@@ -2,6 +2,9 @@
 namespace App\Services\OpenAI\AIFile;
 
 use App\Models\AIFile;
+
+use App\Models\AIModelResultFile;
+use App\Services\OpenAI\AIFile\AIModelResultFile\DownloadAIModelResultFile;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +28,7 @@ class AIFilesDownloader
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
         $downloadAIFile = new DownloadAIFiles;
-        
+        $downloadAIModelResult = new DownloadAIModelResultFile;
         #For every file that's on the users account look if it's already inside the database
         #If it is update it else make a new AIFile in the database
 
@@ -45,6 +48,14 @@ class AIFilesDownloader
                         $AIFile->save();
                     }
                 }
+                // else {
+
+                //     $aiModelResultFile = new AIModelResultFile;
+
+                //     $aiModelResultFile->fill($downloadAIModelResult->GetAIModelResultFileAttributes($file));
+
+                //     $aiModelResultFile->save();
+                // }
             }
             catch (Exception $e) {
                 throw $e;

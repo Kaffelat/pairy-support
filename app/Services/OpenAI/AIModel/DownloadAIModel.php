@@ -9,28 +9,26 @@ class DownloadAIModel
     public function getAIModelAttributes(object $openAIModel): array
     {
         return [
-            'ai_file_id' => $this->getFileId($openAIModel),
-            'type'      => $openAIModel->model,
-            'epochs'    => $openAIModel->hyperparams->nEpochs,
-            'batch_size'=> $openAIModel->hyperparams->batchSize,
-            'learning_rate_multiplier'=> $openAIModel->hyperparams->learningRateMultiplier,
-            'prompt_loss_weight' => $openAIModel->hyperparams->promptLossWeight,
+            'type' => $this->getAIModelsModel($openAIModel),
         ];
     }
     
     public function getFileId(object $openAIModel): ?int
     {
-        foreach ($openAIModel->trainingFiles as $traningFile) {
-            if ($file = AIFile::where('openai_id', $traningFile->id)->first()) {
-                return $file->id;
-            }
-            return null;
+        if ($file = AIFile::where('openai_id', $openAIModel->trainingFiles[0]->id)->first()) {
+            return $file->id;
         }
-    }
-    
-    public function customHandler(object $openAIModel) 
-    { 
+        return null;
         
+    }
+
+    public function getAIModelsModel(object $openAIModel)
+    {
+        $id = $openAIModel->id;
+
+        $exploded = explode(":", $id);
+
+        return $exploded[0];
     }
 
 }

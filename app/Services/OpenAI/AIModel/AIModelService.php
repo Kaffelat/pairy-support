@@ -57,7 +57,7 @@ class AIModelService
     /**
     * Lists all models on OpenAI
     */
-    public function listAllModelsWithInfo(Client $client): stdClass
+    public function listAllFineTuneJobs(Client $client): stdClass
     {
         $response = $client->fineTunes()->list();
         

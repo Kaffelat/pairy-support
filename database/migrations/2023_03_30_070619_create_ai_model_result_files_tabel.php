@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ai_validation_files', function (Blueprint $table) {
+        Schema::create('ai_model_result_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ai_model_id');
-            $table->foreignId('ai_file_id');
-            $table->string('openai_id');
+            $table->string('openai_id')->unique();
             $table->integer('byte_size');
             $table->string('file_purpose');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
-
-            $table->foreign('ai_model_id')->references('id')->on('ai_models');
-            $table->foreign('ai_file_id')->references('id')->on('ai_file');
         });
     }
 
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ai_validation_files');
+        Schema::dropIfExists('ai_model_results');
     }
 };

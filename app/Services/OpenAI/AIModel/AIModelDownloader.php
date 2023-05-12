@@ -2,8 +2,10 @@
 namespace App\Services\OpenAI\AIModel;
 
 use App\Models\AIModel;
+use App\Models\FineTuneJob;
 use App\Services\OpenAI\AIModel\AIModelService;
 use App\Services\OpenAI\AIModel\DownloadAIModel;
+use App\Services\OpenAI\AIModel\FineTuneJob\DownloadFineTuneJob;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -24,24 +26,34 @@ class AIModelDownloader
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
         $downloadAIModel = new DownloadAIModel;
+        $downloadFineTuneJob = new DownloadFineTuneJob;
 
+        //dd($this->aiModelService->listAllModels($client));
+        //dd($this->aiModelService->listAllFineTuneJobs($client));
+        
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
             
             $aiModel = AIModel::firstOrCreate ([
                 'openai_id' => $openAIModel->id,
                 'user_id' =>  Auth::user()->id
             ]);
-      
-            foreach ($this->aiModelService->listAllModelsWithInfo($client)->data as $modelInfo) {
-                if ($modelInfo->fineTunedModel == $aiModel->openai_id) {
 
-                    $aiModel->fill($downloadAIModel->getAIModelAttributes($modelInfo));
-                    
-                    $aiModel->save();
-                }
-            }
-               
-        }
+            $aiModel->fill($downloadAIModel->getAIModelAttributes($openAIModel));
+            $aiModel->save();
+            
+        //     foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
+        //         if ($jobInfo->fineTunedModel == $aiModel->openai_id) {
+
+        //             $fineTuneJob = FineTuneJob::firstOrCreate ([
+        //                 'openai_id' => $jobInfo->id,
+        //             ]);
+
+        //             $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo));
+        //             $fineTuneJob->save();
+        //     }
+        // }
+    }  
+        
         return AIModel::all();
     }    
 

@@ -32,23 +32,6 @@ class AIModel extends Model
         'davinci',
         'curie'
     ];
-
-
-    /**
-    * Relation to Model Data
-    */
-    public function modelData(): HasMany
-    {
-        return $this->hasMany(ModelData::class, 'model_data_id');
-    }
-    
-    /**
-    * Relation to Model Validation
-    */
-    public function modelValidation(): HasMany
-    {
-        return $this->hasMany(ModelValidation::class, 'model_validation_id');
-    }
     
     /**
     * Relation to Users

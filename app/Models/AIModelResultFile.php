@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class AIValidationFile extends Model
+class AIModelResultFile extends Model
 {
     use HasFactory;
 
-    protected $table = 'ai_validation_files';
+    protected $table = 'ai_model_result_files';
 
     /**
     * The attributes that are mass assignable.
@@ -28,9 +27,9 @@ class AIValidationFile extends Model
     /**
     * Relation to Model Data
     */
-    public function modelData(): HasOne
+    public function aiFile(): HasOne
     {
-        return $this->hasOne(ModelData::class, 'model_data_id');
+        return $this->hasOne(AIFile::class, 'ai_file_id');
     }
 
     /**
@@ -39,5 +38,10 @@ class AIValidationFile extends Model
     public function aiModel(): BelongsTo
     {
         return $this->belongsTo(AIModel::class, 'ai_model_id');
+    }
+
+    public function aiModelResultFile(): HasOne
+    {
+        return $this->hasOne(AIModelResultFile::class, 'ai_model_result_id');
     }
 }
