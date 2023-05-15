@@ -3,6 +3,7 @@
 use App\Http\Controllers\AIFileController;
 use App\Http\Controllers\AIModelController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FineTuneJobController;
 use App\Http\Controllers\OpenAIController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -44,7 +45,7 @@ Route::post('/file/upload', [AIFileController::class, 'UploadAFile']);
 #Deletes a file from OpenAI
 Route::delete('/file/delete/{id}', [AIFileController::class, 'DeleteAFile']);
 
-#<-----This is finetune models routes------->
+#<-----This is model routes------->
 
 #Gets all models a user has made at OpenAI
 Route::get('/model/download', [AIModelController::class, 'getAllModels']);
@@ -55,11 +56,16 @@ Route::get('/model/get', [AIModelController::class, 'getInfoAboutModel']);
 #Makes a new finetune model at OpenAI
 Route::post('/model/upload', [AIModelController::class, 'makeAIModel']);
 
-#Makes a new finetune model at OpenAI
-Route::get('/model/getone', [AIModelController::class, 'getInfoAboutModel']);
-
-#deletes a finetune model
+#Deletes a finetune model
 Route::delete('/model/delete/{id}', [AIModelController::class, 'deleteModel']);
+
+#<------- This is FineTuneJob routes ------->
+
+#Gets a single FineTuneJob
+Route::get('/fineTuneJob/getone', [FineTuneJobController::class, 'getAModelsFineTuneJobs']);
+
+#Gets all FineTuneJob that matches a model in the db
+Route::get('/fineTuneJob/download', [FineTuneJobController::class, 'getAllFineTuneJobs']);
 
 #<------- This is the view routes ------->
 

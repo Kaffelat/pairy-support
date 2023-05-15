@@ -1,9 +1,8 @@
 <?php
-namespace App\Services\OpenAI\AIFile;
+namespace App\Services\OpenAI\AIModelResultFile;
 
 use App\Models\AIModelResultFile;
 use App\Services\OpenAI\AIFile\AIFileService;
-use App\Services\OpenAI\AIFile\DownloadAIModelResultFile;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
 

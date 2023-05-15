@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\OpenAI\AIFile;
+namespace App\Services\OpenAI\AIModelResultFile;
 
 class DownloadAIModelResultFile
 {

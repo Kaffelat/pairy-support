@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\OpenAI\AIModel;
+namespace App\Services\OpenAI\FineTuneJob;
 
 use App\Models\AIModel;
 use App\Models\FineTuneJob;
@@ -17,10 +17,10 @@ class FineTuneJobDownloader
         $this->aiModelService = $aiFileService;
     }
 
-    public function getAllFineTuneJobs (): Collection
+    public function getAllFineTuneJobs(): Collection
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
-        
+
         $downloadFineTuneJob = new DownloadFineTuneJob;
         
         foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
@@ -36,5 +36,13 @@ class FineTuneJobDownloader
             }
         }
         return FineTuneJob::all();
+    }
+
+    public function getAFineTuneJob()
+    {
+        $client = OpenAI::client(Auth::user()->openai_api_key);
+
+        return $this->aiModelService->getAModelsFineTuneJobs($client,'ft-oBC2C1HzgsewD8GAhRUPVct4');
+        
     }
 }
