@@ -26,10 +26,6 @@ class AIModelDownloader
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
         $downloadAIModel = new DownloadAIModel;
-        $downloadFineTuneJob = new DownloadFineTuneJob;
-
-        //dd($this->aiModelService->listAllModels($client));
-        //dd($this->aiModelService->listAllFineTuneJobs($client));
         
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
             
@@ -40,19 +36,7 @@ class AIModelDownloader
 
             $aiModel->fill($downloadAIModel->getAIModelAttributes($openAIModel));
             $aiModel->save();
-            
-        //     foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
-        //         if ($jobInfo->fineTunedModel == $aiModel->openai_id) {
-
-        //             $fineTuneJob = FineTuneJob::firstOrCreate ([
-        //                 'openai_id' => $jobInfo->id,
-        //             ]);
-
-        //             $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo));
-        //             $fineTuneJob->save();
-        //     }
-        // }
-    }  
+        }  
         
         return AIModel::all();
     }    

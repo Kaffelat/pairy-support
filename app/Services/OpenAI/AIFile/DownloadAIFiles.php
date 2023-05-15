@@ -11,24 +11,10 @@ class DownloadAIFiles
     public function getFileAttributes(object $file): array
     {
         return [
-            'openai_id' => $file->id,
-            'user_id'   => Auth::user()->id,
             'name'      => $file->filename,
             'byte_size' => $file->bytes,
             'file_purpose' => $file->purpose
         ];
-    }
-
-    public function updateAFileInDB(object $file): void
-    {
-        AIFile::where('openai_id',$file->id)->update([ 
-            'openai_id' => $file->id,
-            'user_id'   => Auth::user()->id,
-            'name'      => $file->filename,
-            'byte_size' => $file->bytes,
-            'file_purpose' => $file->purpose
-        ]);
-        
     }
 
 }

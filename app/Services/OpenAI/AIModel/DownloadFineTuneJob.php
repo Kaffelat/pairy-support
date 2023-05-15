@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\OpenAI\AIModel\FineTuneJob;
+namespace App\Services\OpenAI\AIModel;
 
 use App\Models\AIFile;
 use App\Models\AIModel;
@@ -25,9 +25,10 @@ class DownloadFineTuneJob
     {
         $openaiModelId = $jobInfo->fineTunedModel;
         
-        $aiModel = AIModel::where('openai_id',$openaiModelId)->first();
-
-        return $aiModel->id;
+        if ($aiModel = AIModel::where('openai_id',$openaiModelId)->first()) {
+            return $aiModel->id;
+        };
+        return null;
     }
 
     public function getAIFileId(object $jobInfo)
@@ -43,9 +44,10 @@ class DownloadFineTuneJob
     {
         $openaiFileId = $jobInfo->resultFiles[0]->id;
 
-        $aiModelResultFile = AIModelResultFile::where('openai_id',$openaiFileId)->first();
-
-        return $aiModelResultFile->id;
+       if ($aiModelResultFile = AIModelResultFile::where('openai_id',$openaiFileId)->first()) {
+           return $aiModelResultFile->id;
+       };
+       return null;
     }
 
     public function getEvents(object $jobInfo)

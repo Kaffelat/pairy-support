@@ -74,6 +74,7 @@ class AIModelService
 
         try {
             foreach ($response->data as $result) {
+
                 if ($result->ownedBy != 'openai' && $result->ownedBy != 'openai-dev' && $result->ownedBy != 'openai-internal' && $result->ownedBy != 'system') {
                     array_push($modelsByOwner, $result);
                 }

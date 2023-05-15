@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ai_file', function (Blueprint $table) {
-            $table->string('name')->after('user_id');
-            $table->string('file_purpose')->after('name');
-            $table->integer('byte_size')->after('name');
+            $table->string('name')->after('user_id')->nullable();
+            $table->string('file_purpose')->after('name')->nullable();
+            $table->integer('byte_size')->after('name')->nullable();
         });
     }
 

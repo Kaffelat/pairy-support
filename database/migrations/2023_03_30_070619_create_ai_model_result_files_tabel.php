@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('ai_model_result_files', function (Blueprint $table) {
             $table->id();
             $table->string('openai_id')->unique();
-            $table->integer('byte_size');
-            $table->string('file_purpose');
+            $table->integer('byte_size')->nullable();
+            $table->string('file_purpose')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
