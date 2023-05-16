@@ -13,13 +13,6 @@ use OpenAI;
 */
 class OpenAIController extends Controller
 {   
-  public function index()
-  {
-    return Inertia::render('Models/Index', [
-      'ai_models' => AIModel::All()
-    ]);
-  }
- 
   public function seeModels()
   {
     return Inertia::render('Models/SeeModels');
@@ -45,4 +38,8 @@ class OpenAIController extends Controller
     return Inertia::render('Models/UploadTraningData');
   }
 
+  public function seeFineTuneJobs(string $id)
+  {
+    return Inertia::render('Models/SeeFineTuneJobs');
+  }
 }
