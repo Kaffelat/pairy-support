@@ -28,7 +28,7 @@ import axios from 'axios';
                     <tbody v-if="this.aiModels.length > 0">
                         <tr v-for="(aiModels) in this.aiModels">
                             <td>{{aiModels.id}}</td>
-                            <td id="td" class="openai-link" @click="redirectToModel(aiModels.openai_id)">{{aiModels.openai_id}}</td>
+                            <td id="td" class="openai-link" @click="redirectToFineTuneJobs(aiModels.openai_id)">{{aiModels.openai_id}}</td>
                             <td>{{aiModels.user_id}}</td>
                             <td>{{aiModels.type}}</td>
                             <td>
@@ -79,9 +79,9 @@ export default {
                 this.getModels();
             });
         },
-        redirectToModel(openai_id) {
-            console.log(openai_id);
-            this.$inertia.visit('/models/seeFineTuneJobs/' + openai_id);
+        redirectToFineTuneJobs(openai_id) {
+            const url = route('models.seeFineTuneJobs', {id: openai_id});
+            this.$inertia.visit(url);
         },
     }
 }

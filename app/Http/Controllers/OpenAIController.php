@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AIModel;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use OpenAI;
-
+use Illuminate\Http\Request;
 /**
 * Renders the views
 */
@@ -40,6 +39,6 @@ class OpenAIController extends Controller
 
   public function seeFineTuneJobs(string $id)
   {
-    return Inertia::render('Models/SeeFineTuneJobs');
+    return Inertia::render('Models/SeeFineTuneJobs', ['id' => $id]);
   }
 }

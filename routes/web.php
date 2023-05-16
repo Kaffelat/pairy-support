@@ -67,7 +67,7 @@ Route::get('/fineTuneJob/getone/{id}', [FineTuneJobController::class, 'getAModel
 #Gets all FineTuneJob that matches a model in the database
 Route::get('/fineTuneJob/download', [FineTuneJobController::class, 'getAllFineTuneJobs']);
 
-Route::get('/fineTuneJob/get/{id}', [FineTuneJobController::class, 'getAllFineTuneJobsForAModel']);
+Route::get('/fineTuneJob/get/{id}', [FineTuneJobController::class, 'getAllFineTuneJobsForAModel'])->name('fineTuneJob.get');
 
 #<------- This is the view routes ------->
 

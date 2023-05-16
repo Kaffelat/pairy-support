@@ -59,6 +59,9 @@ import { Head } from '@inertiajs/vue3';
 <script>
 
 export default {
+    props: {
+        id: String
+    },
     data() {
         return {
             fineTuneJobs: []
@@ -69,7 +72,7 @@ export default {
     },
     methods: {
         getFineTuneJobs() {
-            axios.get('/fineTuneJob/get/{id}' + openai_id).then(res =>{
+            axios.get('/fineTuneJob/get/' + this.id).then(res =>{
                 this.fineTuneJobs = res.data
             });
         },
