@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('ai_file', function (Blueprint $table) {
+        Schema::table('ai_files', function (Blueprint $table) {
             $table->string('name')->after('user_id')->nullable();
             $table->string('file_purpose')->after('name')->nullable();
             $table->integer('byte_size')->after('name')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('ai_file', function (Blueprint $table) {
+        Schema::table('ai_files', function (Blueprint $table) {
             $table->dropColumn('name');
             $table->dropColumn('file_purpose');
             $table->dropColumn('byte_size');

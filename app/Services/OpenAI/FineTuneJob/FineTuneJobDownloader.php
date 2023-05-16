@@ -22,7 +22,7 @@ class FineTuneJobDownloader
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
         $downloadFineTuneJob = new DownloadFineTuneJob;
-        
+
         foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
 
             if (AIModel::where('openai_id', $jobInfo->fineTunedModel)->first()) {
@@ -35,14 +35,27 @@ class FineTuneJobDownloader
                 $fineTuneJob->save();
             }
         }
+
         return FineTuneJob::all();
     }
 
-    public function getAFineTuneJob()
+    public function getAFineTuneJob(string $openAIModelId)
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return $this->aiModelService->getAModelsFineTuneJobs($client,'ft-oBC2C1HzgsewD8GAhRUPVct4');
+        return $this->aiModelService->getAModelsFineTuneJobs($client, $openAIModelId);
+    }
+
+    public function getAllFineTuneJobsForAModel(string $openAIModelId)
+    {
+        $client = OpenAI::client(Auth::user()->openai_api_key);
         
+        foreach ($this->aiModelService->listAllFineTuneJobs($client) as $a) {
+            
+            if ($aiModel = AIModel::where('openai_id', $openAIModelId)->first()) {
+
+                return FineTuneJob::where('ai_model_id',$aiModel->id)->get();
+            }
+        }
     }
 }

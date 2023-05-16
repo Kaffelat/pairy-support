@@ -62,10 +62,12 @@ Route::delete('/model/delete/{id}', [AIModelController::class, 'deleteModel']);
 #<------- This is FineTuneJob routes ------->
 
 #Gets a single FineTuneJob
-Route::get('/fineTuneJob/getone', [FineTuneJobController::class, 'getAModelsFineTuneJobs']);
+Route::get('/fineTuneJob/getone/{id}', [FineTuneJobController::class, 'getAModelsFineTuneJobs']);
 
-#Gets all FineTuneJob that matches a model in the db
+#Gets all FineTuneJob that matches a model in the database
 Route::get('/fineTuneJob/download', [FineTuneJobController::class, 'getAllFineTuneJobs']);
+
+Route::get('/fineTuneJob/get/{id}', [FineTuneJobController::class, 'getAllFineTuneJobsForAModel']);
 
 #<------- This is the view routes ------->
 
@@ -79,6 +81,7 @@ Route::get('/models/trainModels', [OpenAIController::class, 'trainModels'])->nam
 
 Route::get('/models/uploadTraningData', [OpenAIController::class, 'uploadTraningData'])->name('models.uploadTraningData');
 
+Route::get('models/seeFineTuneJobs/{id}', [OpenAIController::class, 'seeFineTuneJobs'])->name('models.seeFineTuneJobs');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

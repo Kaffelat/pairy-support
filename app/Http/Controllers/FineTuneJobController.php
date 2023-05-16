@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\FineTuneJob;
 use App\Services\OpenAI\AIModel\AIModelService;
 use App\Services\OpenAI\FineTuneJob\FineTuneJobDownloader;
+use Illuminate\Support\Collection;
 use stdClass;
 
 class FineTuneJobController 
@@ -10,20 +12,27 @@ class FineTuneJobController
     /**
     * Gets all the jobs that matches a model in the database
     */
-    public function getAllFineTuneJobs (AIModelService $aiModelService): stdClass
+    public function getAllFineTuneJobs (AIModelService $aiModelService): Collection
     {
         $fineTuneJobDownloader = new FineTuneJobDownloader($aiModelService);
 
-        return dd($fineTuneJobDownloader->getAllFineTuneJobs());
+        return $fineTuneJobDownloader->getAllFineTuneJobs();
     }
 
     /**
     * Gets info about a single finetune job
     */
-    public function getAModelsFineTuneJobs(AIModelService $aiModelService): stdClass
+    public function getOneFineTuneJob(string $openaiModelId, AIModelService $aiModelService): stdClass
     {
         $fineTuneJobDownloader = new FineTuneJobDownloader($aiModelService);
 
-        return dd($fineTuneJobDownloader->getAFineTuneJob());
+        return $fineTuneJobDownloader->getAFineTuneJob($openaiModelId);
+    }
+
+    public function getAllFineTuneJobsForAModel(string $openaiModelId, AIModelService $aiModelService)
+    {
+        $fineTuneJobDownloader = new FineTuneJobDownloader($aiModelService);
+
+        return $fineTuneJobDownloader->getAllFineTuneJobsForAModel($openaiModelId);
     }
 }
