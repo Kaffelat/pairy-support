@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import axios from 'axios';
+
 </script>
 
 <template>
@@ -27,7 +28,7 @@ import axios from 'axios';
                     <tbody v-if="this.aiModels.length > 0">
                         <tr v-for="(aiModels) in this.aiModels">
                             <td>{{aiModels.id}}</td>
-                            <td id="td">{{aiModels.openai_id}}</td>
+                            <td id="td" class="openai-link" @click="redirectToFineTuneJobs(aiModels.openai_id)">{{aiModels.openai_id}}</td>
                             <td>{{aiModels.user_id}}</td>
                             <td>{{aiModels.type}}</td>
                             <td>
@@ -53,15 +54,14 @@ import axios from 'axios';
 <script>
 
 export default {
-    name:'aiModels',
     data(){
         return {
             aiModels: []
         }
     },
     mounted() {
-        this.getFiles();
         this.getModels();
+        this.getFineTuneJobs();
     },
     methods: {
         getModels() {
@@ -69,18 +69,20 @@ export default {
                 this.aiModels = res.data
             });
         },
-        getFiles() {
-            axios.get('/file/download').then(res =>{
-                this.aiFiles = res.data
-            });
+        getFineTuneJobs() {
+            axios.get('/fineTuneJob/download')
         },
         deleteModels(openai_id) {
             console.log(openai_id)
             
             axios.delete('/model/delete/' + openai_id).then(res => {
                 this.getModels();
-            })
-        }
+            });
+        },
+        redirectToFineTuneJobs(openai_id) {
+            const url = route('models.seeFineTuneJobs', {id: openai_id});
+            this.$inertia.visit(url);
+        },
     }
 }
 </script>

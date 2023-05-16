@@ -26,7 +26,7 @@ class AIModelDownloader
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
         $downloadAIModel = new DownloadAIModel;
-        
+
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
             
             $aiModel = AIModel::firstOrCreate ([
@@ -48,10 +48,10 @@ class AIModelDownloader
         return $this->aiModelService->getAModel($client, 'curie:ft-personal-2023-05-10-13-38-59');
     }
 
-    public function getInfoAboutModel(): object
+    public function getAModelsFineTuneJobs(): object
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return $this->aiModelService->getInfoAboutModel($client,'ft-oBC2C1HzgsewD8GAhRUPVct4');
+        return $this->aiModelService->getAModelsFineTuneJobs($client,'ft-oBC2C1HzgsewD8GAhRUPVct4');
     }
 }

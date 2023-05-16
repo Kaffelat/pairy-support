@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\OpenAI\AIModel;
+namespace App\Services\OpenAI\FineTuneJob;
 
 use App\Models\AIFile;
 use App\Models\AIModel;

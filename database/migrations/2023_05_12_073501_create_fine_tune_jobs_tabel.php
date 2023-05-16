@@ -24,6 +24,10 @@ return new class extends Migration
             $table->float('learning_rate_multiplier')->nullable();
             $table->float('prompt_loss_weight')->nullable();
             $table->timestamps();
+
+            $table->foreign('ai_model_id')->references('id')->on('ai_models');
+            $table->foreign('ai_file_id')->references('id')->on('ai_files');
+            $table->foreign('ai_model_result_file_id')->references('id')->on('ai_model_result_files');
         });
     }
 

@@ -84,7 +84,14 @@ input {
   background-color: rgb(153, 240, 96);
   color: black;
 }
+
 .error {
   background-color: lightcoral;
   color: black;
+}
+
+.openai-link {
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
 }

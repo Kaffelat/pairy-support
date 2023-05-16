@@ -12,7 +12,7 @@ class AIFile extends Model
 {
     use HasFactory;
 
-    protected $table = 'ai_file';
+    protected $table = 'ai_files';
 
     /**
     * The attributes that are mass assignable.

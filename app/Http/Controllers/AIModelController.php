@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AIModel;
 use App\Services\OpenAI\AIModel\AIModelDownloader;
 use App\Services\OpenAI\AIModel\AIModelService;
+use App\Services\OpenAI\AIModel\FineTuneJobDownloader;
 use App\Services\OpenAI\AIModel\UploadAIModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -47,16 +48,6 @@ class AIModelController extends BaseController
         $aiModelDownloader = new AIModelDownloader($aiModelService);
 
         return $aiModelDownloader->getModelById();
-    }
-
-    /**
-    * Gets info about a single model
-    */
-    public function getInfoAboutModel(AIModelService $aiModelService): stdClass
-    {
-        $aiModelDownloader = new AIModelDownloader($aiModelService);
-
-        return $aiModelDownloader->getInfoAboutModel();
     }
 
     /**

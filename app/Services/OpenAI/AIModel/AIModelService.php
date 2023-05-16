@@ -103,10 +103,10 @@ class AIModelService
     /**
     * Deletes a model 
     */
-    public function getInfoAboutModel(Client $client, String $modelId): stdClass
+    public function getAModelsFineTuneJobs(Client $client, String $openAIModelId): stdClass
     {
         try {
-            $response = $client->fineTunes()->retrieve($modelId);
+            $response = $client->fineTunes()->retrieve($openAIModelId);
         }
         catch (Exception $e) {
             throw $e;
