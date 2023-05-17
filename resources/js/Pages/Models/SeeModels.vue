@@ -61,6 +61,7 @@ export default {
     },
     mounted() {
         this.getModels();
+        this.getModelResultFiles();
         this.getFineTuneJobs();
     },
     methods: {
@@ -68,6 +69,9 @@ export default {
             axios.get('/model/download').then(res =>{
                 this.aiModels = res.data
             });
+        },
+        getModelResultFiles() {
+            axios.get('/modelResultFile/download')
         },
         getFineTuneJobs() {
             axios.get('/fineTuneJob/download')

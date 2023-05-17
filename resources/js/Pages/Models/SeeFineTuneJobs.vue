@@ -35,7 +35,7 @@ import { Head } from '@inertiajs/vue3';
                             <td>{{fineTuneJobs.openai_id}}</td>
                             <td>{{fineTuneJobs.ai_model_id}}</td>
                             <td>{{fineTuneJobs.ai_file_id}}</td>
-                            <td>{{fineTuneJobs.ai_model_result_id}}</td>
+                            <td>{{fineTuneJobs.ai_model_result_file_id}}</td>
                             <td>{{fineTuneJobs.type}}</td>
                             <td>{{fineTuneJobs.epochs}}</td>
                             <td>{{fineTuneJobs.batch_size}}</td>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AIFileController;
 use App\Http\Controllers\AIModelController;
+use App\Http\Controllers\AIModelResultFileController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FineTuneJobController;
 use App\Http\Controllers\OpenAIController;
@@ -45,6 +46,11 @@ Route::post('/file/upload', [AIFileController::class, 'UploadAFile']);
 #Deletes a file from OpenAI
 Route::delete('/file/delete/{id}', [AIFileController::class, 'DeleteAFile']);
 
+#<-----This is modelReusltFile routes ------>
+
+Route::get('/modelResultFile/download', [AIModelResultFileController::class, 'getAllModelResultFiles']);
+
+Route::get('/modelResultFile/getone/{id}', [AIModelResultFileController::class, '']);
 #<-----This is model routes------->
 
 #Gets all models a user has made at OpenAI
