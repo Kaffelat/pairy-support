@@ -90,7 +90,7 @@ input {
   color: black;
 }
 
-.openai-link {
+.link {
   color: white;
   text-decoration: underline;
   cursor: pointer;

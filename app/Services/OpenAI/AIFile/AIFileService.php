@@ -71,11 +71,41 @@ class AIFileService
         return (object)(array)$response;
     }
 
-    public function getOneAFile(Client $client, String $fileId): stdClass
+    public function getFile(Client $client, String $fileId): stdClass
     {
         $response = $client->files()->download($fileId);
 
         return (object)(array)$response;
+    }
+
+    public function getResultFile(Client $client, String $fileId): array
+    {
+        $response = $client->files()->download($fileId);
+
+        $lines = explode("\n", $response);
+        $data = [];
+        
+        for ($i = 1; $i < count($lines)-1; $i++) {
+            $values = explode(',', $lines[$i]);
+            array_push($data, $values);
+        }
+        
+        return $data;
+        
+        // foreach ($headers as $header) {
+        //     $data[$header] = [];
+        // }
+
+        //     foreach ($headers as $index => $header) {
+        //         if (isset($values[$index])) {
+        //             $data[$header][] = $values[$index];
+        //         } else {
+        //             $data[$header][] = '';
+        //         }
+        //     }
+        // }
+
+        //return ($data);
     }
 
 }

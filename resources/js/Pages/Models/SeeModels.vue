@@ -28,7 +28,7 @@ import axios from 'axios';
                     <tbody v-if="this.aiModels.length > 0">
                         <tr v-for="(aiModels) in this.aiModels">
                             <td>{{aiModels.id}}</td>
-                            <td id="td" class="openai-link" @click="redirectToFineTuneJobs(aiModels.openai_id)">{{aiModels.openai_id}}</td>
+                            <td id="td" class="link" @click="redirectToFineTuneJobs(aiModels.openai_id)">{{aiModels.openai_id}}</td>
                             <td>{{aiModels.user_id}}</td>
                             <td>{{aiModels.type}}</td>
                             <td>
@@ -71,7 +71,7 @@ export default {
             });
         },
         getModelResultFiles() {
-            axios.get('/modelResultFile/download')
+            axios.get('/resultFile/download')
         },
         getFineTuneJobs() {
             axios.get('/fineTuneJob/download')

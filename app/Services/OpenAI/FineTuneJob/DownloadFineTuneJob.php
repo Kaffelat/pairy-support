@@ -8,7 +8,7 @@ use App\Models\AIModelResultFile;
 class DownloadFineTuneJob 
 {
     public function getFineTuneJobAttributes(object $jobInfo): array
-    {   dd($jobInfo);
+    {
         return [
             'ai_model_id' => $this->getAIModelId($jobInfo),
             'ai_file_id' => $this->getAIFileId($jobInfo),
@@ -54,7 +54,6 @@ class DownloadFineTuneJob
     public function getEvents(object $jobInfo)
     {
         $allEvents = [];
-
 
         foreach ($jobInfo->events as $events) {
             if (empty($events)) {

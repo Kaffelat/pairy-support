@@ -38,4 +38,9 @@ class OpenAIController extends Controller
   {
     return Inertia::render('Models/SeeFineTuneJobs', ['id' => $id]);
   }
+
+  public function seeModelResultFile(string $id)
+  {
+    return Inertia::render('Models/SeeModelResultFiles', ['id' => $id]);
+  }
 }

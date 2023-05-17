@@ -15,10 +15,10 @@ class AIModelResultFileController
         return $aiModelResultFileDownloader->getAllModelResultFiles();
     }
 
-    function getModelResultFile(AIFileService $aiFileService)
+    function getModelResultFile(string $resultFileId, AIFileService $aiFileService)
     {
         $aiModelResultFileDownloader = new AIModelResultFileDownloader($aiFileService);
 
-        return $aiModelResultFileDownloader;
+        return $aiModelResultFileDownloader->getModelResultFile($resultFileId);
     }
 }

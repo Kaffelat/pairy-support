@@ -48,9 +48,9 @@ Route::delete('/file/delete/{id}', [AIFileController::class, 'DeleteAFile']);
 
 #<-----This is modelReusltFile routes ------>
 
-Route::get('/modelResultFile/download', [AIModelResultFileController::class, 'getAllModelResultFiles']);
+Route::get('/resultFile/download', [AIModelResultFileController::class, 'getAllModelResultFiles']);
 
-Route::get('/modelResultFile/getone/{id}', [AIModelResultFileController::class, '']);
+Route::get('/resultFile/get/{id}', [AIModelResultFileController::class, 'getModelResultFile'])->name('modelResultFile.get');
 #<-----This is model routes------->
 
 #Gets all models a user has made at OpenAI
@@ -88,6 +88,8 @@ Route::get('/models/trainModels', [OpenAIController::class, 'trainModels'])->nam
 Route::get('/models/uploadTraningData', [OpenAIController::class, 'uploadTraningData'])->name('models.uploadTraningData');
 
 Route::get('models/seeFineTuneJobs/{id}', [OpenAIController::class, 'seeFineTuneJobs'])->name('models.seeFineTuneJobs');
+
+Route::get('models/seeModelResultFiles/{id}', [OpenAIController::class, 'seeModelResultFile'])->name('models.seeModelResultFiles');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

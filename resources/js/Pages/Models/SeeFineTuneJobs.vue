@@ -32,10 +32,10 @@ import { Head } from '@inertiajs/vue3';
                     <tbody v-if="this.fineTuneJobs.length > 0">
                         <tr v-for="(fineTuneJobs) in this.fineTuneJobs">
                             <td>{{fineTuneJobs.id}}</td>
-                            <td>{{fineTuneJobs.openai_id}}</td>
+                            <td id="td">{{fineTuneJobs.openai_id}}</td>
                             <td>{{fineTuneJobs.ai_model_id}}</td>
                             <td>{{fineTuneJobs.ai_file_id}}</td>
-                            <td>{{fineTuneJobs.ai_model_result_file_id}}</td>
+                            <td class="link" @click="redirectToFineTuneJobs(fineTuneJobs.ai_model_result_file_id)">{{fineTuneJobs.ai_model_result_file_id}}</td>
                             <td>{{fineTuneJobs.type}}</td>
                             <td>{{fineTuneJobs.epochs}}</td>
                             <td>{{fineTuneJobs.batch_size}}</td>
@@ -75,6 +75,10 @@ export default {
             axios.get('/fineTuneJob/get/' + this.id).then(res =>{
                 this.fineTuneJobs = res.data
             });
+        },
+        redirectToFineTuneJobs(ai_model_result_file_id) {
+            const url = route('models.seeModelResultFiles', {id: ai_model_result_file_id});
+            this.$inertia.visit(url);
         },
     }
 }

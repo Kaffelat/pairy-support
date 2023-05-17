@@ -63,6 +63,6 @@ class AIFilesDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return $this->aiFileService->getOneAFile($client, 'file-c3noJiDFH6ZjIHsSfsO0EiKm');
+        return $this->aiFileService->getFile($client, 'file-c3noJiDFH6ZjIHsSfsO0EiKm');
     }
 }
