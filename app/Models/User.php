@@ -48,14 +48,6 @@ class User extends Authenticatable
     ];
 
     /**
-    * Relation to Model Data
-    */
-    public function modelData(): HasMany
-    {
-        return $this->hasMany(AIFile::class, 'user_id');
-    }
-
-    /**
     * Relation to AI Model
     */
     public function aiModel(): HasMany

@@ -25,18 +25,10 @@ class AIFile extends Model
     ];
 
     /**
-    * Relation to AI Model
-    */
-    public function aiModel(): BelongsToMany
-    {
-        return $this->belongsToMany(AIModel::class, 'ai_model_id');
-    }
-
-    /**
     * Relation to Model Validation
     */
-    public function modelValidation(): BelongsToMany
+    public function fineTuneJob(): BelongsToMany
     {
-        return $this->belongsToMany(ModelValidation::class);
+        return $this->belongsToMany(FineTuneJob::class);
     }
 }

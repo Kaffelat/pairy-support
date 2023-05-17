@@ -39,4 +39,9 @@ class AIModel extends Model
     {
         return $this->belongsTo(Users::class, 'user_id');
     }
+
+    public function fineTuneJob(): BelongsTo
+    {
+        return $this->belongsTo(FineTuneJob::class);
+    }
 }

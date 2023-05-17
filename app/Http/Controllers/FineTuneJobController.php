@@ -11,7 +11,7 @@ class FineTuneJobController
     /**
     * Gets all the jobs that matches a model in the database
     */
-    public function getAllFineTuneJobs (AIModelService $aiModelService): Collection
+    public function getAllFineTuneJobs(AIModelService $aiModelService): Collection
     {
         $fineTuneJobDownloader = new FineTuneJobDownloader($aiModelService);
 
