@@ -2,11 +2,8 @@
 namespace App\Services\OpenAI\AIModel;
 
 use App\Models\AIModel;
-use App\Models\FineTuneJob;
 use App\Services\OpenAI\AIModel\AIModelService;
 use App\Services\OpenAI\AIModel\DownloadAIModel;
-use App\Services\OpenAI\AIModel\FineTuneJob\DownloadFineTuneJob;
-use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;

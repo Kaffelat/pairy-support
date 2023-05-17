@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AIModel;
-use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
-use OpenAI;
-use Illuminate\Http\Request;
+
 /**
 * Renders the views
 */

@@ -3,8 +3,6 @@ namespace App\Services\OpenAI\AIFile;
 
 use App\Models\AIFile;
 
-use App\Models\AIModelResultFile;
-use App\Services\OpenAI\AIFile\AIModelResultFile\DownloadAIModelResultFile;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;

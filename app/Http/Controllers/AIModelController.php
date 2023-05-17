@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\AIModel;
 use App\Services\OpenAI\AIModel\AIModelDownloader;
 use App\Services\OpenAI\AIModel\AIModelService;
-use App\Services\OpenAI\AIModel\FineTuneJobDownloader;
 use App\Services\OpenAI\AIModel\UploadAIModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
