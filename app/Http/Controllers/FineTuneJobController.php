@@ -21,10 +21,10 @@ class FineTuneJobController
     /**
     * Gets info about a single finetune job
     */
-    public function getOneFineTuneJob(string $openaiModelId, AIModelService $aiModelService): stdClass
+    public function getFineTuneJob(string $openaiModelId, AIModelService $aiModelService): stdClass
     {
         $fineTuneJobDownloader = new FineTuneJobDownloader($aiModelService);
-
+        
         return $fineTuneJobDownloader->getAFineTuneJob($openaiModelId);
     }
 

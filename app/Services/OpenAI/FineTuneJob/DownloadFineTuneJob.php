@@ -8,12 +8,13 @@ use App\Models\AIModelResultFile;
 class DownloadFineTuneJob 
 {
     public function getFineTuneJobAttributes(object $jobInfo): array
-    {
+    {   dd($jobInfo);
         return [
             'ai_model_id' => $this->getAIModelId($jobInfo),
             'ai_file_id' => $this->getAIFileId($jobInfo),
             'ai_model_result_file_id' => $this->getAIModelResultFileId($jobInfo),
             'type' => $jobInfo->model,
+            'events' => $this->getEvents($jobInfo),
             'epochs' => $jobInfo->hyperparams->nEpochs,
             'batch_size'=> $jobInfo->hyperparams->batchSize,
             'learning_rate_multiplier'=> $jobInfo->hyperparams->learningRateMultiplier,
@@ -53,6 +54,7 @@ class DownloadFineTuneJob
     public function getEvents(object $jobInfo)
     {
         $allEvents = [];
+
 
         foreach ($jobInfo->events as $events) {
             if (empty($events)) {

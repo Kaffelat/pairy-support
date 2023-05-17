@@ -38,7 +38,7 @@ Route::get('/', function () {
 Route::get('/file/download', [AIFileController::class, 'GetAllFiles']);
 
 #Gets one file from OpenAI
-Route::get('/file/get', [AIFileController::class, 'GetAFile']);
+Route::get('/file/get', [AIFileController::class, 'GetFile']);
 
 #Uploads a file to OpenAI
 Route::post('/file/upload', [AIFileController::class, 'UploadAFile']);
@@ -68,7 +68,7 @@ Route::delete('/model/delete/{id}', [AIModelController::class, 'deleteModel']);
 #<------- This is FineTuneJob routes ------->
 
 #Gets a single FineTuneJob
-Route::get('/fineTuneJob/getone/{id}', [FineTuneJobController::class, 'getAModelsFineTuneJobs']);
+Route::get('/fineTuneJob/getone', [FineTuneJobController::class, 'getFineTuneJob']);
 
 #Gets all FineTuneJob that matches a model in the database
 Route::get('/fineTuneJob/download', [FineTuneJobController::class, 'getAllFineTuneJobs']);

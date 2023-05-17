@@ -32,7 +32,7 @@ class AIFileController extends BaseController
     /**
     * Gets a single file
     */
-    public function GetAFile(AIFileService $aiFileService): stdClass
+    public function GetFile(AIFileService $aiFileService): stdClass
     {
         $aiFileDownloader = new AIFilesDownloader($aiFileService);
         return $aiFileDownloader->getAFile();
