@@ -16,10 +16,10 @@ import { Head } from '@inertiajs/vue3';
                 {{ alertMessage }}
             </div>
 
-            <label>Training file</label>
+            <label>Training File</label>
             <input type="text" required v-model = "traningFile">
 
-            <label>Validation file</label>
+            <label>Validation File</label>
             <input type="text" v-model = "validationFile">
 
             <label>Type</label>

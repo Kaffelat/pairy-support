@@ -19,10 +19,10 @@ import { Head } from '@inertiajs/vue3';
             <label>Model Name</label>
             <input type="text" v-model="modelName">
 
-            <label>Training file</label>
+            <label>Training File</label>
             <input type="text" required v-model = "traningFile">
 
-            <label>Validation file</label>
+            <label>Validation File</label>
             <input type="text" v-model = "validationFile">
 
             <label>Hvor mange epochs skal modellen igennem?</label>
