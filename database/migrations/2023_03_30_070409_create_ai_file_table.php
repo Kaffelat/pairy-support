@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ai_files', function (Blueprint $table) {
             $table->id();
-            $table->string('openai_id');
+            $table->string('openai_id')->unique();
             $table->foreignId('user_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

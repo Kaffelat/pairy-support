@@ -1,8 +1,12 @@
 <?php
 namespace App\Services\OpenAI\AIModel;
 
+use App\Models\AIModel;
+use App\Models\FineTuneJob;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use OpenAI;
 use OpenAI\Client;
 use stdClass;
 
@@ -37,17 +41,27 @@ class AIModelService
     /**
     * Deletes a model 
     */
-    public function deleteModel(Client $client, String $modelId): stdClass
+    public function deleteModel(string $openaiModelId): stdClass
     {
-        $response = $client->models()->delete($modelId);
+        $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return (object)(array)$response; 
+        $aiModel = AIModel::where('openai_id', $openaiModelId)->first();
+        
+        $aiModel->fineTuneJob->each(function ($fineTuneJob) {
+            $fineTuneJob->delete();
+         });
+
+        $aiModel->delete();
+
+        $response = $client->models()->delete($openaiModelId);
+
+        return (object)(array)$response;
     }
 
     /**
     * Cancels the creation of a model
     */
-    public function cancelJob(Client $client, String $jobId): stdClass
+    public function cancelJob(Client $client, string $jobId): stdClass
     {
         $response = $client->fineTunes()->cancel($jobId);
 
@@ -89,7 +103,7 @@ class AIModelService
     /**
     * Gets a specific model
     */
-    public function getAModel(Client $client, String $modelId): stdClass
+    public function getAModel(Client $client, string $modelId): stdClass
     {
         try {
             $response = $client->models()->retrieve($modelId);
@@ -103,7 +117,7 @@ class AIModelService
     /**
     * Deletes a model 
     */
-    public function getAModelsFineTuneJobs(Client $client, String $openAIModelId): stdClass
+    public function getAModelsFineTuneJobs(Client $client, string $openAIModelId): stdClass
     {
         try {
             $response = $client->fineTunes()->retrieve($openAIModelId);

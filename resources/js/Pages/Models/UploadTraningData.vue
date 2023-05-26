@@ -64,9 +64,8 @@ export default {
 
         axios.post('/file/upload', formData)
             .then(res => {
+                this.selectedFile = null;
                 this.$refs.fileInput.value = '';
-
-                console.log(this.selectedFile);
             
                 if (res.status === 200) {
                     this.showAlert = true;

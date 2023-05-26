@@ -30,13 +30,13 @@ import { Head } from '@inertiajs/vue3';
                 <option value="ada">Ada</option>     
             </select>
 
-            <label>Hvor mange gange skal modellen trænes?</label>
+            <label>Hvor mange epochs skal modellen trænes?</label>
             <input type="text" v-model ='epochs' >
 
-            <label>Hvad skal dens learning rate multiplier være?</label>
+            <label>Hvad skal modellens learning rate multiplier være?</label>
             <input type="text" v-model ='learningRate' >
 
-            <label>Hvad skal dens prompt loss vægt være?</label>
+            <label>Hvad skal modellens prompt loss vægt være?</label>
             <input type="text" v-model ='promtLoss' >
 
             <div class="submit">
@@ -57,6 +57,7 @@ export default {
             epochs:'4',
             learningRate:'0.1',
             promtLoss:'0.01',
+            
             showAlert: false,
             alertMessage: '',
             alertClass: '',
@@ -73,7 +74,6 @@ export default {
                 promtLoss: this.promtLoss
             };
             axios.post('/model/upload', data).then(res => {
-                console.log(res.data);
 
                 if (res.status === 200) {
                     this.showAlert = true;

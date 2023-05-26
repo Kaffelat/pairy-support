@@ -25,13 +25,13 @@ import { Head } from '@inertiajs/vue3';
             <label>Validation file</label>
             <input type="text" v-model = "validationFile">
 
-            <label>Hvor mange gange skal modellen trænes?</label>
+            <label>Hvor mange epochs skal modellen igennem?</label>
             <input type="text" v-model ='epochs' >
 
-            <label>Hvad skal dens learning rate multiplier være?</label>
+            <label>Hvad skal modellens learning rate multiplier være?</label>
             <input type="text" v-model ='learningRate' >
 
-            <label>Hvad skal dens prompt loss vægt være?</label>
+            <label>Hvad skal modellens prompt loss vægt være?</label>
             <input type="text" v-model ='promtLoss' >
 
             <div class="submit">

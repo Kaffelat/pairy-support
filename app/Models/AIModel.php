@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AIModel extends Model
 {
@@ -40,8 +40,8 @@ class AIModel extends Model
         return $this->belongsTo(Users::class, 'user_id');
     }
 
-    public function fineTuneJob(): BelongsTo
+    public function fineTuneJob(): HasMany
     {
-        return $this->belongsTo(FineTuneJob::class);
+        return $this->hasMany(FineTuneJob::class, 'ai_model_id');
     }
 }

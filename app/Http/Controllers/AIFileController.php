@@ -54,10 +54,6 @@ class AIFileController extends BaseController
     */
     public function DeleteAFile(String $openaiFileId, AIFileService $aiFileService): stdClass
     {
-        $client = OpenAI::client(Auth::user()->openai_api_key);
-
-        AIFile::where('openai_id', $openaiFileId)->delete();
-
-        return $aiFileService->deleteAFile($client, $openaiFileId);
+        return $aiFileService->deleteAFile($openaiFileId);
     }
 }

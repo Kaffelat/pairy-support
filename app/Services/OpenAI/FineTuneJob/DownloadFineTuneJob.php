@@ -28,7 +28,7 @@ class DownloadFineTuneJob
         
         if ($aiModel = AIModel::where('openai_id',$openaiModelId)->first()) {
             return $aiModel->id;
-        };
+        }
         return null;
     }
 
@@ -36,9 +36,10 @@ class DownloadFineTuneJob
     {
         $openaiFileId = $jobInfo->trainingFiles[0]->id;
 
-        $aiFile = AIFile::where('openai_id',$openaiFileId)->first();
-    
-        return $aiFile->id;
+        if($aiFile = AIFile::where('openai_id',$openaiFileId)->first()) {
+            return $aiFile->id;
+        }
+        return null;
     }
 
     public function getAIModelResultFileId(object $jobInfo)
@@ -47,7 +48,7 @@ class DownloadFineTuneJob
 
        if ($aiModelResultFile = AIModelResultFile::where('openai_id',$openaiFileId)->first()) {
            return $aiModelResultFile->id;
-       };
+       }
        return null;
     }
 

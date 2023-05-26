@@ -13,6 +13,9 @@ import axios from 'axios';
         </template>
 
         <div class="py-12">
+            <div id="modelDeletion" v-if="showAlert" class="alert" :class="alertClass">
+            {{ alertMessage }}
+            </div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 dark:text-gray-200">
                 <table id="firstTable">
                     <thead>
@@ -60,7 +63,10 @@ export default {
     name:'aiFiles',
     data(){
         return {
-            aiFiles: []
+            aiFiles: [],
+            showAlert: false,
+            alertMessage: '',
+            alertClass: '',
         }
     },
     mounted() {
@@ -73,10 +79,25 @@ export default {
             });
         },
         deleteFile(openai_id) {
-            console.log(openai_id)
-            
             axios.delete('/file/delete/' + openai_id).then(res => {
-                this.getAIFilesaiFiles();
+                this.getFiles();
+
+                if (res.status === 200) {
+                    this.showAlert = true;
+                    this.alertMessage = 'File deleted successfully.';
+                    this.alertClass = 'success';
+                }
+                else {
+                    this.showAlert = true;
+                    this.alertMessage = 'File failed deletion';
+                    this.alertClass = 'error';
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                this.showAlert = true;
+                this.alertMessage = "There was an error when you tried to delete this File: " + openai_id;
+                this.alertClass = 'error';
             })
         }
     }

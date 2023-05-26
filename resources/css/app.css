@@ -27,6 +27,11 @@
 #longWord {
   min-width: 150px;
 }
+#modelDeletion {
+  margin-left: auto;
+    width: 750px;
+    margin-right: auto;
+}
 table {
     font-family: 'Open Sans', sans-serif;
     width: 750px;

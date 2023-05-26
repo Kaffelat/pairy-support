@@ -1,8 +1,11 @@
 <?php
 namespace App\Services\OpenAI\AIFile;
 
+use App\Models\AIFile;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use OpenAI;
 use OpenAI\Client;
 use stdClass;
 
@@ -44,9 +47,15 @@ class AIFileService
     /**
     * Deletes a file on your openai account
     */
-    public function deleteAFile(Client $client, String $fileId): stdClass
+    public function deleteAFile(String $openaiFileId): stdClass
     {
-        $response = $client->files()->delete($fileId);
+        $client = OpenAI::client(Auth::user()->openai_api_key);
+
+        $aiFile = AIFile::where('openai_id', $openaiFileId)->first();
+
+        $aiFile->delete();
+
+        $response = $client->files()->delete($openaiFileId);
 
         return (object)(array)$response; 
     }
@@ -91,21 +100,6 @@ class AIFileService
         }
         
         return $data;
-        
-        // foreach ($headers as $header) {
-        //     $data[$header] = [];
-        // }
-
-        //     foreach ($headers as $index => $header) {
-        //         if (isset($values[$index])) {
-        //             $data[$header][] = $values[$index];
-        //         } else {
-        //             $data[$header][] = '';
-        //         }
-        //     }
-        // }
-
-        //return ($data);
     }
 
 }

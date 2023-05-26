@@ -53,11 +53,7 @@ class AIModelController extends BaseController
     * Deletes a model 
     */
     public function deleteModel(String $openaiModelId, AIModelService $aiModelService): stdClass
-    {
-        $client = OpenAI::client(Auth::user()->openai_api_key);
-
-        AIModel::where('openai_id', $openaiModelId)->delete();
-
-        return $aiModelService->deleteModel($client, $openaiModelId);
+    {   
+       return $aiModelService->deleteModel($openaiModelId);
     }
 }
