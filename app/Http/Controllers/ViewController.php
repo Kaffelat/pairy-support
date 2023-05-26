@@ -7,7 +7,7 @@ use Inertia\Inertia;
 /**
 * Renders the views
 */
-class OpenAIController extends Controller
+class ViewController extends Controller
 {   
   public function seeModels()
   {
@@ -24,16 +24,17 @@ class OpenAIController extends Controller
     return Inertia::render('Models/SeeTraningFiles');
   }
 
-  public function trainModels()
-  {
-    return Inertia::render('Models/TrainModels');
-  }
-
+  
   public function uploadTraningData()
   {
     return Inertia::render('Models/UploadTraningData');
   }
 
+  public function trainModels(string $id)
+  {
+    return Inertia::render('Models/TrainModels', ['id' =>$id]);
+  }
+  
   public function seeFineTuneJobs(string $id)
   {
     return Inertia::render('Models/SeeFineTuneJobs', ['id' => $id]);

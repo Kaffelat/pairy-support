@@ -3,10 +3,9 @@
 use App\Http\Controllers\AIFileController;
 use App\Http\Controllers\AIModelController;
 use App\Http\Controllers\AIModelResultFileController;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\FineTuneJobController;
-use App\Http\Controllers\OpenAIController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ViewController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,9 +20,6 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', [Controller::class,'test']);
-Route::get('/test/validation', [Controller::class,'testGetAIValidationFiles']);
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -60,7 +56,7 @@ Route::get('/model/download', [AIModelController::class, 'getAllModels']);
 Route::get('/model/get', [AIModelController::class, 'getInfoAboutModel']);
 
 #Makes a new finetune model at OpenAI
-Route::post('/model/upload', [AIModelController::class, 'makeAIModel']);
+Route::post('/model/upload', [AIModelController::class, 'createOrTrainModel']);
 
 #Deletes a finetune model
 Route::delete('/model/delete/{id}', [AIModelController::class, 'deleteModel']);
@@ -73,23 +69,24 @@ Route::get('/fineTuneJob/getone', [FineTuneJobController::class, 'getFineTuneJob
 #Gets all FineTuneJob that matches a model in the database
 Route::get('/fineTuneJob/download', [FineTuneJobController::class, 'getAllFineTuneJobs']);
 
+#Shows the content of a FineTuneJob
 Route::get('/fineTuneJob/get/{id}', [FineTuneJobController::class, 'getAllFineTuneJobsForAModel'])->name('fineTuneJob.get');
 
 #<------- This is the view routes ------->
 
-Route::get('/models/seeModels', [OpenAIController::class, 'seeModels'])->name('models.seeModels');
+Route::get('/models/seeModels', [ViewController::class, 'seeModels'])->name('models.seeModels');
 
-Route::get('/models/makeModels', [OpenAIController::class, 'makeModels'])->name('models.makeModels');
+Route::get('/models/makeModels', [ViewController::class, 'makeModels'])->name('models.makeModels');
 
-Route::get('/models/seeTraningFiles', [OpenAIController::class, 'seeTraningFiles'])->name('models.seeTraningFiles');
+Route::get('/models/seeTraningFiles', [ViewController::class, 'seeTraningFiles'])->name('models.seeTraningFiles');
 
-Route::get('/models/trainModels', [OpenAIController::class, 'trainModels'])->name('models.trainModels');
+Route::get('/models/uploadTraningData', [ViewController::class, 'uploadTraningData'])->name('models.uploadTraningData');
 
-Route::get('/models/uploadTraningData', [OpenAIController::class, 'uploadTraningData'])->name('models.uploadTraningData');
+Route::get('/models/trainModels/{id}', [ViewController::class, 'trainModels'])->name('models.trainModels');
 
-Route::get('models/seeFineTuneJobs/{id}', [OpenAIController::class, 'seeFineTuneJobs'])->name('models.seeFineTuneJobs');
+Route::get('models/seeFineTuneJobs/{id}', [ViewController::class, 'seeFineTuneJobs'])->name('models.seeFineTuneJobs');
 
-Route::get('models/seeModelResultFiles/{id}', [OpenAIController::class, 'seeModelResultFile'])->name('models.seeModelResultFiles');
+Route::get('models/seeModelResultFiles/{id}', [ViewController::class, 'seeModelResultFile'])->name('models.seeModelResultFiles');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

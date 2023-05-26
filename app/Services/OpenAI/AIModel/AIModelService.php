@@ -11,7 +11,7 @@ class AIModelService
     /**
     * Makes a new Model in OpenAI
     */
-    public function createNewModel(Client $client, Request $request): stdClass
+    public function createOrTrainModel(Client $client, Request $request): stdClass
     {
         $response = $client->fineTunes()->create([
             'training_file' => $request->traningFile,

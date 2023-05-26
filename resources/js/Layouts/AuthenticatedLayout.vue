@@ -48,10 +48,6 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('models.uploadTraningData')" :active="route().current('models.uploadTraningData')">
                                     Upload traningdata
                                 </NavLink>
-                            
-                                <NavLink :href="route('models.trainModels')" :active="route().current('models.trainModels')">
-                                    Train Models
-                                </NavLink> 
                             </div>
                         </div>
 

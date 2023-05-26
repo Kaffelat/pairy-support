@@ -28,10 +28,13 @@ import axios from 'axios';
                     <tbody v-if="this.aiModels.length > 0">
                         <tr v-for="(aiModels) in this.aiModels">
                             <td>{{aiModels.id}}</td>
-                            <td id="td" class="link" @click="redirectToFineTuneJobs(aiModels.openai_id)">{{aiModels.openai_id}}</td>
+                            <td id="openaiID" class="link" @click="redirectToFineTuneJobs(aiModels.openai_id)">{{aiModels.openai_id}}</td>
                             <td>{{aiModels.user_id}}</td>
                             <td>{{aiModels.type}}</td>
                             <td>
+                                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded" @click="trainModel(aiModels.openai_id)">
+                                    Train
+                                </button>
                                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded" @click="deleteModels(aiModels.openai_id)">
                                     Delete
                                 </button>
@@ -87,6 +90,10 @@ export default {
             const url = route('models.seeFineTuneJobs', {id: openai_id});
             this.$inertia.visit(url);
         },
+        trainModel(openai_id) {
+            const url = route('models.trainModels', {id: openai_id});
+            this.$inertia.visit(url);
+        }
     }
 }
 </script>

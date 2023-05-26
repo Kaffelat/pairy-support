@@ -20,8 +20,8 @@ import { Head } from '@inertiajs/vue3';
                         <th>Id</th>
                         <th>OpenAI ID</th>
                         <th>Model ID</th>
-                        <th>File ID</th>
-                        <th>Result File ID</th>
+                        <th>Traningfile ID</th>
+                        <th>Resultfile ID</th>
                         <th>Type</th>
                         <th>Epochs</th>
                         <th>Batch Size</th>
@@ -32,15 +32,15 @@ import { Head } from '@inertiajs/vue3';
                     <tbody v-if="this.fineTuneJobs.length > 0">
                         <tr v-for="(fineTuneJobs) in this.fineTuneJobs">
                             <td>{{fineTuneJobs.id}}</td>
-                            <td id="td">{{fineTuneJobs.openai_id}}</td>
+                            <td id="openaiID">{{fineTuneJobs.openai_id}}</td>
                             <td>{{fineTuneJobs.ai_model_id}}</td>
                             <td>{{fineTuneJobs.ai_file_id}}</td>
                             <td class="link" @click="redirectToFineTuneJobs(fineTuneJobs.ai_model_result_file_id)">{{fineTuneJobs.ai_model_result_file_id}}</td>
                             <td>{{fineTuneJobs.type}}</td>
                             <td>{{fineTuneJobs.epochs}}</td>
                             <td>{{fineTuneJobs.batch_size}}</td>
-                            <td>{{fineTuneJobs.learning_rate_multiplier}}</td>
-                            <td>{{fineTuneJobs.prompt_loss_weight}}</td>
+                            <td id="longWord">{{fineTuneJobs.learning_rate_multiplier}}</td>
+                            <td id="longWord">{{fineTuneJobs.prompt_loss_weight}}</td>
                         </tr>
                     </tbody>
                     <tbody v-else>

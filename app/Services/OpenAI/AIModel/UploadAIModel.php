@@ -16,11 +16,11 @@ class UploadAIModel
         $this->aiModelService = $aiModelService;
     }
 
-    public function makeAIModel(Request $request): stdClass
+    public function createOrTrainModel(Request $request): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
-        $openAIModels = $this->aiModelService->createNewModel($client, $request);
+        $openAIModels = $this->aiModelService->createOrTrainModel($client, $request);
 
         return (object)(array)$openAIModels;
     }
