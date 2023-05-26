@@ -10,6 +10,4 @@ class DownloadAIModelResultFile
             'file_purpose' => $resultFile->purpose
         ];
     }
-
-    
 }

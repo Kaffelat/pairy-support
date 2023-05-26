@@ -27,7 +27,9 @@ class FineTuneJobController
         
         return $fineTuneJobDownloader->getAFineTuneJob($openaiModelId);
     }
-
+    /**
+    * Gets all FineTuneJobs for a specific model
+    */
     public function getAllFineTuneJobsForAModel(string $openai_id, AIModelService $aiModelService): Collection
     {
         $fineTuneJobDownloader = new FineTuneJobDownloader($aiModelService);

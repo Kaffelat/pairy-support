@@ -71,6 +71,7 @@ export default {
     mounted() {
         this.getModels();
         this.getModelResultFiles();
+        this.getAIFiles();
         this.getFineTuneJobs();
     },
     methods: {
@@ -84,6 +85,10 @@ export default {
         },
         getFineTuneJobs() {
             axios.get('/fineTuneJob/download')
+        },
+        getAIFiles() {
+            axios.get('/file/download').then(res =>{
+            });
         },
         deleteModels(openai_id) {
             axios.delete('/model/delete/' + openai_id).then(res => {

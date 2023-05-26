@@ -63,9 +63,9 @@ export default {
     methods: {
         createModel() {
             const data = {
+                modelName: this.modelName,
                 traningFile: this.traningFile,
                 validationFile: this.validationFile,
-                type: this.type,
                 epochs: this.epochs,
                 learningRate: this.learningRate,
                 promtLoss: this.promtLoss
@@ -75,12 +75,12 @@ export default {
 
                 if (res.status === 200) {
                     this.showAlert = true;
-                    this.alertMessage = 'Form submitted successfully.';
+                    this.alertMessage = 'Model is being trained.';
                     this.alertClass = 'success';
                 }
                 else {
                     this.showAlert = true;
-                    this.alertMessage = 'Form submission failed.';
+                    this.alertMessage = 'Something failed.';
                     this.alertClass = 'error';
                 }
             })
@@ -88,7 +88,7 @@ export default {
                 console.error(error);
 
                 this.showAlert = true;
-                this.alertMessage = 'There was an error when you tried to create a new model. Please check that the id of the files you are trying to use is right';
+                this.alertMessage = 'There was an error when you tried to train your model. Please check that the id of the file you are trying to use is right';
                 this.alertClass = 'error';
         });
         }

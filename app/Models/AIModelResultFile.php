@@ -25,8 +25,8 @@ class AIModelResultFile extends Model
         'file_purpose'
     ];
 
-    public function fineTuneJob(): BelongsToMany
+    public function fineTuneJob(): BelongsTo
     {
-        return $this->belongsToMany(fineTuneJob::class);
+        return $this->belongsTo(fineTuneJob::class, 'id');
     }
 }
