@@ -51,7 +51,7 @@ import { Head } from '@inertiajs/vue3';
 export default {
     data() {
         return {
-            traningFile: 'file-LkOO9ZnmMHlp7SMfPqQO7TC2',
+            traningFile: '',
             validationFile:null,
             type:'curie',
             epochs:'4',
