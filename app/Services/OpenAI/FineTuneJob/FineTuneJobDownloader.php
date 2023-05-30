@@ -19,12 +19,14 @@ class FineTuneJobDownloader
         $this->aiModelService = $aiFileService;
     }
 
+    #Gets all FineTuneJobs that matches a a model in the db
     public function getAllFineTuneJobs(): Collection
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
         $downloadFineTuneJob = new DownloadFineTuneJob;
 
+        //Eager loads AIModel, AIFiles and AIModelResultFiles 
         $aiModels = AIModel::all()->keyBy('openai_id');
         $aiFiles = AIFile::all()->keyBy('openai_id');
         $aiModelResultFiles = AIModelResultFile::all()->keyBy('openai_id');
@@ -32,6 +34,7 @@ class FineTuneJobDownloader
         foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
             $openaiModelId = $jobInfo->fineTunedModel;
 
+            //If a AIModel's OpenAIID matches a AIModel in the database then procede else it goes on to the next model.
             if ($aiModel = $aiModels->get($openaiModelId)) {
 
                 $openaiFileId = $jobInfo->trainingFiles[0]->id;
@@ -43,7 +46,7 @@ class FineTuneJobDownloader
                 $fineTuneJob = FineTuneJob::firstOrCreate([
                     'openai_id' => $jobInfo->id,
                 ]);
-                
+
                 $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo, $aiModel, $aiFile, $aiModelResultFile));
 
                 $fineTuneJob->save();
@@ -52,6 +55,7 @@ class FineTuneJobDownloader
         return FineTuneJob::all();
     }
 
+    #Gets a specific fineTuneJob from it's id on OpenAI
     public function getAFineTuneJob(string $openAIModelId)
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
@@ -59,6 +63,7 @@ class FineTuneJobDownloader
         return $this->aiModelService->getAModelsFineTuneJobs($client, $openAIModelId);
     }
 
+    #Gets all fineTuneJobs that a AIModel has
     public function getAllFineTuneJobsForAModel(string $openAIModelId)
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
