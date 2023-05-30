@@ -17,7 +17,7 @@ import { Head } from '@inertiajs/vue3';
             </div>
 
             <label>Model Name</label>
-            <input type="text" v-model="modelName">
+            <input type="text" v-model="type">
 
             <label>Training File</label>
             <input type="text" required v-model = "traningFile">
@@ -49,7 +49,7 @@ export default {
     },
     data() {
         return {
-            modelName:this.id,
+            type:this.id,
             traningFile: '',
             validationFile:'',
             epochs:'4',
@@ -63,7 +63,7 @@ export default {
     methods: {
         createModel() {
             const data = {
-                modelName: this.modelName,
+                type: this.type,
                 traningFile: this.traningFile,
                 validationFile: this.validationFile,
                 epochs: this.epochs,
