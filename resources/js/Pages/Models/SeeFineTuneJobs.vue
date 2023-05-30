@@ -68,10 +68,10 @@ export default {
         }
     },
     mounted() {
-        this.getFineTuneJobs();
+        this.getFineTuneJob();
     },
     methods: {
-        getFineTuneJobs() {
+        getFineTuneJob() {
             axios.get('/fineTuneJob/get/' + this.id).then(res =>{
                 this.fineTuneJobs = res.data
             });
