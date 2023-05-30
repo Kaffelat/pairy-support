@@ -80,14 +80,14 @@ class AIFileService
         return (object)(array)$response;
     }
 
-    public function getFile(Client $client, String $fileId): stdClass
+    public function downloadFile(Client $client, String $fileId): stdClass
     {
         $response = $client->files()->download($fileId);
 
         return (object)(array)$response;
     }
 
-    public function getResultFile(Client $client, String $fileId): array
+    public function downloadResultFile(Client $client, String $fileId): array
     {
         $response = $client->files()->download($fileId);
 

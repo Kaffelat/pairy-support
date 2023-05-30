@@ -36,12 +36,21 @@ class AIModelResultFileDownloader
         return AIModelResultFile::all();
     }
 
-    public function getModelResultFile(int $resultFileId)
+    public function downloadModelResultFile(string $resultFileId)
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
         $resultFileId = AIModelResultFile::where('id', $resultFileId)->first();
 
-        return $this->aiFileService->getResultFile($client, $resultFileId->openai_id);
+        return $this->aiFileService->downloadResultFile($client, $resultFileId->openai_id);
+    }
+
+    public function getModelResultFile(string $resultFileId)
+    {
+        $client = OpenAI::client(Auth::user()->openai_api_key);
+
+        $resultFileId = AIModelResultFile::where('id', $resultFileId)->first();
+
+        return $this->aiFileService->getAFile($client, $resultFileId->openai_id);
     }
 }

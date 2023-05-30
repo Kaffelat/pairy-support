@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AIModel;
 use App\Services\OpenAI\AIModel\AIModelDownloader;
 use App\Services\OpenAI\AIModel\AIModelService;
 use App\Services\OpenAI\AIModel\UploadAIModel;
@@ -11,8 +10,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Auth;
-use OpenAI;
 use stdClass;
 
 class AIModelController extends BaseController

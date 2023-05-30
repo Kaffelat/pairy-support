@@ -46,7 +46,7 @@ Route::delete('/file/delete/{id}', [AIFileController::class, 'DeleteAFile']);
 
 Route::get('/resultFile/download', [AIModelResultFileController::class, 'getAllModelResultFiles']);
 
-Route::get('/resultFile/get/{id}', [AIModelResultFileController::class, 'getModelResultFile'])->name('modelResultFile.get');
+Route::get('/resultFile/get/{id}', [AIModelResultFileController::class, 'downloadModelResultFile'])->name('modelResultFile.get');
 #<-----This is model routes------->
 
 #Gets all models a user has made at OpenAI
