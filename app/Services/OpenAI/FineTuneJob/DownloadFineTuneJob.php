@@ -11,8 +11,8 @@ class DownloadFineTuneJob
     {
         return [
             'ai_model_id' => $aiModel->id,
-            'ai_file_id' => $aiFile ? $aiFile->id : null,
-            'ai_model_result_file_id' => $aiModelResultFile ? $aiModelResultFile->id : null,
+            'ai_file_id' => $aiFile->id,
+            'ai_model_result_file_id' => $aiModelResultFile->id,
             'type' => $jobInfo->model,
             'epochs' => $jobInfo->hyperparams->nEpochs,
             'batch_size'=> $jobInfo->hyperparams->batchSize,

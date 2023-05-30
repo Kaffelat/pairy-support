@@ -24,7 +24,6 @@ class ViewController extends Controller
     return Inertia::render('Models/SeeTraningFiles');
   }
 
-  
   public function uploadTraningData()
   {
     return Inertia::render('Models/UploadTraningData');

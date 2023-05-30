@@ -68,27 +68,26 @@ export default {
             alertClass: '',
         }
     },
-    mounted() {
-        this.getModels();
-        this.getModelResultFiles();
-        this.getAIFiles();
-        this.getFineTuneJobs();
+    async mounted() {
+        await this.getModels();
+        await this.getAIFiles();
+        await this.getModelResultFiles();
+        await this.getFineTuneJobs();
     },
     methods: {
-        getModels() {
-            axios.get('/model/download').then(res =>{
+        async getModels() {
+            await axios.get('/model/download').then(res =>{
                 this.aiModels = res.data
             });
         },
-        getModelResultFiles() {
-            axios.get('/resultFile/download')
+        async getModelResultFiles() {
+            await axios.get('/resultFile/download')
         },
-        getFineTuneJobs() {
-            axios.get('/fineTuneJob/download')
+        async getAIFiles() {
+            await axios.get('/file/download')
         },
-        getAIFiles() {
-            axios.get('/file/download').then(res =>{
-            });
+        async getFineTuneJobs() {
+            await axios.get('/fineTuneJob/download')
         },
         deleteModels(openai_id) {
             axios.delete('/model/delete/' + openai_id).then(res => {
