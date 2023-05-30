@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('ai_file_id')->nullable();
             $table->foreignId('ai_model_result_file_id')->nullable();
             $table->string('type')->nullable();
-            $table->json('events')->nullable();
             $table->integer('epochs')->nullable();
             $table->integer('batch_size')->nullable();
             $table->float('learning_rate_multiplier')->nullable();
