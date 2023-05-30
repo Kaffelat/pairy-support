@@ -1,7 +1,9 @@
 <?php
 namespace App\Services\OpenAI\FineTuneJob;
 
+use App\Models\AIFile;
 use App\Models\AIModel;
+use App\Models\AIModelResultFile;
 use App\Models\FineTuneJob;
 use App\Services\OpenAI\AIModel\AIModelService;
 use Illuminate\Support\Collection;
@@ -23,19 +25,30 @@ class FineTuneJobDownloader
 
         $downloadFineTuneJob = new DownloadFineTuneJob;
 
+        $aiModels = AIModel::all()->keyBy('openai_id');
+        $aiFiles = AIFile::all()->keyBy('openai_id');
+        $aiModelResultFiles = AIModelResultFile::all()->keyBy('openai_id');
+
         foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
+            $openaiModelId = $jobInfo->fineTunedModel;
 
-            if (AIModel::where('openai_id', $jobInfo->fineTunedModel)->first()) {
+            if ($aiModel = $aiModels->get($openaiModelId)) {
 
-                $fineTuneJob = FineTuneJob::firstOrCreate ([
+                $openaiFileId = $jobInfo->trainingFiles[0]->id;
+                $openaiResultFileId = $jobInfo->resultFiles[0]->id;
+
+                $aiFile = $aiFiles->get($openaiFileId);
+                $aiModelResultFile = $aiModelResultFiles->get($openaiResultFileId);
+    
+                $fineTuneJob = FineTuneJob::firstOrCreate([
                     'openai_id' => $jobInfo->id,
                 ]);
+                
+                $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo, $aiModel, $aiFile, $aiModelResultFile));
 
-                $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo));
                 $fineTuneJob->save();
             }
         }
-
         return FineTuneJob::all();
     }
 

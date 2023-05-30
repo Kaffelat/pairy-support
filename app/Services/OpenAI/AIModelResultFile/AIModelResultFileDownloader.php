@@ -23,7 +23,6 @@ class AIModelResultFileDownloader
 
         foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
             if ($file->purpose == 'fine-tune-results') {
-
                 
                 $aiModelResultFile = AIModelResultFile::firstOrCreate([
                     'openai_id' => $file->id

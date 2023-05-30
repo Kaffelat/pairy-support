@@ -19,7 +19,7 @@ class AIModelService
     {
         $response = $client->fineTunes()->create([
             'training_file' => $request->traningFile,
-            'model' => $request->modelName,
+            'model' => $request->type,
             'n_epochs' => 4,
             'learning_rate_multiplier' => 0.2,
             'prompt_loss_weight' => 0.01,
