@@ -36,9 +36,9 @@ class AIFile extends Model
     /**
     * Relation to Model Validation
     */
-    public function fineTuneJob(): BelongsTo
+    public function fineTuneJob(): BelongsToMany
     {
-        return $this->belongsTo(FineTuneJob::class,'ai_file_id');
+        return $this->belongsToMany(FineTuneJob::class,'ai_file_fine_tune_job_pivot', 'ai_file_id', 'fine_tune_job_id');
     }
 
 }

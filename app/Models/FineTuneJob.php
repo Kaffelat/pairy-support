@@ -42,6 +42,6 @@ class FineTuneJob extends Model
 
     public function aiFile(): HasMany
     {
-        return $this->hasMany(AIFile::class);
+        return $this->hasMany(AIFile::class, 'fine_tune_job_ai_file_pivot','fine_tune_job_id', 'ai_file_id');
     }
 }

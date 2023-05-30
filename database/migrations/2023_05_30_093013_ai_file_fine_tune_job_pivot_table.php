@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ai_file_fine_tune_job_pivot', function (Blueprint $table) {
+        Schema::create('fine_tune_job_ai_file_pivot', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('ai_file_id')->nullable();
             $table->foreignId('fine_tune_job_id')->nullable();
             $table->timestamps();
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fine_tune_jobs_tabel');
+        Schema::dropIfExists('fine_tune_job_ai_file_pivot');
     }
 };
