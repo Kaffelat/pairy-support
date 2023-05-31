@@ -20,10 +20,18 @@ import { Head } from '@inertiajs/vue3';
             <input type="text" v-model="type">
 
             <label>Training File</label>
-            <input type="text" required v-model = "traningFile">
+            <select v-model="traningFile" class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option v-for="file in aiFiles" :value="file.openai_id" :key="file.openai_id">
+                    {{ file.openai_id }} {{ selectedFile(file, traningFile) }}
+                </option>
+            </select>
 
             <label>Validation File</label>
-            <input type="text" v-model = "validationFile">
+            <select v-model="validationFile" class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option v-for="file in aiFiles" :value="file.openai_id" :key="file.openai_id">
+                    {{ file.openai_id }} {{ selectedFile(file, validationFile) }}
+                </option>
+            </select>
 
             <label>Hvor mange epochs skal modellen igennem?</label>
             <input type="text" v-model ='epochs' >
@@ -49,6 +57,8 @@ export default {
     },
     data() {
         return {
+            aiFiles: [],
+
             type:this.id,
             traningFile: '',
             validationFile:'',
@@ -60,7 +70,18 @@ export default {
             alertClass: '',
         }
     },
+    mounted() {
+        this.getFiles();
+    },
     methods: {
+        getFiles() {
+            axios.get('/file/download').then(res =>{
+                this.aiFiles = res.data
+            });
+        },
+        selectedFile(file, selectedValue) {
+            return selectedValue === file.openai_id ? '' : 'Bytes: ' + file.byte_size;
+        },
         createModel() {
             const data = {
                 type: this.type,
