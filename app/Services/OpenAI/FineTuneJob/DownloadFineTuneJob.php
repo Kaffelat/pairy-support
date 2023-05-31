@@ -9,6 +9,9 @@ use App\Services\OpenAI\AIModelResultFile\AIModelResultFileDownloader;
 
 class DownloadFineTuneJob 
 {
+    /**
+    * Sets the attributes of a FineTuneJob
+    */
     public function getFineTuneJobAttributes(object $jobInfo, AIModel $aiModel, AIFile $aiFile): array
     {
         return [
@@ -23,6 +26,10 @@ class DownloadFineTuneJob
         ];
     }
 
+    /**
+    * Retrives the resultfile that matches the id in the finetunejob on OpenAI
+    * 
+    */
     public function makeResultFile(object $jobInfo): string
     {
         $aiFileService = new AIFileService;

@@ -19,7 +19,7 @@ class AIFilesDownloader
     }
     
     /**
-    * Gets all files on OpenAI's api 
+    * Gets all files that, the user has uploaded, on OpenAI's api 
     */
     public function getAllFiles(): Collection
     {

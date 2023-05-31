@@ -3,8 +3,10 @@ namespace App\Services\OpenAI\AIModelResultFile;
 
 use App\Models\AIModelResultFile;
 use App\Services\OpenAI\AIFile\AIFileService;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
+use stdClass;
 
 class AIModelResultFileDownloader
 {
@@ -15,7 +17,10 @@ class AIModelResultFileDownloader
         $this->aiFileService = $aiFileService;
     }
 
-    public function getAllModelResultFiles()
+    /**
+    * Gets all AIModelResultFiles on OpenAI's api
+    */
+    public function getAllModelResultFiles(): Collection
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
@@ -36,7 +41,10 @@ class AIModelResultFileDownloader
         return AIModelResultFile::all();
     }
 
-    public function downloadModelResultFile(string $resultFileId)
+    /**
+    * Shows the content of a AIModelResultFile
+    */
+    public function downloadModelResultFile(string $resultFileId): array
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
@@ -45,7 +53,10 @@ class AIModelResultFileDownloader
         return $this->aiFileService->downloadResultFile($client, $resultFileId->openai_id);
     }
 
-    public function getModelResultFile(string $resultFileId)
+    /**
+    * Gets the attributes of a single AIModelResultFile
+    */
+    public function getModelResultFile(string $resultFileId): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
@@ -54,7 +65,11 @@ class AIModelResultFileDownloader
         return $this->aiFileService->getAFile($client, $resultFileId->openai_id);
     }
 
-    public function makeAModelResultFile(string $resultFileId)
+    /**
+    * Retrives a single AIModelResultFile from OpenAI and then updates or creates a new resultFile in the db
+    * Gets used in FineTuneJobDownloader
+    */
+    public function makeAModelResultFile(string $resultFileId): AIModelResultFile
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
         $downloadAIModelResult = new DownloadAIModelResultFile;

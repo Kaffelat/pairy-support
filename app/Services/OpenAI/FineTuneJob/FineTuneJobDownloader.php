@@ -28,7 +28,7 @@ class FineTuneJobDownloader
 
         $downloadFineTuneJob = new DownloadFineTuneJob;
 
-        # Eager loads AIModel, AIFiles and AIModelResultFiles and puts them in an array where the key is there openai_id
+        # Eager loads AIModel and AIFiles and puts them in an array where the key is their openai_id
         $aiModels = AIModel::all()->keyBy('openai_id');
         $aiFiles = AIFile::all()->keyBy('openai_id');
 

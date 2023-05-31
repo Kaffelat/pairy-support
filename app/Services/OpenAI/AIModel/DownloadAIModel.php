@@ -10,7 +10,7 @@ class DownloadAIModel
         ];
     }
 
-    public function getModelType(object $openAIModel)
+    public function getModelType(object $openAIModel): string
     {
         $id = $openAIModel->id;
 
