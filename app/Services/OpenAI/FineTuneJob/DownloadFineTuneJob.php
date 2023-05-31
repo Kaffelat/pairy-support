@@ -9,12 +9,12 @@ use App\Services\OpenAI\AIModelResultFile\AIModelResultFileDownloader;
 
 class DownloadFineTuneJob 
 {
-    public function getFineTuneJobAttributes(object $jobInfo, AIModel $aiModel, AIFile $aiFile, AIModelResultFile $aiModelResultFile): array
+    public function getFineTuneJobAttributes(object $jobInfo, AIModel $aiModel, AIFile $aiFile): array
     {
         return [
             'ai_model_id' => $aiModel->id,
             'ai_file_id' => $aiFile->id,
-            'ai_model_result_file_id' => $aiModelResultFile->id,
+            'ai_model_result_file_id' => $this->makeResultFile($jobInfo),
             'type' => $jobInfo->model,
             'epochs' => $jobInfo->hyperparams->nEpochs,
             'batch_size'=> $jobInfo->hyperparams->batchSize,
@@ -22,17 +22,15 @@ class DownloadFineTuneJob
             'prompt_loss_weight' => $jobInfo->hyperparams->promptLossWeight,
         ];
     }
-    public function customHandler(object $jobInfo, AIModelResultFile $aiModelResultFile)
-    {
 
-    }
-
-    public function makeResultFile(object $jobInfo, AIModelResultFile $aiModelResultFile)
+    public function makeResultFile(object $jobInfo): string
     {
         $aiFileService = new AIFileService;
 
         $aiModelResultFileDownloader = new AIModelResultFileDownloader($aiFileService);
 
-        $aiModelResultFile = $aiModelResultFileDownloader->getModelResultFile($jobInfo->resultFiles[0]->id);
+        $aiModelResultFile = $aiModelResultFileDownloader->makeAModelResultFile($jobInfo->resultFiles[0]->id);
+
+        return $aiModelResultFile->id;
     }
 }

@@ -71,7 +71,6 @@ export default {
     async mounted() {
         await this.getModels();
         await this.getAIFiles();
-        await this.getModelResultFiles();
         await this.getFineTuneJobs();
     },
     methods: {
@@ -79,9 +78,6 @@ export default {
             await axios.get('/model/download').then(res =>{
                 this.aiModels = res.data
             });
-        },
-        async getModelResultFiles() {
-            await axios.get('/resultFile/download')
         },
         async getAIFiles() {
             await axios.get('/file/download')

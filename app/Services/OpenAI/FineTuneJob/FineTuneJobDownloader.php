@@ -31,7 +31,6 @@ class FineTuneJobDownloader
         # Eager loads AIModel, AIFiles and AIModelResultFiles and puts them in an array where the key is there openai_id
         $aiModels = AIModel::all()->keyBy('openai_id');
         $aiFiles = AIFile::all()->keyBy('openai_id');
-        $aiModelResultFiles = AIModelResultFile::all()->keyBy('openai_id');
 
         foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
             $openaiModelId = $jobInfo->fineTunedModel;
@@ -40,16 +39,14 @@ class FineTuneJobDownloader
             if ($aiModel = $aiModels->get($openaiModelId)) {
 
                 $openaiFileId = $jobInfo->trainingFiles[0]->id;
-                $openaiResultFileId = $jobInfo->resultFiles[0]->id;
 
                 $aiFile = $aiFiles->get($openaiFileId);
-                $aiModelResultFile = $aiModelResultFiles->get($openaiResultFileId);
     
                 $fineTuneJob = FineTuneJob::firstOrCreate([
                     'openai_id' => $jobInfo->id
                 ]);
 
-                $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo, $aiModel, $aiFile, $aiModelResultFile));
+                $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo, $aiModel, $aiFile));
 
                 $fineTuneJob->save();
             }
