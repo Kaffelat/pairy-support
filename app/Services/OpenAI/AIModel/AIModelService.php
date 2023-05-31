@@ -2,6 +2,7 @@
 namespace App\Services\OpenAI\AIModel;
 
 use App\Models\AIModel;
+use App\Models\AIModelResultFile;
 use App\Models\FineTuneJob;
 use Exception;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class AIModelService
     }
 
     /**
-    * Deletes a model 
+    * Deletes a model, all the finetunejobs that are associated and the resultfile that matches that job
     */
     public function deleteModel(string $openaiModelId): stdClass
     {
@@ -49,6 +50,7 @@ class AIModelService
         
         $aiModel->fineTuneJob->each(function ($fineTuneJob) {
             $fineTuneJob->delete();
+            AIModelResultFile::where('id', $fineTuneJob->ai_model_result_file_id)->delete();
          });
 
         $aiModel->delete();
