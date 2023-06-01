@@ -34,7 +34,10 @@ import { Head } from '@inertiajs/vue3';
                             <td>{{fineTuneJobs.id}}</td>
                             <td id="openaiID">{{fineTuneJobs.openai_id}}</td>
                             <td>{{fineTuneJobs.ai_model_id}}</td>
-                            <td>{{fineTuneJobs.ai_file_id}}</td>
+                            <td>
+                                <span v-if="fineTuneJobs.ai_file_id">{{ fineTuneJobs.ai_file_id }}</span>
+                                <span v-else>Filen er slettet</span>
+                            </td>
                             <td class="link" @click="redirectToFineTuneJobs(fineTuneJobs.ai_model_result_file_id)">{{fineTuneJobs.ai_model_result_file_id}}</td>
                             <td>{{fineTuneJobs.type}}</td>
                             <td>{{fineTuneJobs.epochs}}</td>
