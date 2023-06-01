@@ -3,7 +3,6 @@ namespace App\Services\OpenAI\FineTuneJob;
 
 use App\Models\AIFile;
 use App\Models\AIModel;
-use App\Models\AIModelResultFile;
 use App\Services\OpenAI\AIFile\AIFileService;
 use App\Services\OpenAI\AIModelResultFile\AIModelResultFileDownloader;
 
@@ -12,11 +11,10 @@ class DownloadFineTuneJob
     /**
     * Sets the attributes of a FineTuneJob
     */
-    public function getFineTuneJobAttributes(object $jobInfo, AIModel $aiModel, AIFile $aiFile): array
+    public function getFineTuneJobAttributes(object $jobInfo, AIModel $aiModel): array
     {
         return [
             'ai_model_id' => $aiModel->id,
-            'ai_file_id' => $aiFile->id,
             'ai_model_result_file_id' => $this->makeResultFile($jobInfo),
             'type' => $jobInfo->model,
             'epochs' => $jobInfo->hyperparams->nEpochs,
@@ -28,7 +26,6 @@ class DownloadFineTuneJob
 
     /**
     * Retrives the resultfile that matches the id in the finetunejob on OpenAI
-    * 
     */
     public function makeResultFile(object $jobInfo): string
     {
@@ -39,5 +36,15 @@ class DownloadFineTuneJob
         $aiModelResultFile = $aiModelResultFileDownloader->makeAModelResultFile($jobInfo->resultFiles[0]->id);
 
         return $aiModelResultFile->id;
+    }
+    
+    /**
+    * get the id of an AIFile
+    */
+    public function getAIFileId(AIFile $aiFile): array
+    {
+        return [
+            'ai_file_id' => $aiFile->id
+        ];
     }
 }

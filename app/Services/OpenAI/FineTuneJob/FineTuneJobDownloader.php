@@ -6,6 +6,7 @@ use App\Models\AIModel;
 use App\Models\AIModelResultFile;
 use App\Models\FineTuneJob;
 use App\Services\OpenAI\AIModel\AIModelService;
+use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
@@ -30,8 +31,10 @@ class FineTuneJobDownloader
 
         # Eager loads AIModel and AIFiles and puts them in an array where the key is their openai_id
         $aiModels = AIModel::all()->keyBy('openai_id');
+
         $aiFiles = AIFile::all()->keyBy('openai_id');
 
+        
         foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
             $openaiModelId = $jobInfo->fineTunedModel;
 
@@ -39,15 +42,18 @@ class FineTuneJobDownloader
             if ($aiModel = $aiModels->get($openaiModelId)) {
 
                 $openaiFileId = $jobInfo->trainingFiles[0]->id;
-
-                $aiFile = $aiFiles->get($openaiFileId);
     
                 $fineTuneJob = FineTuneJob::firstOrCreate([
                     'openai_id' => $jobInfo->id
                 ]);
 
-                $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo, $aiModel, $aiFile));
-
+                $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo, $aiModel));
+                
+                # Checks if the aiFile in the job exsists in the database. If not the job gets saved with AIFiles as null
+                if ($aiFile = $aiFiles->get($openaiFileId)) {
+                    $fineTuneJob->fill($downloadFineTuneJob->getAIFileId($aiFile));
+                }
+ 
                 $fineTuneJob->save();
             }
         }
