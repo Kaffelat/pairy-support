@@ -26,12 +26,12 @@ import { Head } from '@inertiajs/vue3';
                     </thead>
                     <tbody v-if="this.resultFile.length > 0">
                         <tr v-for="(resultFile) in this.resultFile">
-                            <td>{{resultFile[0]}}</td>
-                            <td>{{resultFile[1]}}</td>
-                            <td>{{resultFile[2]}}</td>
-                            <td>{{resultFile[3]}}</td>
-                            <td>{{resultFile[4]}}</td>
-                            <td>{{resultFile[5]}}</td>
+                            <td id="step">{{resultFile[0]}}</td>
+                            <td id="tokens seen">{{resultFile[1]}}</td>
+                            <td id="eksemples seen">{{resultFile[2]}}</td>
+                            <td id="traning loss">{{resultFile[3]}}</td>
+                            <td id="traning accuracy">{{resultFile[4]}}</td>
+                            <td id="traning token accuracy">{{resultFile[5]}}</td>
                         </tr>
                     </tbody>
                     <tbody v-else>
