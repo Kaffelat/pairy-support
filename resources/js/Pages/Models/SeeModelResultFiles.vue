@@ -64,7 +64,6 @@ export default {
         getResultFile() {
             axios.get('/resultFile/get/' + this.id).then(res =>{
                 this.resultFile = res.data
-                console.log(this.resultFile)
             });
         },
     }

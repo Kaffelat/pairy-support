@@ -106,8 +106,6 @@ export default {
                 }
             })
             .catch(error => {
-                console.error(error);
-
                 this.showAlert = true;
                 this.alertMessage = 'There was an error when you tried to train your model. Please check that the id of the file you are trying to use is right';
                 this.alertClass = 'error';

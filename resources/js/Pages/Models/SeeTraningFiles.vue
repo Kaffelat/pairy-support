@@ -94,7 +94,6 @@ export default {
                 }
             })
             .catch(error => {
-                console.error(error);
                 this.showAlert = true;
                 this.alertMessage = "There was an error when you tried to delete this File: " + openai_id;
                 this.alertClass = 'error';

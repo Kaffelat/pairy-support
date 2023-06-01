@@ -79,8 +79,6 @@ export default {
                 }
             })
             .catch(error => {
-                console.error(error);
-
                 this.showAlert = true;
                 this.alertMessage = 'There was an error when you tried to upload a new file. Please check that file is not too big in size';
                 this.alertClass = 'error';
