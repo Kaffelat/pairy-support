@@ -53,6 +53,11 @@ class AIFileService
 
         $aiFile = AIFile::where('openai_id', $openaiFileId)->first();
 
+        $aiFile->fineTuneJob->each(function ($fineTuneJob) {
+            $fineTuneJob->ai_file_id = null;
+            $fineTuneJob->update();
+         });
+
         $aiFile->delete();
 
         $response = $client->files()->delete($openaiFileId);

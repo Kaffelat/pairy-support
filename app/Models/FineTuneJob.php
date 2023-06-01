@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class FineTuneJob extends Model
@@ -40,8 +39,8 @@ class FineTuneJob extends Model
         return $this->belongsTo(AIModel::class, 'ai_model_id');
     }
 
-    public function aiFile(): HasMany
+    public function aiFile(): BelongsTo
     {
-        return $this->hasMany(AIFile::class, 'fine_tune_job_ai_file_pivot','fine_tune_job_id', 'ai_file_id');
+        return $this->belongsTo(AIFile::class, 'ai_file_id');
     }
 }

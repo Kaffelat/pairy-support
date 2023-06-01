@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AIFile extends Model
 {
@@ -25,20 +24,28 @@ class AIFile extends Model
         'file_purpose'
     ];
 
-    public function delete()
-    {
-        #Update the associated FineTuneJob records
-        $this->fineTuneJob()->update(['ai_file_id' => null]);
+    // public function delete()
+    // {
+    //     #Update the associated FineTuneJob records
+    //     $this->fineTuneJob()->update(['ai_file_id' => null]);
 
-        return parent::delete();
+    //     return parent::delete();
+    // }
+
+     /**
+    * Relation to Users
+    */
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(Users::class, 'user_id');
     }
 
     /**
-    * Relation to Model Validation
+    * Relation to fineTuneJob
     */
-    public function fineTuneJob(): BelongsToMany
+    public function fineTuneJob(): HasMany
     {
-        return $this->belongsToMany(FineTuneJob::class,'ai_file_fine_tune_job_pivot', 'ai_file_id', 'fine_tune_job_id');
+        return $this->hasMany(FineTuneJob::class,'ai_file_id');
     }
 
 }

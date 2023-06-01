@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('ai_models', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
             $table->string('openai_id')->unique();
+            $table->foreignId('user_id');
             $table->string('type')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

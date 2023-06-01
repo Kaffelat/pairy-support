@@ -50,13 +50,4 @@ class AIFilesDownloader
         }
         return AIFile::all();
     }
-
-    #Gets a single file by using it's OpenAI id
-    public function getAFile(): stdClass
-    {
-        $client = OpenAI::client(Auth::user()->openai_api_key);
-
-        return $this->aiFileService->getAFile($client, 'file-c3noJiDFH6ZjIHsSfsO0EiKm');
-    }
-    
 }
