@@ -5,6 +5,7 @@ use App\Models\AIFile;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use OpenAI;
 use OpenAI\Client;
 use stdClass;
@@ -37,11 +38,11 @@ class AIFileService
                 'file' => $handle,
             ]);
     
+            return (object)(array)$response;
         }
         catch (Exception $e) {
             throw $e;
         }
-        return (object)(array)$response;
     }
 
     /**
@@ -55,6 +56,7 @@ class AIFileService
 
         $aiFile->fineTuneJob->each(function ($fineTuneJob) {
             $fineTuneJob->ai_file_id = null;
+
             $fineTuneJob->update();
          });
 

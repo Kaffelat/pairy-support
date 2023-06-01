@@ -2,6 +2,7 @@
 namespace App\Services\OpenAI\AIModel;
 
 use App\Services\OpenAI\AIModel\AIModelService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
@@ -19,9 +20,9 @@ class UploadAIModel
     public function createOrTrainModel(Request $request): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
-        
-        $openAIModels = $this->aiModelService->createOrTrainModel($client, $request);
 
+        $openAIModels = $this->aiModelService->createOrTrainModel($client, $request);
+        
         return (object)(array)$openAIModels;
     }
 }

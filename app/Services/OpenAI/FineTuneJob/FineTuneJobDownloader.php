@@ -36,30 +36,35 @@ class FineTuneJobDownloader
 
         
         foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
-            $openaiModelId = $jobInfo->fineTunedModel;
-
-            # If a AIModel's OpenAIID matches a AIModel in the database then procede else it goes on to the next model.
-            if ($aiModel = $aiModels->get($openaiModelId)) {
-
-                $openaiFileId = $jobInfo->trainingFiles[0]->id;
-    
-                $fineTuneJob = FineTuneJob::firstOrCreate([
-                    'openai_id' => $jobInfo->id
-                ]);
-
-                $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo, $aiModel));
+            try {
+                $openaiModelId = $jobInfo->fineTunedModel;
                 
-                # Checks if the aiFile in the job exsists in the database. If not the job gets saved with AIFiles as null
-                if ($aiFile = $aiFiles->get($openaiFileId)) {
-                    $fineTuneJob->fill($downloadFineTuneJob->getAIFileId($aiFile));
+                # If a AIModel's OpenAIID matches a AIModel in the database then procede else it goes on to the next model.
+                if ($aiModel = $aiModels->get($openaiModelId)) {
+                    
+                    $openaiFileId = $jobInfo->trainingFiles[0]->id;
+                    
+                    $fineTuneJob = FineTuneJob::firstOrCreate([
+                        'openai_id' => $jobInfo->id
+                    ]);
+                    
+                    $fineTuneJob->fill($downloadFineTuneJob->getFineTuneJobAttributes($jobInfo, $aiModel));
+                    
+                    # Checks if the aiFile in the job exsists in the database. If not the job gets saved with AIFiles as null
+                    if ($aiFile = $aiFiles->get($openaiFileId)) {
+                        $fineTuneJob->fill($downloadFineTuneJob->getAIFileId($aiFile));
+                    }
+                    
+                    $fineTuneJob->save();
                 }
- 
-                $fineTuneJob->save();
+                return FineTuneJob::all();
+            }
+            
+            catch (Exception $e) {
+                throw $e;
             }
         }
-        return FineTuneJob::all();
     }
-
     /**
     * Gets a specific fineTuneJob from it's id on OpenAI
     */
@@ -78,10 +83,14 @@ class FineTuneJobDownloader
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
         foreach ($this->aiModelService->listAllFineTuneJobs($client) as $fineTuneJob) {
-            
-            if ($aiModel = AIModel::where('openai_id', $openAIModelId)->first()) {
-
-                return FineTuneJob::where('ai_model_id',$aiModel->id)->get();
+            try {
+                if ($aiModel = AIModel::where('openai_id', $openAIModelId)->first()) {
+                    
+                    return FineTuneJob::where('ai_model_id',$aiModel->id)->get();
+                }
+            }
+            catch (Exception $e) {
+                throw $e;
             }
         }
     }

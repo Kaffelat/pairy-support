@@ -3,6 +3,7 @@ namespace App\Services\OpenAI\AIModelResultFile;
 
 use App\Models\AIModelResultFile;
 use App\Services\OpenAI\AIFile\AIFileService;
+use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
@@ -25,20 +26,25 @@ class AIModelResultFileDownloader
         $client = OpenAI::client(Auth::user()->openai_api_key);
         
         $downloadAIModelResult = new DownloadAIModelResultFile;
-
+        
         foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
-            if ($file->purpose == 'fine-tune-results') {
-                
-                $aiModelResultFile = AIModelResultFile::firstOrCreate([
-                    'openai_id' => $file->id
-                ]);
-                
-                $aiModelResultFile->fill($downloadAIModelResult->GetAIModelResultFileAttributes($file));
-                
-                $aiModelResultFile->save();
+            try {
+                if ($file->purpose == 'fine-tune-results') {
+                    
+                    $aiModelResultFile = AIModelResultFile::firstOrCreate([
+                        'openai_id' => $file->id
+                    ]);
+                    
+                    $aiModelResultFile->fill($downloadAIModelResult->GetAIModelResultFileAttributes($file));
+                    
+                    $aiModelResultFile->save();
+                }
+                return AIModelResultFile::all();
+            }
+            catch (Exception $e) {
+                throw $e;
             }
         }
-        return AIModelResultFile::all();
     }
 
     /**
@@ -47,10 +53,15 @@ class AIModelResultFileDownloader
     public function downloadModelResultFile(string $resultFileId): array
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
+        
+        try {
+            $resultFileId = AIModelResultFile::where('id', $resultFileId)->first();
 
-        $resultFileId = AIModelResultFile::where('id', $resultFileId)->first();
-
-        return $this->aiFileService->downloadResultFile($client, $resultFileId->openai_id);
+            return $this->aiFileService->downloadResultFile($client, $resultFileId->openai_id);
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -60,9 +71,14 @@ class AIModelResultFileDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        $resultFileId = AIModelResultFile::where('id', $resultFileId)->first();
-
-        return $this->aiFileService->getAFile($client, $resultFileId->openai_id);
+        try {
+            $resultFileId = AIModelResultFile::where('id', $resultFileId)->first();
+            
+            return $this->aiFileService->getAFile($client, $resultFileId->openai_id);
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -72,18 +88,24 @@ class AIModelResultFileDownloader
     public function makeAModelResultFile(string $resultFileId): AIModelResultFile
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
+        
         $downloadAIModelResult = new DownloadAIModelResultFile;
-
-        $resultFile = $this->aiFileService->getAFile($client, $resultFileId);
-
-        $newResultFile = AIModelResultFile::firstOrCreate([
-            'openai_id' => $resultFile->id,
-        ]);
-
-        $newResultFile->fill($downloadAIModelResult->GetAIModelResultFileAttributes($resultFile));
-                
-        $newResultFile->save();
-
-        return $newResultFile;
+        
+        try {
+            $resultFile = $this->aiFileService->getAFile($client, $resultFileId);
+            
+            $newResultFile = AIModelResultFile::firstOrCreate([
+                'openai_id' => $resultFile->id,
+            ]);
+            
+            $newResultFile->fill($downloadAIModelResult->GetAIModelResultFileAttributes($resultFile));
+            
+            $newResultFile->save();
+            
+            return $newResultFile;
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
     }
 }
