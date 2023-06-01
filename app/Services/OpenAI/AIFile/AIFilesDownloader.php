@@ -27,16 +27,17 @@ class AIFilesDownloader
         
         $downloadAIFile = new DownloadAIFiles;
         
+        $userId = Auth::user()->id;
+
         #For every file that's on the users account look if it's already inside the database
         #If it is update it else make a new AIFile in the database
-
         foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
             try {
                 if ($file->purpose != "fine-tune-results") { 
 
                     $aiFile = AIFile::firstOrCreate([
                         'openai_id' => $file->id,
-                        'user_id' => Auth::user()->id,
+                        'user_id' => $userId,
                     ]);
                     
                     $aiFile->fill($downloadAIFile->getFileAttributes($file));
@@ -48,6 +49,6 @@ class AIFilesDownloader
                 throw $e;
             }
         }
-        return AIFile::all();
+        return AIFile::where('user_id', $userId)->get();
     }
 }

@@ -24,18 +24,20 @@ class AIModelDownloader
         
         $downloadAIModel = new DownloadAIModel;
 
+        $userId = Auth::user()->id;
+
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
             
             $aiModel = AIModel::firstOrCreate ([
                 'openai_id' => $openAIModel->id,
-                'user_id' =>  Auth::user()->id
+                'user_id' =>  $userId
             ]);
 
             $aiModel->fill($downloadAIModel->getAIModelAttributes($openAIModel));
             $aiModel->save();
         }  
         
-        return AIModel::all();
+        return AIModel::where('user_id', $userId)->get();
     }    
 
     public function getModelById(): object
