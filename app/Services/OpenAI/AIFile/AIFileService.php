@@ -41,6 +41,7 @@ class AIFileService
             return (object)(array)$response;
         }
         catch (Exception $e) {
+            Log::error("Couldn't upload file: \"{$file}\"");
             throw $e;
         }
     }
@@ -53,18 +54,23 @@ class AIFileService
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
         $aiFile = AIFile::where('openai_id', $openaiFileId)->first();
-
-        $aiFile->fineTuneJob->each(function ($fineTuneJob) {
-            $fineTuneJob->ai_file_id = null;
-
-            $fineTuneJob->update();
-         });
-
-        $aiFile->delete();
-
-        $response = $client->files()->delete($openaiFileId);
-
-        return (object)(array)$response; 
+        try {
+            $aiFile->fineTuneJob->each(function ($fineTuneJob) {
+                $fineTuneJob->ai_file_id = null;
+                
+                $fineTuneJob->update();
+            });
+            
+            $aiFile->delete();
+            
+            $response = $client->files()->delete($openaiFileId);
+            
+            return (object)(array)$response; 
+        }
+        catch (Exception $e) {
+            Log::error("Couldn't delete \"{$aiFile}\"");
+            throw $e;
+        }
     }
 
     /**

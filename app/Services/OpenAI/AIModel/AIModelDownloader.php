@@ -27,7 +27,6 @@ class AIModelDownloader
 
         $userId = Auth::user()->id;
 
-        
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
             try {
             
@@ -43,22 +42,9 @@ class AIModelDownloader
             }
           
             catch (Exception $e) {
+                Log::error("Couldn't get AIModel: \"{$openAIModel}\"");
                 throw $e;
             }
         }
     }    
-
-    // public function getModelById(): object
-    // {
-    //     $client = OpenAI::client(Auth::user()->openai_api_key);
-
-    //     return $this->aiModelService->getAModel($client, 'curie:ft-personal-2023-05-10-13-38-59');
-    // }
-
-    // public function getAModelsFineTuneJobs(): object
-    // {
-    //     $client = OpenAI::client(Auth::user()->openai_api_key);
-
-    //     return $this->aiModelService->getAModelsFineTuneJobs($client,'ft-oBC2C1HzgsewD8GAhRUPVct4');
-    // }
 }

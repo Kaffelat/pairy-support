@@ -6,6 +6,7 @@ use App\Models\AIFile;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use OpenAI;
 
 class AIFilesDownloader
@@ -45,6 +46,7 @@ class AIFilesDownloader
                 }
             }
             catch (Exception $e) {
+                Log::error("Could retrive file: \"{$file}\"");
                 throw $e;
             }
         }

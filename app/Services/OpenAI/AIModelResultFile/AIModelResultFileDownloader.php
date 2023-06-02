@@ -6,6 +6,7 @@ use App\Services\OpenAI\AIFile\AIFileService;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use OpenAI;
 use stdClass;
 
@@ -42,6 +43,7 @@ class AIModelResultFileDownloader
                 return AIModelResultFile::all();
             }
             catch (Exception $e) {
+                Log::error("Failed to retrive file: \"{$file}\"");
                 throw $e;
             }
         }
@@ -60,12 +62,13 @@ class AIModelResultFileDownloader
             return $this->aiFileService->downloadResultFile($client, $resultFileId->openai_id);
         }
         catch (Exception $e) {
+            Log::error("Failed to download ResultFile: \"{$resultFileId}\"");
             throw $e;
         }
     }
 
     /**
-    * Gets the attributes of a single AIModelResultFile
+    * Gets the attributes, like purpose and bite size, for a single AIModelResultFile
     */
     public function getModelResultFile(string $resultFileId): stdClass
     {
@@ -77,6 +80,7 @@ class AIModelResultFileDownloader
             return $this->aiFileService->getAFile($client, $resultFileId->openai_id);
         }
         catch (Exception $e) {
+            Log::error("Failed to get ResultFile: \"{$resultFileId}\"");
             throw $e;
         }
     }
@@ -105,6 +109,7 @@ class AIModelResultFileDownloader
             return $newResultFile;
         }
         catch (Exception $e) {
+            Log::error("Failed to make a new ModelResultFile: \"{$resultFile}\"");
             throw $e;
         }
     }

@@ -7,6 +7,7 @@ use App\Models\FineTuneJob;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use OpenAI;
 use OpenAI\Client;
 use stdClass;
@@ -41,6 +42,7 @@ class AIModelService
         }
 
         catch (Exception $e) {
+            Log::error("Couldn't train new model");
             throw $e;
         }
     }
@@ -69,6 +71,7 @@ class AIModelService
         }
 
         catch (Exception $e) {
+            Log::error("Failed to delete \"{$aiModel}\"");
             throw $e;
         }
     }
@@ -101,6 +104,7 @@ class AIModelService
             return (object)(array)$modelsByOwner;
         }
         catch (Exception $e) {
+            Log::error("Couldn't retrive models");
             throw $e;
         }
     }
