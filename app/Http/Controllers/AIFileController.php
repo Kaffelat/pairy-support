@@ -27,16 +27,6 @@ class AIFileController extends BaseController
     }
 
     /**
-    * Gets a single file
-    */
-    public function GetFile(AIFileService $aiFileService): stdClass
-    {
-        $aiFileDownloader = new AIFilesDownloader($aiFileService);
-        return $aiFileDownloader->getAFile();
-    }
-
-
-    /**
     * Uploads a new file to OpenAI
     */
     public function UploadAFile(Request $request ,AIFileService $aiFileService): stdClass

@@ -37,16 +37,6 @@ class AIModelController extends BaseController
     }
 
     /**
-    * Gets a single model 
-    */
-    public function getModel(AIModelService $aiModelService): stdClass
-    {
-        $aiModelDownloader = new AIModelDownloader($aiModelService);
-
-        return $aiModelDownloader->getModelById();
-    }
-
-    /**
     * Deletes a model 
     */
     public function deleteModel(String $openaiModelId, AIModelService $aiModelService): stdClass
