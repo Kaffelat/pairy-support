@@ -75,8 +75,6 @@ class FineTuneJobDownloader
     */
     public function getAllFineTuneJobsForAModel(string $openAIModelId)
     {
-        $client = OpenAI::client(Auth::user()->openai_api_key);
-
         try {
             $aiModel = AIModel::where('openai_id', $openAIModelId)->first();
         
@@ -85,6 +83,7 @@ class FineTuneJobDownloader
             }
         } 
         catch (Exception $e) {
+            Log::error("Failed to get jobs for AIModel: \"{$aiModel}\"");
             throw $e;
         }    
     }
