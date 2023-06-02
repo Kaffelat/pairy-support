@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import DropDownFile from '@/Components/DropDownFile.vue';
+import ModelForm from '@/Components/ModelForm.vue';
 </script>
 
 <template>
@@ -20,7 +20,7 @@ import DropDownFile from '@/Components/DropDownFile.vue';
             <label>Model Name</label>
             <input type="text" v-model="type" class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-            <drop-down-file></drop-down-file>
+            <model-form></model-form>
         </form>
     </AuthenticatedLayout>
 </template>

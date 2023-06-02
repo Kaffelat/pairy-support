@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import DropDownFile from '@/Components/DropDownFile.vue';
+import ModelForm from '@/Components/ModelForm.vue';
 </script>
 
 <template>
@@ -24,7 +24,7 @@ import DropDownFile from '@/Components/DropDownFile.vue';
                 <option value="ada">Ada</option>     
             </select>
             
-            <drop-down-file></drop-down-file>
+            <model-form></model-form>
         </form>
     </AuthenticatedLayout>
 </template>
