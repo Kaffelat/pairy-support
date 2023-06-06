@@ -91,7 +91,7 @@ export default {
                 
                 if (res.status === 200) {
                     this.showAlert = true;
-                    this.alertMessage = 'Model deleted successfully.';
+                    this.alertMessage = openai_id + ' Was deleted successfully.';
                     this.alertClass = 'success';
                 }
                 else {
