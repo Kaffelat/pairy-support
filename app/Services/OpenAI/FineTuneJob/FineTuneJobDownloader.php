@@ -14,12 +14,10 @@ use OpenAI;
 
 class FineTuneJobDownloader 
 {   
-    protected $aiModelService;
     protected $fineTuneJobService;
 
-    public function __construct(AIModelService $aiModelService, FineTuneJobService $fineTuneJobService)
+    public function __construct(FineTuneJobService $fineTuneJobService)
     {
-        $this->aiModelService = $aiModelService;
         $this->fineTuneJobService = $fineTuneJobService;
     }
 
