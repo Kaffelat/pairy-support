@@ -28,21 +28,13 @@ class AIFileService
         
         try {
             $handle = fopen(storage_path("app/{$filePath}"), 'r');
-            #Checks if the file can be read 
-            if (fread($handle, 1) === false) {
-
-                fclose($handle);
-                
-                return null;
-            }
-            #Rewinds the file pointer so we doesn't skip the first letter 
-            rewind($handle);
+        
             # Upload the file to the API using openai-php/client upload function
             $response = $client->files()->upload([
                 'purpose' => 'fine-tune',
                 'file' => $handle,
             ]);
-    
+            
             return (object)(array)$response;
         }
         catch (Exception $e) {
