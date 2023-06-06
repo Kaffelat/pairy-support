@@ -5,6 +5,7 @@ use App\Models\AIFile;
 use App\Models\AIModel;
 use App\Services\OpenAI\AIFile\AIFileService;
 use App\Services\OpenAI\AIModelResultFile\AIModelResultFileDownloader;
+use App\Services\OpenAI\AIModelResultFile\AIModelResultFileService;
 
 class DownloadFineTuneJob 
 {
@@ -30,8 +31,9 @@ class DownloadFineTuneJob
     public function makeResultFile(object $jobInfo): string
     {
         $aiFileService = new AIFileService;
+        $aiModelResultFileService = new AIModelResultFileService;
 
-        $aiModelResultFileDownloader = new AIModelResultFileDownloader($aiFileService);
+        $aiModelResultFileDownloader = new AIModelResultFileDownloader($aiFileService, $aiModelResultFileService);
 
         $aiModelResultFile = $aiModelResultFileDownloader->makeAModelResultFile($jobInfo->resultFiles[0]->id);
 

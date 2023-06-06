@@ -13,10 +13,12 @@ use stdClass;
 class AIModelResultFileDownloader
 {
     protected $aiFileService;
+    protected $aiModelResultFileService;
 
-    public function __construct(AIFileService $aiFileService)
+    public function __construct(AIFileService $aiFileService, AIModelResultFileService $aiModelResultFileService)
     {
         $this->aiFileService = $aiFileService;
+        $this->aiModelResultFileService = $aiModelResultFileService;
     }
 
     /**
@@ -59,7 +61,7 @@ class AIModelResultFileDownloader
         try {
             $resultFileId = AIModelResultFile::where('id', $resultFileId)->first();
 
-            return $this->aiFileService->downloadResultFile($client, $resultFileId->openai_id);
+            return $this->aiModelResultFileService->downloadResultFile($client, $resultFileId->openai_id);
         }
         catch (Exception $e) {
             Log::error("Failed to download ResultFile: \"{$resultFileId}\"");
