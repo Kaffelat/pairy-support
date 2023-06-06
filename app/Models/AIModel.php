@@ -29,7 +29,9 @@ class AIModel extends Model
 
     protected $typeList = [
         'davinci',
-        'curie'
+        'curie',
+        'babbage',
+        'ada'
     ];
     
     /**
@@ -39,7 +41,9 @@ class AIModel extends Model
     {
         return $this->belongsTo(Users::class, 'user_id');
     }
-
+    /**
+     * Relation to FineTuneJobs
+     */
     public function fineTuneJob(): HasMany
     {
         return $this->hasMany(FineTuneJob::class, 'ai_model_id');
