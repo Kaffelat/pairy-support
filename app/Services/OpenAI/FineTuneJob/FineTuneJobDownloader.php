@@ -14,11 +14,11 @@ use OpenAI;
 
 class FineTuneJobDownloader 
 {   
-    protected $aiModelService;
+    protected $fineTuneJobService;
 
-    public function __construct(AIModelService $aiFileService)
+    public function __construct(FineTuneJobService $fineTuneJobService)
     {
-        $this->aiModelService = $aiFileService;
+        $this->fineTuneJobService = $fineTuneJobService;
     }
 
     /**
@@ -35,7 +35,7 @@ class FineTuneJobDownloader
 
         $aiFiles = AIFile::all()->keyBy('openai_id');
 
-        foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
+        foreach ($this->fineTuneJobService->listAllFineTuneJobs($client)->data as $jobInfo) {
             $openaiModelId = $jobInfo->fineTunedModel;
             
             # If a AIModel's OpenAIID matches a AIModel in the database then procede else it goes on to the next model.
@@ -67,7 +67,7 @@ class FineTuneJobDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return $this->aiModelService->getAModelsFineTuneJobs($client, $openAIModelId);
+        return $this->fineTuneJobService->getAModelsFineTuneJobs($client, $openAIModelId);
     }
 
     /**

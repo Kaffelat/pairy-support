@@ -77,16 +77,6 @@ class AIModelService
     }
 
     /**
-    * Lists all models on OpenAI
-    */
-    public function listAllFineTuneJobs(Client $client): stdClass
-    {
-        $response = $client->fineTunes()->list();
-        
-        return (object)(array)$response;
-    }
-
-    /**
     * Lists all models that you have made on OpenAI
     */
     public function listAllModels(Client $client): stdClass
@@ -119,13 +109,4 @@ class AIModelService
         return (object)(array)$response;
     }
 
-    /**
-    * Deletes a model 
-    */
-    public function getAModelsFineTuneJobs(Client $client, string $openAIModelId): stdClass
-    {
-        $response = $client->fineTunes()->retrieve($openAIModelId);
-      
-        return (object)(array)$response;
-    }
 }
