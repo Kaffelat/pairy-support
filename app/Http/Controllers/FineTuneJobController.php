@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Services\OpenAI\AIModel\AIModelService;
 use App\Services\OpenAI\FineTuneJob\FineTuneJobDownloader;
-use App\Services\OpenAI\FineTuneJob\FineTuneJobService;
 use Illuminate\Support\Collection;
 use stdClass;
 
@@ -12,9 +11,9 @@ class FineTuneJobController
     /**
     * Gets all the jobs that matches a model in the database
     */
-    public function getAllFineTuneJobs(FineTuneJobService $fineTuneJobService): Collection
+    public function getAllFineTuneJobs(AIModelService $aiModelService): Collection
     {
-        $fineTuneJobDownloader = new FineTuneJobDownloader($fineTuneJobService);
+        $fineTuneJobDownloader = new FineTuneJobDownloader($aiModelService);
 
         return $fineTuneJobDownloader->getAllFineTuneJobs();
     }
@@ -22,18 +21,18 @@ class FineTuneJobController
     /**
     * Gets info about a single finetune job
     */
-    public function getFineTuneJob(string $openaiModelId, FineTuneJobService $fineTuneJobService): stdClass
+    public function getFineTuneJob(string $openaiModelId, AIModelService $aiModelService): stdClass
     {
-        $fineTuneJobDownloader = new FineTuneJobDownloader($fineTuneJobService);
+        $fineTuneJobDownloader = new FineTuneJobDownloader($aiModelService);
         
         return $fineTuneJobDownloader->getAFineTuneJob($openaiModelId);
     }
     /**
     * Gets all FineTuneJobs for a specific model
     */
-    public function getAllFineTuneJobsForAModel(string $openai_id, FineTuneJobService $fineTuneJobService): Collection
+    public function getAllFineTuneJobsForAModel(string $openai_id, AIModelService $aiModelService): Collection
     {
-        $fineTuneJobDownloader = new FineTuneJobDownloader($fineTuneJobService);
+        $fineTuneJobDownloader = new FineTuneJobDownloader($aiModelService);
 
         return $fineTuneJobDownloader->getAllFineTuneJobsForAModel($openai_id);
     }
