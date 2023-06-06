@@ -6,6 +6,9 @@ use stdClass;
 
 class FineTuneJobService
 {
+    /**
+     * Gets a the FineTuneJobs that for a AIModel
+     */
     public function getAModelsFineTuneJobs(Client $client, string $openAIModelId): stdClass
     {
         $response = $client->fineTunes()->retrieve($openAIModelId);
@@ -13,8 +16,8 @@ class FineTuneJobService
         return (object)(array)$response;
     }
 
-      /**
-    * Lists all models on OpenAI
+    /**
+    * Lists all FineTuneJobs on OpenAI
     */
     public function listAllFineTuneJobs(Client $client): stdClass
     {
