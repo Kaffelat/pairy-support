@@ -5,7 +5,7 @@ use App\Models\AIFile;
 use App\Models\AIModel;
 use App\Models\FineTuneJob;
 use App\Services\OpenAI\AIModel\AIModelService;
-
+use App\Services\OpenAI\FineTuneJob\FineTuneJobService;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +15,12 @@ use OpenAI;
 class FineTuneJobDownloader 
 {   
     protected $aiModelService;
+    protected $fineTuneJobService;
 
-    public function __construct(AIModelService $aiModelService)
+    public function __construct(AIModelService $aiModelService, FineTuneJobService $fineTuneJobService)
     {
         $this->aiModelService = $aiModelService;
+        $this->fineTuneJobService = $fineTuneJobService;
     }
 
     /**
@@ -35,7 +37,7 @@ class FineTuneJobDownloader
 
         $aiFiles = AIFile::all()->keyBy('openai_id');
 
-        foreach ($this->aiModelService->listAllFineTuneJobs($client)->data as $jobInfo) {
+        foreach ($this->fineTuneJobService->listAllFineTuneJobs($client)->data as $jobInfo) {
             $openaiModelId = $jobInfo->fineTunedModel;
             
             # If a AIModel's OpenAIID matches a AIModel in the database then procede else it goes on to the next model.
@@ -67,7 +69,7 @@ class FineTuneJobDownloader
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        return $this->aiModelService->getAModelsFineTuneJobs($client, $openAIModelId);
+        return $this->fineTuneJobService->getAModelsFineTuneJobs($client, $openAIModelId);
     }
 
     /**
