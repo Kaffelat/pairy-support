@@ -22,7 +22,6 @@ class FineTuneJob extends Model
         'ai_model_result_file_id',
         'openai_id',
         'type',
-        'events',
         'epochs',
         'batch_size',
         'learning_rate_multiplier',
