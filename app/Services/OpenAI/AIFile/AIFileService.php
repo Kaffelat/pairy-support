@@ -2,6 +2,7 @@
 namespace App\Services\OpenAI\AIFile;
 
 use App\Models\AIFile;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +20,14 @@ class AIFileService
     {
         $file = $request->file('file');
         
-        try {
-            $handle = fopen($file->getPathname(), 'r');
+        $date = Carbon::now()->toDateString();
+        
+        $originalName = $file->getClientOriginalName();
 
+        $filePath = $file->storeAs("public/UploadedFiles/Files:{$date}", "{$originalName}");
+        
+        try {
+            $handle = fopen(storage_path("app/{$filePath}"), 'r');
             #Checks if the file can be read 
             if (fread($handle, 1) === false) {
 
@@ -31,7 +37,6 @@ class AIFileService
             }
             #Rewinds the file pointer so we doesn't skip the first letter 
             rewind($handle);
-
             # Upload the file to the API using openai-php/client upload function
             $response = $client->files()->upload([
                 'purpose' => 'fine-tune',
