@@ -6,7 +6,7 @@ class DownloadAIModelResultFile
     /**
     * Set the attributes of a AIModelResultFile
     */
-    public function GetAIModelResultFileAttributes(object $resultFile): array
+    public function getAIModelResultFileAttributes(object $resultFile): array
     {
         return [
             'byte_size' => $resultFile->bytes,

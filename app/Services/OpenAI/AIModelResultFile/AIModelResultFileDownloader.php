@@ -104,7 +104,7 @@ class AIModelResultFileDownloader
                 'openai_id' => $resultFile->id,
             ]);
             
-            $newResultFile->fill($downloadAIModelResult->GetAIModelResultFileAttributes($resultFile));
+            $newResultFile->fill($downloadAIModelResult->getAIModelResultFileAttributes($resultFile));
             
             $newResultFile->save();
             
