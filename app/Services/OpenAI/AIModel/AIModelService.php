@@ -20,22 +20,23 @@ class AIModelService
     public function createOrTrainModel(Client $client, Request $request): stdClass
     {
         try {
+
             if ($request->validationFile != null) { 
                 $response = $client->fineTunes()->create([
                     'training_file' => $request->traningFile,
                     'validation_file' => $request->validationFile,
                     'model' => $request->type,
-                    'n_epochs' => 4,
-                    'learning_rate_multiplier' => 0.2,
-                    'prompt_loss_weight' => 0.01,
+                    'n_epochs' => $request->epochs,
+                    'learning_rate_multiplier' => $request->learningRate,
+                    'prompt_loss_weight' => $request->promptLoss,
                 ]);
             }
             $response = $client->fineTunes()->create([
                 'training_file' => $request->traningFile,
                 'model' => $request->type,
-                'n_epochs' => 4,
-                'learning_rate_multiplier' => 0.2,
-                'prompt_loss_weight' => 0.01,
+                'n_epochs' => $request->epochs,
+                'learning_rate_multiplier' => $request->learningRate,
+                'prompt_loss_weight' => $request->promptLoss,
             ]);
             
             return (object)(array)$response; 
