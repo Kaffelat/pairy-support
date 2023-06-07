@@ -50,12 +50,12 @@ class AIModelService
     /**
     * Deletes a model, all the finetunejobs that are associated and the resultfile that matches that job
     */
-    public function deleteModel(string $openaiModelId): stdClass
+    public function deleteModel(string $openAIModelId): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
         try {
-            $aiModel = AIModel::where('openai_id', $openaiModelId)->first();
+            $aiModel = AIModel::where('openai_id', $openAIModelId)->first();
             
             $aiModel->fineTuneJob->each(function ($fineTuneJob) {
                 $fineTuneJob->delete();
@@ -65,7 +65,7 @@ class AIModelService
             
             $aiModel->delete();
             
-            $response = $client->models()->delete($openaiModelId);
+            $response = $client->models()->delete($openAIModelId);
             
             return (object)(array)$response;
         }

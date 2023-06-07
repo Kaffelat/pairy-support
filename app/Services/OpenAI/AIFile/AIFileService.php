@@ -46,11 +46,11 @@ class AIFileService
     /**
     * Deletes a file on your openai account
     */
-    public function deleteAFile(String $openaiFileId): stdClass
+    public function deleteAFile(String $openAIFileId): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
-        $aiFile = AIFile::where('openai_id', $openaiFileId)->first();
+        $aiFile = AIFile::where('openai_id', $openAIFileId)->first();
         try {
             $aiFile->fineTuneJob->each(function ($fineTuneJob) {
                 $fineTuneJob->ai_file_id = null;
@@ -60,7 +60,7 @@ class AIFileService
             
             $aiFile->delete();
             
-            $response = $client->files()->delete($openaiFileId);
+            $response = $client->files()->delete($openAIFileId);
             
             return (object)(array)$response; 
         }

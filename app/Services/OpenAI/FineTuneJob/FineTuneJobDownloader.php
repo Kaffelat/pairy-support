@@ -4,13 +4,13 @@ namespace App\Services\OpenAI\FineTuneJob;
 use App\Models\AIFile;
 use App\Models\AIModel;
 use App\Models\FineTuneJob;
-use App\Services\OpenAI\AIModel\AIModelService;
 use App\Services\OpenAI\FineTuneJob\FineTuneJobService;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use OpenAI;
+use stdClass;
 
 class FineTuneJobDownloader 
 {   
@@ -63,7 +63,7 @@ class FineTuneJobDownloader
     /**
     * Gets a specific fineTuneJob from it's id on OpenAI
     */
-    public function getAFineTuneJob(string $openAIModelId)
+    public function getAFineTuneJob(string $openAIModelId): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 
@@ -73,7 +73,7 @@ class FineTuneJobDownloader
     /**
     * Gets all fineTuneJobs that a AIModel has
     */
-    public function getAllFineTuneJobsForAModel(string $openAIModelId)
+    public function getAllFineTuneJobsForAModel(string $openAIModelId): stdClass
     {
         try {
             $aiModel = AIModel::where('openai_id', $openAIModelId)->first();
