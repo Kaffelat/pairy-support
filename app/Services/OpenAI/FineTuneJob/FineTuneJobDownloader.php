@@ -36,11 +36,11 @@ class FineTuneJobDownloader
         $aiFiles = AIFile::all()->keyBy('openai_id');
 
         foreach ($this->fineTuneJobService->listAllFineTuneJobs($client)->data as $jobInfo) {
-            $openaiModelId = $jobInfo->fineTunedModel;
-            
+            $openAIModelId = $jobInfo->fineTunedModel;
+
             # If a AIModel's OpenAIID matches a AIModel in the database then procede else it goes on to the next model.
-            if ($aiModel = $aiModels->get($openaiModelId)) {
-                
+            if ($aiModel = $aiModels->get($openAIModelId)) {
+
                 $openaiFileId = $jobInfo->trainingFiles[0]->id;
                 
                 $fineTuneJob = FineTuneJob::firstOrCreate([
@@ -56,8 +56,8 @@ class FineTuneJobDownloader
 
                 $fineTuneJob->save();
             }
-            return FineTuneJob::all();
         }    
+        return FineTuneJob::all();
     }
 
     /**
@@ -73,7 +73,7 @@ class FineTuneJobDownloader
     /**
     * Gets all fineTuneJobs that a AIModel has
     */
-    public function getAllFineTuneJobsForAModel(string $openAIModelId): stdClass
+    public function getAllFineTuneJobsForAModel(string $openAIModelId): Collection
     {
         try {
             $aiModel = AIModel::where('openai_id', $openAIModelId)->first();

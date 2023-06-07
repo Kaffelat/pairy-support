@@ -29,7 +29,6 @@ class AIModelDownloader
 
         foreach ($this->aiModelService->listAllModels($client) as $openAIModel) {
             try {
-            
                 $aiModel = AIModel::firstOrCreate ([
                     'openai_id' => $openAIModel->id,
                     'user_id' =>  $userId
@@ -37,14 +36,13 @@ class AIModelDownloader
                 
                 $aiModel->fill($downloadAIModel->getAIModelAttributes($openAIModel));
                 $aiModel->save();
-                
-                return AIModel::where('user_id', $userId)->get();
             }
-          
+            
             catch (Exception $e) {
                 Log::error("Couldn't get AIModel: \"{$openAIModel}\"");
                 throw $e;
             }
         }
+        return AIModel::where('user_id', $userId)->get();
     }    
 }
