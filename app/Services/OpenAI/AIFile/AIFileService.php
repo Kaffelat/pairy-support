@@ -16,7 +16,7 @@ class AIFileService
     /**
     * Uploads a file to OpenAI
     */
-    public function uploadAFile(Client $client, Request $request): mixed
+    public function uploadAFile(Client $client, Request $request): stdClass
     {
         $file = $request->file('file');
         
