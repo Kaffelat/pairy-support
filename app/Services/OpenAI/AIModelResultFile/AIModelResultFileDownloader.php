@@ -12,12 +12,10 @@ use stdClass;
 
 class AIModelResultFileDownloader
 {
-    protected $aiFileService;
     protected $aiModelResultFileService;
 
-    public function __construct(AIFileService $aiFileService, AIModelResultFileService $aiModelResultFileService)
+    public function __construct(AIModelResultFileService $aiModelResultFileService)
     {
-        $this->aiFileService = $aiFileService;
         $this->aiModelResultFileService = $aiModelResultFileService;
     }
 
@@ -30,7 +28,7 @@ class AIModelResultFileDownloader
         
         $downloadAIModelResult = new DownloadAIModelResultFile;
         
-        foreach ($this->aiFileService->listAllFiles($client)->data as $file) {
+        foreach ($this->aiModelResultFileService->listAllFiles($client)->data as $file) {
             try {
                 if ($file->purpose == 'fine-tune-results') {
                     
@@ -79,7 +77,7 @@ class AIModelResultFileDownloader
         try {
             $resultFileId = AIModelResultFile::where('id', $resultFileId)->first();
             
-            return $this->aiFileService->getAFile($client, $resultFileId->openai_id);
+            return $this->aiModelResultFileService->getAFile($client, $resultFileId->openai_id);
         }
         catch (Exception $e) {
             Log::error("Failed to get ResultFile: \"{$resultFileId}\"");
@@ -98,7 +96,7 @@ class AIModelResultFileDownloader
         $downloadAIModelResult = new DownloadAIModelResultFile;
         
         try {
-            $resultFile = $this->aiFileService->getAFile($client, $resultFileId);
+            $resultFile = $this->aiModelResultFileService->getAFile($client, $resultFileId);
             
             $newResultFile = AIModelResultFile::firstOrCreate([
                 'openai_id' => $resultFile->id,
