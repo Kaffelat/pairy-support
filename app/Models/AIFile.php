@@ -24,18 +24,10 @@ class AIFile extends Model
         'file_purpose'
     ];
 
-    // public function delete()
-    // {
-    //     #Update the associated FineTuneJob records
-    //     $this->fineTuneJob()->update(['ai_file_id' => null]);
-
-    //     return parent::delete();
-    // }
-
      /**
-    * Relation to Users
+    * Relation to User
     */
-    public function users(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(Users::class, 'user_id');
     }

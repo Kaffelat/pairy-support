@@ -35,9 +35,9 @@ class AIModel extends Model
     ];
     
     /**
-    * Relation to Users
+    * Relation to User
     */
-    public function users(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(Users::class, 'user_id');
     }
