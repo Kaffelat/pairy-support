@@ -17,6 +17,9 @@ class UploadAIModel
         $this->aiModelService = $aiModelService;
     }
 
+    /**
+     * creates or trains a model
+     */
     public function createOrTrainModel(Request $request): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);

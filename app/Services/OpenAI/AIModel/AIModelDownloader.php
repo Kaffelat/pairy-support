@@ -18,7 +18,9 @@ class AIModelDownloader
     {
         $this->aiModelService = $aiFileService;
     }
-
+    /**
+     * Gets all AIModels that a user has made and creates them in the database
+     */
     public function getAIModels(): Collection
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);

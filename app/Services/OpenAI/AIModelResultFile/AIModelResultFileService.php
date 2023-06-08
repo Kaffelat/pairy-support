@@ -6,6 +6,9 @@ use stdClass;
 
 class AIModelResultFileService
 {
+    /**
+     * shows the content of a AIModelResultFile
+     */
     public function downloadResultFile(Client $client, String $fileId): array
     {
         $response = $client->files()->download($fileId);

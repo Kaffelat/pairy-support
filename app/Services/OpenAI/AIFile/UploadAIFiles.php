@@ -14,6 +14,9 @@ class UploadAIFiles
         $this->aiFileService = $aiFileService;
     }
 
+    /**
+     * Uploads a file
+     */
     public function uploadAFile(Request $request): object
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);

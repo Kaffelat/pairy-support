@@ -15,7 +15,7 @@ use stdClass;
 class AIModelService 
 {
     /**
-    * Makes a new Model in OpenAI
+    * Makes a new Model on OpenAI
     */
     public function createOrTrainModel(Client $client, Request $request): stdClass
     {
@@ -49,7 +49,7 @@ class AIModelService
     }
 
     /**
-    * Deletes a model, all the finetunejobs that are associated and the resultfile that matches that job
+    * Deletes a model, all the FIneTuneJobs that are associated and the AIModelResultFile that matches that job
     */
     public function deleteModel(string $openAIModelId): stdClass
     {
@@ -78,7 +78,7 @@ class AIModelService
     }
 
     /**
-    * Lists all models that you have made on OpenAI
+    * Lists all models that a user has made on OpenAI
     */
     public function listAllModels(Client $client): stdClass
     {
@@ -101,7 +101,7 @@ class AIModelService
     }
 
     /**
-    * Gets a specific model
+    * Gets a specific model from OpenAI
     */
     public function getAModel(Client $client, string $modelId): stdClass
     {
