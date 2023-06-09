@@ -6,7 +6,6 @@
 {
   margin-top:20px;
 }
-
 #headline
 {
   text-align: center;
@@ -19,11 +18,9 @@
   padding: 5px;
   border-radius: 15px;
 }
-
 #openaiID {
   min-width: 300px;
 }
-
 #longWord {
   min-width: 150px;
 }
@@ -39,8 +36,7 @@ table {
     border: 3px solid #44475C;
     margin-left: auto;
     margin-right: auto;
-  }
-  
+}
 table th {
   text-align: center;
   background: #44475C;
@@ -48,15 +44,12 @@ table th {
   padding: 8px;
   min-width: 30px;
 }
-
 table td {
   text-align: center;
   padding: 8px;
   border-left: 2px solid #7D82A8;
   border-top: 2px solid #7D82A8;
 }
-
-
 label {
   color: black;
   display: inline-block;
@@ -65,7 +58,6 @@ label {
   letter-spacing: 1px;
   font-weight: bold;
 }
-
 input {
   display: block;
   padding: 10px 6px;
@@ -76,7 +68,6 @@ input {
   border-bottom: 1px solid #ddd;
   color: #555;
 }
-
 .submit {
   text-align: center;
   padding-top: 15px;
@@ -85,19 +76,16 @@ input {
   background-color: lightgrey;
   transition: 0.7s;
 }
-
 .alert {
   padding: 15px;
   border-radius: 15px;
   background-color: rgb(153, 240, 96);
   color: black;
 }
-
 .error {
   background-color: lightcoral;
   color: black;
 }
-
 .link {
   color: white;
   text-decoration: underline;

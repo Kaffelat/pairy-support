@@ -14,24 +14,27 @@ import { Head } from '@inertiajs/vue3';
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">Velkommen til Pandiwebs oversigt over OpenAI!</div>
-                    <div class="p-6 text-gray-900 dark:text-gray-100">Her vil du kunne finde informationer over hvilke modeller der ligger hos OpenAI, 
-                        hvilken træningsdata der er samt mulighed for at lave nye modeller og uploade ny træningsdata.</div>
-
+                    <div class="flex items-center justify-center p-6 text-gray-900 dark:text-gray-100">
+                        Velkommen til Pairy's oversigt over OpenAI!
+                    </div>
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        Her vil du kunne finde informationer over hvilke modeller du har adgang til hos OpenAI, hvordan deres træning er gået og hvilken fil der er blevet brugt til træningen, 
+                        hvilket filer du har adgang til når du skal træne og validere samt mulighed for at lave nye modeller og uploade ny træningsdata.
+                    </div>
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         Vigtige ord at have styr på hvad de betyder:
                     </div>
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        Epochs: En Epoch er hvor mange gange din model skal trænes med det træningssæt du har givet det, så hvis den står på 4 og du har 10 prompts i dit træningssæt så ser dit sæt 40 prompts.
+                        <span class="font-bold">Epochs:</span> En Epoch er hvor mange gange din model skal trænes med det træningssæt du har givet det, så hvis den står på 4 og du har 10 prompts i dit træningssæt så ser dit sæt 40 prompts.
                     </div>
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        Batch Size: Batch size er hvor mange filer du bruger når du træner din model.                            
+                        <span class="font-bold">Batch size:</span> Batch size er hvor mange filer du bruger når du træner din model.                            
                     </div>
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        Learning Rate Multiplier: Learning rate er ens betydigt med hvor meget en model ændre på dens parameter når vi træner den. Bruges der et stort datasæt skal den sættes højt ellers hold det småt.
+                        <span class="font-bold">Learning Rate Multiplier:</span> Learning rate er ens betydigt med hvor meget en model ændre på dens parameter når vi træner den. Bruges der et stort datasæt skal den sættes højt ellers hold det småt.
                     </div>
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        Prompt Loss Weight: Prompt loss weight påvirker modellens output. Jo højere den er jo mere vil modellens svar ligge sig op af den promt den har fået. Jo lavere jo mere frihed vil modellen have til at svare.                            
+                        <span class="font-bold">Prompt Loss Weight:</span> Prompt loss weight påvirker modellens output. Jo højere den er jo mere vil modellens svar ligge sig op af den promt den har fået. Jo lavere jo mere frihed vil modellen have til at svare.                            
                     </div>
                 </div>
             </div>
