@@ -3,6 +3,7 @@
 use App\Http\Controllers\AIFileController;
 use App\Http\Controllers\AIModelController;
 use App\Http\Controllers\AIModelResultFileController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\FineTuneJobController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewController;
@@ -21,13 +22,10 @@ use Inertia\Inertia;
 |
 */
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect('/login');
 });
+
+Route::get('/test', [Controller::class, 'test']);
 #<------This is file routes------->
 
 #Shows all files on OpenAI
