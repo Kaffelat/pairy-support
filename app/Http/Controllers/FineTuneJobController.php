@@ -31,10 +31,10 @@ class FineTuneJobController
     /**
     * Gets all FineTuneJobs for a specific model
     */
-    public function getAllFineTuneJobsForAModel(string $openai_id, FineTuneJobService $fineTuneJobService): Collection
+    public function getAllFineTuneJobsForAModel(string $openaiModelId, FineTuneJobService $fineTuneJobService): Collection
     {
         $fineTuneJobDownloader = new FineTuneJobDownloader($fineTuneJobService);
 
-        return $fineTuneJobDownloader->getAllFineTuneJobsForAModel($openai_id);
+        return $fineTuneJobDownloader->getAllFineTuneJobsForAModel($openaiModelId);
     }
 }

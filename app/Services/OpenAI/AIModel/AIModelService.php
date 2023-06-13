@@ -20,7 +20,6 @@ class AIModelService
     public function createOrTrainModel(Client $client, Request $request): stdClass
     {
         try {
-
             if ($request->validationFile != null) { 
                 $response = $client->fineTunes()->create([
                     'training_file' => $request->traningFile,
