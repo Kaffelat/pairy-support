@@ -19,9 +19,9 @@ import { Head } from '@inertiajs/vue3';
                         <th>Step</th>
                         <th>Tokens Seen</th>
                         <th>Eksemples Seen</th>
-                        <th>Traning Loss</th>
-                        <th>Traning Accuracy</th>
-                        <th>Traning Token Accuracy</th>
+                        <th>Training Loss</th>
+                        <th>Training Accuracy</th>
+                        <th>Training Token Accuracy</th>
                         </tr>
                     </thead>
                     <tbody v-if="this.resultFile.length > 0">

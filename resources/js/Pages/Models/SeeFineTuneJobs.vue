@@ -20,7 +20,7 @@ import { Head } from '@inertiajs/vue3';
                         <th>Id</th>
                         <th>OpenAI ID</th>
                         <th>Model ID</th>
-                        <th>Traningfile ID</th>
+                        <th>Trainingfile ID</th>
                         <th>Resultfile ID</th>
                         <th>Type</th>
                         <th>Epochs</th>
