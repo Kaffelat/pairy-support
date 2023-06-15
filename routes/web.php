@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\FineTuneJobController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 

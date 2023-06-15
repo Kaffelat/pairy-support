@@ -4,6 +4,7 @@ namespace App\Services\OpenAI\AIFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
+use stdClass;
 
 class UploadAIFiles
 {
@@ -17,7 +18,7 @@ class UploadAIFiles
     /**
      * Uploads a file
      */
-    public function uploadAFile(Request $request): object
+    public function uploadAFile(Request $request): stdClass
     {
         $client = OpenAI::client(Auth::user()->openai_api_key);
 

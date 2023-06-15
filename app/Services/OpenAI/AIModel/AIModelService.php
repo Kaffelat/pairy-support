@@ -3,7 +3,6 @@ namespace App\Services\OpenAI\AIModel;
 
 use App\Models\AIModel;
 use App\Models\AIModelResultFile;
-use App\Models\FineTuneJob;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

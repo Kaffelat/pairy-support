@@ -2,7 +2,6 @@
 namespace App\Services\OpenAI\AIModelResultFile;
 
 use App\Models\AIModelResultFile;
-use App\Services\OpenAI\AIFile\AIFileService;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;

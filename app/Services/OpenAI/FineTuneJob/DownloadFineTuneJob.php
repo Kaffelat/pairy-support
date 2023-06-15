@@ -3,10 +3,9 @@ namespace App\Services\OpenAI\FineTuneJob;
 
 use App\Models\AIFile;
 use App\Models\AIModel;
-use App\Services\OpenAI\AIFile\AIFileService;
 use App\Services\OpenAI\AIModelResultFile\AIModelResultFileDownloader;
 use App\Services\OpenAI\AIModelResultFile\AIModelResultFileService;
-use stdClass;
+
 
 class DownloadFineTuneJob 
 {

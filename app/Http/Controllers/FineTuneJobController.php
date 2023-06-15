@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Services\OpenAI\AIModel\AIModelService;
 use App\Services\OpenAI\FineTuneJob\FineTuneJobDownloader;
 use App\Services\OpenAI\FineTuneJob\FineTuneJobService;
 use Illuminate\Support\Collection;

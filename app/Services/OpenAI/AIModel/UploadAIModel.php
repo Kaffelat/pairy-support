@@ -2,7 +2,6 @@
 namespace App\Services\OpenAI\AIModel;
 
 use App\Services\OpenAI\AIModel\AIModelService;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use OpenAI;
