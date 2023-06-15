@@ -32,13 +32,14 @@ import { Head } from '@inertiajs/vue3';
 
             <label>Validation File</label>
             <select v-model="validationFile" class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="">None</option>
                 <option v-for="file in aiFiles" :value="file.openai_id" :key="file.openai_id">
                     {{ file.openai_id }} {{ selectedFile(file, validationFile) }}
                 </option>
             </select>
 
             <label >Hvor mange epochs skal modellen trænes?</label>
-            <input type="text" v-model='epochs' class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <input type="number" v-model.number='epochs' class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
             <label>Hvad skal modellens learning rate multiplier være?</label>
             <input type="text" v-model='learningRate' class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-white-600 dark:placeholder-white-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -88,9 +89,9 @@ export default {
                 traningFile: this.traningFile,
                 validationFile: this.validationFile,
                 type: this.type,
-                epochs: this.epochs,
-                learningRate: this.learningRate,
-                promptLoss: this.promptLoss
+                epochs: parseInt(this.epochs),
+                learningRate: parseFloat(this.learningRate),
+                promptLoss: parseFloat(this.promptLoss)
             };
             axios.post('/model/upload', data).then(res => {
                 if (res.status === 200) {
@@ -110,7 +111,6 @@ export default {
                 this.alertClass = 'error';
             });
         },
-        
     }
 }
 </script>
