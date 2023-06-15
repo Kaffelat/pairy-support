@@ -85,8 +85,8 @@ export default {
         async getFineTuneJobs() {
             await axios.get('/fineTuneJob/download')
         },
-        deleteModels(openai_id) {
-            axios.delete('/model/delete/' + openai_id).then(res => {
+        async deleteModels(openai_id) {
+            await axios.delete('/model/delete/' + openai_id).then(res => {
                 this.getModels();
                 
                 if (res.status === 200) {
