@@ -1,1 +1,1 @@
-Dette  er mit afsluttende projekt. For at kører projektet lokalt så gør først migrationende ved at skrive "php artisan migrate" og så start projektet ved at skrive "npm run dev"
+Dette  er mit afsluttende projekt. For at kører projektet lokalt så sæt først dine database informationer op i .env filen og derefter kør migrationene ved at skrive "php artisan migrate" og så start projektet ved at skrive "npm run dev"
